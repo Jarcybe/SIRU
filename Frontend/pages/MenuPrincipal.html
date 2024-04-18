@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> Ejemplo </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel = "stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+     
+    <link rel="stylesheet"
+    href="..\assets\css\estilos.css">    
+</head>
+
+<body>
+    
+
+    <!--menu desplebable-->
+<nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-right"
+style = "display:none;z-index:2;width:40%;right:0;min-width:300px"
+id="miSitio">
+
+<a href="javascript:void(0)" onclick="w3_close()"
+class="w3-bar-item w3-button w3-border-bottom w3-hover-red with w3-hover-opacity"> Cerrar el menu </a>
+
+<a onclick="document.getElementById('forma').style.display='block'" 
+class="w3-bar-item w3-button w3-border-bottom w3-hover-red with w3-hover-opacity">Crear registro</a>
+
+<a onclick="document.getElementById('login').style.display='block'"
+class="w3-bar-item w3-button w3-border-bottom w3-hover-red with w3-hover-opacity">Iniciar sesion</a>
+
+<a href="" onclick="w3_close()" class="w3-bar-item
+w3-button w3-border-bottom w3-hover-red with w3-hover-opacity">Admin</a>
+
+</nav>
+<script src="Abrir_cerrar.js">
+</script>
+
+<!--encabezado-->
+<div class="w3-top">
+  <div class="w3-red w3-xlarge"
+  style="max-width:1400px;margin:auto">
+
+  <div class="w3-button w3-padding-16 w3-right"
+  onclick="w3_open()">☰</div>
+
+ <div class= "w3-center w3-padding-16"> Bienvenidos al sistema SIRU </div>
+</div>
+</div>
+
+<!--login-->
+<div class="w3-container">
+
+    <div id="login" class="w3-modal">
+
+ <div class = "w3-modal-content w3-card-4 w3-animate-zoom"
+ style="max-width: 600px;">
+
+  <div class="w3-center"><br>
+        <span
+        onclick= "document.getElementById('login').style.display='none'"
+        class  = "w3-button w3-xlarge w3-hover-red w3-display-topright"
+        title  = "Cerrar pestaña"> &times; 
+        </span>
+        </div>
+
+        <form 
+        class="w3-container" 
+        action="/action_page.php">
+
+<div class="w3-section">
+    <label> <b> Codigo </b></label>
+    <input 
+class="w3-input w3-border w3-margin-bottom"
+type="text" 
+placeholder="Ingresar Codigo" 
+name="Codigo" 
+required
+    >
+
+    <label> <b> Contraseña </b> </label>
+    <input
+    class= "w3-input w3-border" 
+    type = "password"
+    placeholder="Ingresar contraseña"
+    name = "contraseña"
+    required
+    >
+
+    <button 
+    class="w3-button w3-block w3-green w3-section w3-padding"
+    type="submit"
+    > Registrarme </button>
+
+    <input
+    class="w3-check w3-margin-top" 
+    type="checkbox"
+    checked = "checked"
+    > Recuerdame </div>
+    </form>
+  
+<div 
+class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+<button
+onclick="document.getElementById('login').style.display='none'"
+type = "button"
+class="w3-button w3-red">
+Cancelar
+</button>
+
+<span
+class = "w3-right w3-padding w3-hide-small"
+> Olvidaste tu
+<a href = "#"> Contraseña? </a></span>
+</div>
+</div>
+</div>
+</div>
+
+<!--Boton de Buscar-->
+<form class="w3-container w3-ul">
+
+    <ul class="w3-ul">
+<li> <i class = "material-icons">search</i>  </li>
+    </ul>
+    
+<input class="w3-input w3-animate-input w3-ul"
+type="text"
+style="width:500px;margin-top:30px"
+placeholder="Buscar"> <br>
+</form>
+
+<!--relleno de la pagina-->
+<div class="w3-container w3-row-padding">
+
+    <div class="w3-third">
+    
+        <button onclick="document.getElementById('modal1').style.display='block'"
+        class="w3-button w3-block w3-teal">
+        Abrir Modal 1</button>
+        
+        <div id="modal1" 
+        class="w3-modal">
+            <div class="w3-modal-content">
+                <span onclick="document.getElementById('modal1').style.display='none'" 
+                class="w3-button w3-display-topright">&times;
+            </span>
+            <h1> titulo </h1>
+                <p>Texto </p>
+            </div>
+        </div> 
+    </div>
+    
+    <div class="w3-third">
+        <button onclick="document.getElementById('modal2').style.display='block'" class="w3-button w3-block w3-teal">Abrir Modal 2</button>
+        <div id="modal2" class="w3-modal">
+            <div class="w3-modal-content">
+                <span onclick="document.getElementById('modal2').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                <p>Texto del Modal 2</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="w3-third">
+        <button onclick="document.getElementById('modal3').style.display='block'" class="w3-button w3-block w3-teal">Abrir Modal 3</button>
+        <div id="modal3" class="w3-modal">
+            <div class="w3-modal-content">
+                <span onclick="document.getElementById('modal3').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+                <p>Texto del Modal 3</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--formulario-->
+<div class="w3-container">
+
+<div id="forma" class="w3-modal">
+
+<div class="w3-modal-content w3-card-4 w3-animate-zoom"
+style="max-width: 600px;">
+
+<header class="w3-container w3-red">
+
+<div class="w3-center">
+
+<span 
+onclick = "document.getElementById('forma').style.display='none'"
+class   = "w3-button w3-xlarge w3-hover-red w3-display-topright"
+title   = "Cerrar pestaña"> &times; </span>
+</div>
+<h2> REGISTRO SIRA </h2>
+</header>
+
+<form
+class="w3-container w3-row-padding"
+action="/action_page.php">
+
+<div class="w3-half">
+
+<select class="w3-select w3-border w3-margin-bottom "
+name="Opcion salon"
+style = "width:200px;margin-top:20px" >
+
+<option value = "" disabled selected> Lugar </option>
+<option value = "1"> ... </option>
+<option value = "2"> ... </option>
+
+></select>
+
+<select class="w3-select w3-border w3-margin-bottom"
+name="items"
+style = "width:200px;margin-top:20px" >
+
+<option value = "" disabled selected> Item </option>
+<option value = "1"> ... </option>
+<option value = "2"> ... </option>
+></select>
+</div>
+
+<div class="w3-half w3-border-bottom">
+<h5> Estado </h5>
+<p>
+<input class="w3-radio"
+type  = "radio"
+name  = "Estado" 
+value = "baja" 
+checked> 
+<label> Sugerencia </label>
+</p>
+
+<p>
+    <input class="w3-radio"
+    type  = "radio"
+    name  = "Estado" 
+    value = "media" 
+    checked> 
+    <label> Pedido </label>
+    </p>
+
+    <p>
+        <input class="w3-radio"
+        type  = "radio"
+        name  = "Estado" 
+        value = "Alta" 
+        checked> 
+        <label> Arreglo </label>
+        </p>
+</div>
+
+<div class="w3-half">
+<div class="w3-section">
+<input 
+class="w3-input w3-border w3-margin-bottom"
+type="text" 
+placeholder="Titulo" 
+name="Titulo" 
+style = "width:100%" 
+></div>
+
+<div class="w3-section">
+    <input 
+    class="w3-input w3-border w3-margin-bottom"
+    type="text" 
+    placeholder="Descripcion" 
+    name="Descripcion" 
+    style = "width:100%;height: 150px;" 
+    ></div>
+</div>
+
+<div class="w3-half">
+<div class="w3-section">
+
+    <button class="w3-button w3-white w3-border w3-margin-bottom"
+    type="submit">
+        <i class="glyphicon glyphicon-file">Subir imagen</i>
+    </button>
+
+    <button class="w3-button w3-xlarge w3-white w3-border w3-margin-bottom">
+    <i class="glyphicon glyphicon-arrow_forward">Mandar »</i>
+    </button>
+
+</div>
+</div>
+
+</form>
+
+</div>
+</div>
+</div>
+
+<script src="..\assets\js\Abrir_cerrar.js"></script>
+
+</body>
+</html>
