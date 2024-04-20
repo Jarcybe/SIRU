@@ -1,0 +1,31 @@
+body, h1, h2, h3, h4, h5 {font-family: "Raleway", sans-serif}
+        .estilos {
+            /* Agrega tus estilos personalizados aquí */
+            color: #333; /* Color de texto */
+            font-family: Arial, sans-serif; /* Tipo de fuente */
+            font-size: 16px; /* Tamaño de fuente */
+            line-height: 1.6; /* Altura de línea */
+        }
+
+        /* Estilos para enlaces */
+        .estilos a {
+            color: #dd4b39; /* Color de enlace */
+            text-decoration: none; /* Sin subrayado */
+        }
+
+        .estilos a:hover {
+            text-decoration: underline; 
+        }
+
+        /* Estilos para botones */
+        .estilos .boton {
+            background-color: #dd4b39; /* Color de fondo del botón */
+            color: #fff; /* Color de texto del botón */
+            border: none; /* Sin borde */
+            padding: 10px 20px; /* Espaciado interno */
+            cursor: pointer; /* Cambio de cursor al pasar el mouse */
+        }
+
+        .estilos .boton:hover {
+            background-color: #ff6347; /* Cambio de color al pasar el mouse */
+        }
