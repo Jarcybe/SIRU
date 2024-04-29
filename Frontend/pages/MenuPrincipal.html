@@ -10,12 +10,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
      
     <link rel="stylesheet"
-    href="..\assets\css\estilos.css">    
+    href="..\assets\css\estilos.css">  
+    
+    <script src="../assets/js/ActualizarTitulo.js"> </script>
+    <script src="../assets/js/limiteDescricion.js"></script>
+    <script src="../assets/js/Formulario.js"></script>
 </head>
 
 <body>
-    
-
     <!--menu desplebable-->
 <nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-right"
 style = "display:none;z-index:2;width:40%;right:0;min-width:300px"
@@ -29,6 +31,9 @@ class="w3-bar-item w3-button w3-border-bottom w3-hover-red with w3-hover-opacity
 
 <a href="" onclick="w3_close()" class="w3-bar-item
 w3-button w3-border-bottom w3-hover-red with w3-hover-opacity">Guia</a>
+
+<a href="" onclick="w3_close()" class="w3-bar-item
+w3-button w3-border-bottom w3-hover-red with w3-hover-opacity">Cerrar sesion</a>
 
 </nav>
 <script src="Abrir_cerrar.js">
@@ -173,7 +178,8 @@ placeholder="Buscar"> <br>
 <!--formulario-->
 <div class="w3-container">
 
-<div id="forma" class="w3-modal">
+<div id="forma"
+class="w3-modal">
 
 <div class="w3-modal-content w3-card-4 w3-animate-zoom"
 style="max-width: 600px;">
@@ -192,27 +198,30 @@ title   = "Cerrar pestaña"> &times; </span>
 
 <form
 class="w3-container w3-row-padding"
-action="/action_page.php">
+action="/action_page.php"
+onsubmit="return true">
 
 <div class="w3-half">
 
-<select class="w3-select w3-border w3-margin-bottom "
+<select id="Lugar"
+class="w3-select w3-border w3-margin-bottom "
 name="Opcion salon"
-style = "width:200px;margin-top:20px" >
+style = "width:100% ;margin-top:20px" 
+onchange="ActualizarItems(); ActualizarTitulo();">
 
 <option value = "" disabled selected> Lugar </option>
-<option value = "1"> ... </option>
-<option value = "2"> ... </option>
-
+<option value = "informatica1"> Sala de informatica1 </option>
+<option value = "bañosH1"> Baños de hombres primer piso </option>
+<option value = "patio"> Patio </option>
 ></select>
 
-<select class="w3-select w3-border w3-margin-bottom"
+<select id ="Item"
+class="w3-select w3-border w3-margin-bottom"
 name="items"
-style = "width:200px;margin-top:20px" >
+style = "width:100%;margin-top:20px" 
+onchange = "ActualizarTitulo();" disabled>
 
 <option value = "" disabled selected> Item </option>
-<option value = "1"> ... </option>
-<option value = "2"> ... </option>
 ></select>
 </div>
 
@@ -246,37 +255,52 @@ checked>
         </p>
 </div>
 
-<div class="w3-half">
-<div class="w3-section">
+<div class="w3-row">
+<div class="w3-col s12">
 <input 
+id="Titulo"
 class="w3-input w3-border w3-margin-bottom"
 type="text" 
 placeholder="Titulo" 
 name="Titulo" 
-style = "width:100%" 
+style = "width:50%" 
+readonly
 ></div>
+</div>
 
-<div class="w3-section">
-    <input 
+<div class="w3-row">
+<div class="w3-col s6">
+    <textarea 
+    id = "Descripcion"
     class="w3-input w3-border w3-margin-bottom"
     type="text" 
     placeholder="Descripcion" 
     name="Descripcion" 
-    style = "width:100%;height: 150px;" 
-    ></div>
+    style = "width:100%;height: 150px;"
+   maxlength="10"
+    ></textarea>
 </div>
 
-<div class="w3-half">
-<div class="w3-section">
+<div class="w3-col s6"
+style="padding-left: 20px">
 
-    <button class="w3-button w3-white w3-border w3-margin-bottom"
-    type="submit">
-        <i class="glyphicon glyphicon-file">Subir imagen</i>
-    </button>
+<label for="imagen"
+class="w3-button w3-white w3-border w3-margin-bottom">   
+    Subir imagen
+        </label>
 
-    <button class="w3-button w3-xlarge w3-white w3-border w3-margin-bottom">
-    <i class="glyphicon glyphicon-arrow_forward">Mandar »</i>
-    </button>
+    <input
+    id="imagen"
+    type="file"
+    style="display:none;"
+    name="imagen"
+    accept="image/*">
+
+    <button
+     class="w3-button w3-xlarge w3-white w3-border w3-margin-bottom"
+     type="submit">
+     Mandar »
+</button>
 
 </div>
 </div>
