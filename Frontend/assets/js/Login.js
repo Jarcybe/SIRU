@@ -11,8 +11,15 @@ const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
 const usuario = usuarios.find((usuario) => usuario.codigo == codigo && usuario.contraseña == contraseña); 
 
 if(usuario){
-alert("inicio de sesion existoso.");
-window.location.href="MenuPrincipal.html";
+
+    localStorage.setItem('LogUsuario', JSON.stringify(usuario));
+
+   if(usuario.tipo === "Admin"){
+    window.location.href = "MenuAdmin.html";
+   }else if (usuario.tipo === "Usuario"){
+    window.location.href = "MenuPrincipal.html";
+
+   }
 }else{
     alert("codigo o contraseña incorrectos");
 }
