@@ -1,0 +1,7 @@
+cambios hechos 
+
+new file:   Backend/models/crearbase.py
+new file:   Backend/models/instance/Mandar_Usuario_db.py
+new file:   Backend/models/instance/database.db
+modified:   Frontend/assets/js/Registro.js
+new file:   app.py
