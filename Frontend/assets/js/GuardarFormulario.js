@@ -17,6 +17,12 @@ const estado = document.querySelector('input[name="Estado"]:checked').value;
 const titulo = document.getElementById("Titulo").value;
 const descripcion = document.getElementById("Descripcion").value;
 
+if (!lugar || !item || !titulo || !descripcion) {
+    event.preventDefault(); // Evitar el envío
+    alert("Por favor, complete todos los campos obligatorios.");
+    return;
+}
+
 const CrearRegistro = {
 codigo: cod,
 fecha: fecha,
@@ -24,7 +30,9 @@ lugar: lugar,
 item: item,
 estado: estado,
 titulo: titulo,
-descripcion: descripcion
+descripcion: descripcion,
+encargado: "",
+comentario: ""
 };
 
 let registro = JSON.parse(localStorage.getItem("formRegistro")) || [];
