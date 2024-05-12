@@ -5,3 +5,39 @@ new file:   Backend/models/instance/Mandar_Usuario_db.py
 new file:   Backend/models/instance/database.db
 modified:   Frontend/assets/js/Registro.js
 new file:   app.py
+
+11/05/2024 21:30
+
+ deleted:    Backend/Guia back.txt
+        deleted:    Backend/api/endpoints/texto ejemplo si esta vacio no deja hacer push de la carpeta.txt
+        deleted:    Backend/api/helpers/texto ejemplo si esta vacio no deja hacer push de la carpeta.txt
+        deleted:    Backend/controllers/texto ejemplo si esta vacio no deja hacer push de la carpeta.txt
+        deleted:    Backend/routes/texto ejemplo si esta vacio no deja hacer push de la carpeta.txt
+        deleted:    Frontend/Guia front.txt
+        deleted:    Frontend/app.py
+        deleted:    Frontend/assets/css/EstilosAD.css
+        deleted:    Frontend/assets/css/EstilosRegistro.css
+        deleted:    Frontend/assets/css/estilos.css
+        deleted:    Frontend/assets/images/sir.jpg
+        deleted:    Frontend/assets/js/Abrir_cerrar.js
+        deleted:    Frontend/assets/js/ActualizarTitulo.js
+        deleted:    Frontend/assets/js/CargarRegistros.js
+        deleted:    Frontend/assets/js/ConfiDeRegistros.js
+        deleted:    Frontend/assets/js/CrearCodigo.js
+        deleted:    Frontend/assets/js/Estado.js
+        deleted:    Frontend/assets/js/Formulario.js
+        deleted:    Frontend/assets/js/GuardarFormulario.js
+        deleted:    Frontend/assets/js/Login.js
+        deleted:    Frontend/assets/js/Registro.js
+        deleted:    Frontend/assets/js/Validacion.js
+        deleted:    Frontend/assets/js/VisualRegistro.js
+        deleted:    Frontend/assets/js/cerrarsesion.js
+        deleted:    Frontend/includes/2.txt
+        deleted:    Frontend/includes/texto ejemplo si esta vacio no deja hacer push de la carpeta.txt
+        deleted:    Frontend/pages/MenuAdmin.html
+        deleted:    Frontend/templates/MenuAdmin.html
+        deleted:    Frontend/templates/MenuPrincipal.html
+        deleted:    Frontend/templates/MenuRegistro.html
+        modified:   app.py
+
+se cambio la estructura de carpetas a como lo necesita el hosting
