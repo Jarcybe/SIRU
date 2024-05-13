@@ -9,80 +9,89 @@ const modal = document.getElementById("Modal");
 const contenido = modal.querySelector(".w3-modal-content");
 
 contenido.innerHTML=`
-<div class="w3-container">
 
 <header class="w3-container w3-red w3-center">
 
 <span 
-onclick = "document.getElementById('confi').style.display='none'"
-class   = "w3-button w3-xlarge w3-hover-red w3-display-topright"
+onclick = "Cerrar()"
+class   = "w3-button w3-xlarge w3-hover-grey w3-display-topright"
 title   = "Cerrar pestaña"> &times; </span>
 <h2>${recordar.titulo}</h2>
 </header>
 
-<div class="w3-container">
+<div class="w3-container" 
+style="padding: 20px;">
+
+<div class="w3-row">
+<div class="w3-col s6">
 <p><b> Fecha: </b> ${recordar.fecha}</p>
 <p><b> Estado: </b> ${recordar.estado}</p>
 <p><b> Usuario: </b> ${recordar.codigo} - ${recordar.nombre}</p>
-<p>${recordar.descripcion}</p>
+<p> ${recordar.descripcion}</p>
+</div>
+
+<div class="w3-col s6"
+style="position: relative;">
+<div style="background-color: lightgrey; 
+height:150px; width: 200px; 
+position: absolute; top: 20px; right: 20px;">
+</div>
+</div>
+</div>
 
 
-<div class="w3-row">
+<div class="w3-row"
+style="margin-top: 20px">
 <div class="w3-col s6 w3-center">
 
 <h5> Encargado </h5>
 <input class="w3-input w3-border"
 type="text"
+id="Encargado"
 placeholder="Nombre del encargado"
-readonly />
+value="${recordar.encargado}">
 
 <h5> Comentarios </h5>
 <textarea class="w3-input w3-border" 
-style="heigth: 100px;"
-readonly> </textarea>
+id="Comentario"
+style="height: 100px;">
+ </textarea>
 <p> </p>
 </div>
 
 <div class="w3-col s6 w3-center">
-
+            
 <h3> Desarrollo </h3>
+
 <input class="w3-radio"
 type="radio"
-id = "noVerificado"
-name = "Desarrollo"
-value = "noVerificado">
-<label for="noVerificado">
- No verificado 
-</label><br>
+name = "desarrollo"
+value = "noVerificado"
+id="noVerificado"
+checked>
+<label>No verificado </label><br>
 
 <input  class="w3-radio"
 type="radio"
-id = "EnProceso"
-name = "Desarrollo"
-value = "EnProceso">
-<label for="EnProceso">
-En proceso
-</label><br>
+name = "desarrollo"
+value = "EnProceso"
+id="EnProceso">
+<label> En proceso</label><br>
 
 <input  class="w3-radio"
 type="radio"
-id = "terminado"
-name = "Desarrollo"
-value = "terminado">
-<label for="terminado">
-Terminado
-</label>
-</div>
-</div>
+name = "desarrollo"
+value = "terminado"
+id="Terminado">
+<label>Terminado</label>
 </div>
 
-<button class="w3-button w3-xlarge w3-red w3-border w3-margin-bottom"
+</div>
+<button class="w3-button w3-block w3-red w3-section w3-padding"
 type="submit"
-onclick = "">
-Guardar cambios 
-</button>
+onclick="ActualizarReporte(${index})">
+ Guardar datos </button>
 </div>
-
 
 `;
 

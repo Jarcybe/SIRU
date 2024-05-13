@@ -31,8 +31,9 @@ item: item,
 estado: estado,
 titulo: titulo,
 descripcion: descripcion,
-encargado: "",
-comentario: ""
+encargado: '',
+comentario: '',
+desarrollo: ''
 };
 
 let registro = JSON.parse(localStorage.getItem("formRegistro")) || [];

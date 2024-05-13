@@ -49,7 +49,7 @@ title="Cerrar">&times;</span>
 
 <div class="w3-row">
 <div class="w3-col m6">
-<p><b>Estado:</b>${Mensaje}</p>
+<p><b>Estado:</b>${recuerdo.desarrollo}</p>
 <p>${recuerdo.descripcion}</p>
 <button class="w3-button w3-small w3-red"
 onclick= "Dropdown('detalles')">
@@ -61,22 +61,25 @@ Detalles </button>
 style="height: 150px;">
 </div>
 </div>
-</div>
 
 <div id="detalles"
  class="w3-container" 
 style="display: none;">
 
   <h3> Comentarios </h3>
-<textarea class="w3-input w3-border"
+<textarea 
+class="w3-input w3-border"
+type="text"
 style="height: 100px;"
+placeholder="Descripcion"
 readonly>
-</textarea>
+${recuerdo.comentario} </textarea>
 
 <h3>Encargado</h3>
 <input class="w3-input w3-border"
 type="text"
 placeholder="nombre encargado"
+value="${recuerdo.encargado}"
 readonly/>
 </div>
 </div>

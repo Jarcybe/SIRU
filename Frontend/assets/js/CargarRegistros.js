@@ -11,11 +11,10 @@ if (registros.length === 0){
 registros.forEach((record, index) => {
 
 const carta = document.createElement("div");
-carta.className = "w3-card w3-margin w3-padding w3-white";
+carta.className = "w3-card w3-margin w3-white";
 
 carta.innerHTML =`
 
-<div class="w3-container">
 <header class="w3-container w3-center w3-red">
 <h2>${record.titulo}</h2>
 </header>
