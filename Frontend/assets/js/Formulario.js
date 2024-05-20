@@ -9,6 +9,7 @@ item.innerHTML = '<option value="" disabled selected>Item</option>';
 const items ={
 informatica1: ['Computadores', 'AireAcondicionado', 'Bombillo', 'Pantalla', 'Silla', 'Otros..'],
 bañosH1: ['Tazas', 'Urinarios', 'Espejos', 'Lavamanos', 'Otros...'],
+informatica2: ['Computadores', 'AireAcondicionado', 'Bombillo', 'Pantalla', 'Silla', 'Otros..'],
 patio: ['Asientos', 'MaquinaExpendedora', 'Escaleras', 'Mesas', 'Suelo', 'Otros..']
 };
 

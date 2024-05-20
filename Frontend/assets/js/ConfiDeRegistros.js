@@ -1,10 +1,14 @@
 function ConfiDeRegistro(index){
 
-const registro = JSON.parse(localStorage.getItem("formRegistro"));
+const registro = JSON.parse(localStorage.getItem("formRegistro")) || [];
+const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
 
 if(registro.length > index){
 
 const recordar = registro[index];
+const usuario = usuarios.find(us => us.codigo === recordar.codigo);
+const nombre = usuario ? usuario.nombre: "desconocido";
+
 const modal = document.getElementById("Modal");
 const contenido = modal.querySelector(".w3-modal-content");
 
@@ -26,7 +30,7 @@ style="padding: 20px;">
 <div class="w3-col s6">
 <p><b> Fecha: </b> ${recordar.fecha}</p>
 <p><b> Estado: </b> ${recordar.estado}</p>
-<p><b> Usuario: </b> ${recordar.codigo} - ${recordar.nombre}</p>
+<p><b> Usuario: </b> ${recordar.codigo} - ${nombre}</p>
 <p> ${recordar.descripcion}</p>
 </div>
 
@@ -49,7 +53,7 @@ style="margin-top: 20px">
 type="text"
 id="Encargado"
 placeholder="Nombre del encargado"
-value="${recordar.encargado}">
+maxlenght="500">
 
 <h5> Comentarios </h5>
 <textarea class="w3-input w3-border" 
@@ -66,7 +70,7 @@ style="height: 100px;">
 <input class="w3-radio"
 type="radio"
 name = "desarrollo"
-value = "noVerificado"
+value = "No verificado"
 id="noVerificado"
 checked>
 <label>No verificado </label><br>
@@ -74,20 +78,20 @@ checked>
 <input  class="w3-radio"
 type="radio"
 name = "desarrollo"
-value = "EnProceso"
+value = "En proceso"
 id="EnProceso">
 <label> En proceso</label><br>
 
 <input  class="w3-radio"
 type="radio"
 name = "desarrollo"
-value = "terminado"
+value = "Terminado"
 id="Terminado">
 <label>Terminado</label>
 </div>
 
 </div>
-<button class="w3-button w3-block w3-red w3-section w3-padding"
+<button class="w3-button w3-block w3-red"
 type="submit"
 onclick="ActualizarReporte(${index})">
  Guardar datos </button>

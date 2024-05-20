@@ -3,12 +3,24 @@ function CargarRegistros(){
 const registros = JSON.parse(localStorage.getItem("formRegistro")) || [];
 const contenedor = document.getElementById("Muchos");
 
+const usuarios  = JSON.parse(localStorage.getItem("usuarios")) || []; 
+
+let Reg = registros.map(record =>{
+
+   const usuario = usuarios.find(us => us.codigo === record.codigo);
+   return{
+       ...record,
+       nombre: usuario ? usuario.nombre: "Desconocido"
+   };
+   });
+
+   
 if (registros.length === 0){
    contenedor.innerHTML = "<p>No hay registros :P</p>";
 }else{
    contenedor.innerHTML = "";
 
-registros.forEach((record, index) => {
+Reg.forEach((record, index) => {
 
 const carta = document.createElement("div");
 carta.className = "w3-card w3-margin w3-white";

@@ -41,6 +41,6 @@ registro.push(CrearRegistro);
 localStorage.setItem("formRegistro", JSON.stringify(registro));
 
 alert("Formulario guardado existosamente");
-
+window.location.href = "MenuPrincipal.html"
 }
 

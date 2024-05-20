@@ -11,27 +11,6 @@ const recuerdo = RecodarUsu[index];
 const modal = document.getElementById("Modal");
 const contenido = modal.querySelector(".w3-modal-content");
 
-let fondo = "#ffffff";
-let Mensaje = "No ironico";
-
-switch(recuerdo.color){
-
-case "red":
-    fondo = "#ffcccc";
-    Mensaje = "no verificado";
-    break;
-
-case "yellow":
-    fondo = "#fff4cc";
-    Mensaje = "En proceso";
-    break;
-case "green":
-    fondo = "#ccffcc";
-    Mensaje = "terminado";
-    break;
-}
-
-contenido.style.fondo = fondo;
 
 contenido.innerHTML  =`
 <div class="w3-container">
@@ -71,9 +50,7 @@ style="display: none;">
 class="w3-input w3-border"
 type="text"
 style="height: 100px;"
-placeholder="Descripcion"
-readonly>
-${recuerdo.comentario} </textarea>
+readonly></textarea>
 
 <h3>Encargado</h3>
 <input class="w3-input w3-border"
@@ -81,6 +58,10 @@ type="text"
 placeholder="nombre encargado"
 value="${recuerdo.encargado}"
 readonly/>
+
+<button class="w3-button w3-small w3-red w3-right w3-margin-top"
+ onclick="eliminarRegistro(${index})">Eliminar registro</button>
+               
 </div>
 </div>
 `;
@@ -91,13 +72,4 @@ modal.style.display  = "block";
 function Cerrar() {
     const modal = document.getElementById("Modal");
     modal.style.display = "none";
-}
-
-function Dropdown(Id) {
-    const elemento = document.getElementById(Id);
-    if (elemento.style.display === "none") {
-        elemento.style.display = "block"; 
-    } else {
-        elemento.style.display = "none"; 
-}
 }
