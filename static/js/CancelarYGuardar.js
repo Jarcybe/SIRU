@@ -1,22 +1,42 @@
-function guardar(){
+function guardar() {
+    const usuarios = [];
 
-const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-filtrar.forEach(index =>{
+    // Obtener los datos de los usuarios desde la interfaz
+    const forms = document.querySelectorAll('.user-form');
+    forms.forEach(form => {
+        const codigo = form.querySelector('.codigo').innerText;
+        const tipo = form.querySelector('.tipo').value;
+        const nombre = form.querySelector('.nombre').value;
+        const contraseña = form.querySelector('.contraseña').value;
 
-const usu = usuarios[index];
-usu.tipo= document.getElementById(`estado-${index}`).value;
-usu.nombre =  document.getElementById(`nombre-${index}`).value;
-usu.contraseña = document.getElementById(`contraseña-${index}`).value;
+        usuarios.push({ codigo, tipo, nombre, contraseña });
+    });
 
-});
-
-localStorage.setItem('usuarios', JSON.stringify(usuarios));
-alert('Cambios guardados exitosamente.');
-document.getElementById('administrar').style.display ='none';
+    // Realizar una solicitud al servidor para guardar los cambios en la base de datos
+    fetch('/guardar_usuarios', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ usuarios }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Cambios guardados exitosamente.');
+            document.getElementById('administrar').style.display = 'none';
+        } else {
+            alert('Error al guardar los cambios.');
+        }
+    })
+    .catch(error => {
+        console.error('Error al guardar los cambios:', error);
+        alert('Error al guardar los cambios. Por favor, inténtelo de nuevo más tarde.');
+    });
 }
 
-function cancel(){
-if(confirm('seguro que quieres cancelarlos cambios?')){
-document.getElementById('administrar').style.display='none';
-
-}}
+function cancelar() {
+    if (confirm('¿Seguro que quieres cancelar los cambios?')) {
+        document.getElementById('administrar').style.display = 'none';
+    }
+}

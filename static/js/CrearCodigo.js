@@ -4,32 +4,33 @@ function CrearCodigo(event) {
     const NCodigo = document.getElementById("Codigo").value;
     const tipo = document.querySelector("select[name='tipo']").value;
 
-    // Obtener la lista de usuario
-    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || []; 
-    
-   if (!Array.isArray(usuarios)) { 
-        usuarios = []; 
-    }
-
-    // Verificar si el código ya existe `
-    const Existe = usuarios.find(usuario => usuario.codigo === NCodigo); // Uso seguro de `find`
-    if (Existe) {
-        alert("Ya se usó este código");
-        return; 
-    }
-
-    const nuevo = {
+    // Crear un objeto con los datos del nuevo usuario
+    const nuevoUsuario = {
         codigo: NCodigo,
         tipo: tipo,
         nombre: '', 
         contraseña: '' 
     };
 
-    // Agregar el nuevo usuario
-    usuarios.push(nuevo); 
-    
-    localStorage.setItem("usuarios", JSON.stringify(usuarios));
-
-    alert("Código creado!!");
-    document.getElementById('Crear').style.display = 'none'; 
+    // Enviar una solicitud POST al servidor para agregar el nuevo usuario
+    fetch('/crear_usuario', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(nuevoUsuario),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("Código creado!!");
+            document.getElementById('Crear').style.display = 'none'; 
+        } else {
+            alert("Error al crear el código. Por favor, inténtalo de nuevo.");
+        }
+    })
+    .catch(error => {
+        console.error('Error al crear el código:', error);
+        alert("Error al crear el código. Por favor, inténtalo de nuevo.");
+    });
 }

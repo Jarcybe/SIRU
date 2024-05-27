@@ -1,26 +1,42 @@
-function Login(event){
-event.preventDefault();
+function login(event) {
+    event.preventDefault();
 
-const codigo = document.getElementById("CodigoL").value;
-const contraseña = document.getElementById("ContraseñaL").value;
+    const codigo = document.getElementById("CodigoL").value;
+    const contraseña = document.getElementById("ContraseñaL").value;
 
-//sacar los usuarios del localstorage
-const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    // Construir el cuerpo de la solicitud para enviar al servidor
+    const data = {
+        codigo: codigo,
+        contraseña: contraseña
+    };
 
-// verificacion de usuario y contraseña
-const usuario = usuarios.find((usuario) => usuario.codigo == codigo && usuario.contraseña == contraseña); 
-
-if(usuario){
-
-    localStorage.setItem('LogUsuario', JSON.stringify(usuario));
-
-   if(usuario.tipo === "Admin"){
-    window.location.href = "MenuAdmin.html";
-   }else if (usuario.tipo === "Usuario"){
-    window.location.href = "MenuPrincipal.html";
-
-   }
-}else{
-    alert("codigo o contraseña incorrectos");
-}
+    // Enviar la solicitud POST al endpoint de login en el servidor
+    fetch('/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (response.ok) {
+            // Si la respuesta es exitosa, redirige según el tipo de usuario
+            return response.json();
+        } else {
+            // Si la respuesta no es exitosa, muestra un mensaje de error
+            throw new Error('Código o contraseña incorrectos');
+        }
+    })
+    .then(data => {
+        // Redirige según el tipo de usuario
+        if (data.usuario.tipo === "Admin") {
+            window.location.href = "MenuAdmin.html";
+        } else if (data.usuario.tipo === "Usuario") {
+            window.location.href = "MenuPrincipal.html";
+        }
+    })
+    .catch(error => {
+        // Muestra un mensaje de error en caso de credenciales incorrectas
+        alert(error.message);
+    });
 }
