@@ -4,33 +4,32 @@ function CrearCodigo(event) {
     const NCodigo = document.getElementById("Codigo").value;
     const tipo = document.querySelector("select[name='tipo']").value;
 
-    // Crear un objeto con los datos del nuevo usuario
-    const nuevoUsuario = {
+    // Crear el objeto de datos a enviar al servidor
+    const datos = {
         codigo: NCodigo,
         tipo: tipo,
-        nombre: '', 
-        contraseña: '' 
+        nombre: '',
+        contraseña: ''
     };
 
-    // Enviar una solicitud POST al servidor para agregar el nuevo usuario
-    fetch('/crear_usuario', {
+    // Enviar los datos al servidor utilizando Fetch API
+    fetch('/crear_codigo', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(nuevoUsuario),
+        body: JSON.stringify(datos),
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
             alert("Código creado!!");
-            document.getElementById('Crear').style.display = 'none'; 
+            document.getElementById('Crear').style.display = 'none'; // Ocultar el botón de creación
         } else {
-            alert("Error al crear el código. Por favor, inténtalo de nuevo.");
+            alert(data.message); // Mostrar mensaje de error del servidor
         }
     })
     .catch(error => {
-        console.error('Error al crear el código:', error);
-        alert("Error al crear el código. Por favor, inténtalo de nuevo.");
+        console.error('Error al enviar los datos al servidor:', error);
     });
 }

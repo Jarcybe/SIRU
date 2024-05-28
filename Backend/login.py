@@ -1,45 +1,43 @@
-from flask import Flask, request, jsonify
-from sqlalchemy import create_engine, Column, String
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from flask import Blueprint, request, jsonify
+import mysql.connector
 
-app = Flask(__name__)
+# Crear un blueprint para el inicio de sesión
+login_bp = Blueprint('login_bp', __name__)
 
-# Conexión a la base de datos SQLite (puedes cambiar el motor y la URL según tu base de datos)
-engine = create_engine('sqlite:///usuarios.db', echo=True)
-Base = declarative_base()
+# Función para verificar las credenciales del usuario en la base de datos
+def verificar_credenciales(codigo, contraseña):
+    connection = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="",
+        database="siru"
+    )
+    cursor = connection.cursor()
 
-# Definición de la tabla Usuarios
-class Usuario(Base):
-    __tablename__ = 'usuarios'
+    # Asegurarse de seleccionar el campo 'tipo' en la consulta
+    cursor.execute("SELECT id, codigo, tipo, nombre FROM Usuario WHERE codigo = %s AND contraseña = %s", (codigo, contraseña))
+    usuario = cursor.fetchone()
+    cursor.close()
+    connection.close()
+    return usuario
 
-    codigo = Column(String, primary_key=True)
-    contraseña = Column(String)
-    tipo = Column(String)
-
-# Crear la tabla en la base de datos si no existe
-Base.metadata.create_all(engine)
-
-# Crear una sesión para interactuar con la base de datos
-Session = sessionmaker(bind=engine)
-session = Session()
-
-@app.route('/login', methods=['POST'])
+# Ruta para manejar el inicio de sesión
+@login_bp.route('/login', methods=['POST'])
 def login():
-    # Obtener los datos del formulario de la solicitud
-    data = request.json
-    codigo = data.get('codigo')
-    contraseña = data.get('contraseña')
-
-    # Buscar el usuario en la base de datos
-    usuario = session.query(Usuario).filter_by(codigo=codigo, contraseña=contraseña).first()
-
+    datos = request.json
+    codigo = datos.get('codigo')
+    contraseña = datos.get('contraseña')
+    usuario = verificar_credenciales(codigo, contraseña)
+    
     if usuario:
-        # Si se encuentra el usuario, devolver los detalles del usuario como respuesta
-        return jsonify({"usuario": {"codigo": usuario.codigo, "tipo": usuario.tipo}}), 200
+        usuario_info = {
+            'id': usuario[0],
+            'codigo': usuario[1],
+            'tipo': usuario[2],  # Asegurarse de incluir 'tipo'
+            'nombre': usuario[3]
+        }
+        return jsonify({'success': True, 'usuario': usuario_info})
     else:
-        # Si no se encuentra el usuario, devolver un mensaje de error
-        return jsonify({"error": "Código o contraseña incorrectos"}), 401
+        return jsonify({'success': False, 'message': 'Código o contraseña incorrectos'})
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# Asegúrate de que login_bp se registre correctamente en tu aplicación principal

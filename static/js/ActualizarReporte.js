@@ -1,48 +1,30 @@
-function ActualizarReporte(index) {
-    const registro = JSON.parse(localStorage.getItem("formRegistro"));
+function ActualizarReporte(index){
 
-    if (registro.length > index) {
-        const recordar = registro[index];
-        const modal = document.getElementById("Modal");
+const registro=JSON.parse(localStorage.getItem("formRegistro"))
 
-        const comentario = document.getElementById("Comentario").value;
-        const encargado = document.getElementById("Encargado").value;
-        const desarrollo = document.querySelector('input[name="desarrollo"]:checked').value;
+if(registro.length > index){
 
-        recordar.comentario = comentario;
-        recordar.encargado = encargado;
-        recordar.desarrollo = desarrollo;
+const recordar = registro[index];
+const modal = document.getElementById("Modal");
 
-        registro[index] = recordar;
+const comentario = document.getElementById("Comentario").value;
+const encargado  = document.getElementById("Encargado").value;
+const desarrollo = document.querySelector('input[name="desarrollo"]:checked').value;
 
-        localStorage.setItem("formRegistro", JSON.stringify(registro));
+recordar.comentario = comentario;
+recordar.encargado = encargado;
+recordar.desarrollo = desarrollo;
 
-        modal.style.display = "none";
+registro[index] = recordar;
 
-        alert("Registro actualizado correctamente.");
+localStorage.setItem("formRegistro", JSON.stringify(registro));
 
-        // Enviar datos actualizados al servidor
-        fetch('../Backend/actualizar_reporte', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(recordar),
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert('Datos actualizados en el servidor correctamente.');
-            } else {
-                alert('Error al actualizar los datos en el servidor.');
-            }
-        })
-        .catch(error => {
-            console.error('Error al enviar los datos al servidor:', error);
-            alert('Error al enviar los datos al servidor.');
-        });
+modal.style.display= "none";
 
-    } else {
-        alert("No se encontró el registro correspondiente.");
-    }
+alert("Registro actualizado correctamente.");
+}else{
+
+    alert("No se encontró el registro correspondiente."); 
+}
+
 }

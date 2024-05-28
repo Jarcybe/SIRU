@@ -9,7 +9,6 @@ function GuardarFormulario(event) {
 
     const cod = logUsuario.codigo;
     const fecha = new Date().toISOString();
-
     const lugar = document.getElementById("Lugar").value;
     const item = document.getElementById("Item").value;
     const estado = document.querySelector('input[name="Estado"]:checked').value;
@@ -21,7 +20,7 @@ function GuardarFormulario(event) {
         return;
     }
 
-    const datos = {
+    const datosFormulario = {
         codigo: cod,
         fecha: fecha,
         lugar: lugar,
@@ -31,25 +30,25 @@ function GuardarFormulario(event) {
         descripcion: descripcion
     };
 
-    fetch('/guardar-formulario', {
+    // Enviar los datos del formulario al servidor utilizando Fetch API
+    fetch('/guardar_formulario', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify(datos)
+        body: JSON.stringify(datosFormulario),
     })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        }
-        throw new Error('Error al guardar el formulario.');
-    })
+    .then(response => response.json())
     .then(data => {
-        alert("Formulario guardado exitosamente");
-        window.location.href = "MenuPrincipal.html";
+        if (data.success) {
+            alert(data.message);
+            window.location.href = "MenuPrincipal.html";
+        } else {
+            alert("Error al guardar el formulario: " + data.error);
+        }
     })
     .catch(error => {
-        console.error('Error:', error);
-        alert("Ha ocurrido un error al guardar el formulario.");
+        console.error('Error al enviar los datos al servidor:', error);
+        alert("Error al enviar los datos al servidor");
     });
 }

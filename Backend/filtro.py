@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 import mysql.connector
 
-buscar_reportes_bp = Blueprint('buscar_reportes_bp', __name__)
+filtro_bp = Blueprint('filtro_bp', __name__)
 
 # Configurar la conexión a la base de datos MySQL
 conexion = mysql.connector.connect(
@@ -11,11 +11,11 @@ conexion = mysql.connector.connect(
     database="siru"
 )
 
-# Manejar las solicitudes GET en la ruta "/buscar_reportes"
-@buscar_reportes_bp.route('/buscar_reportes', methods=['GET'])
-def buscar_reportes():
+# Manejar las solicitudes GET en la ruta "/filtrar_registros"
+@filtro_bp.route('/filtrar_registros', methods=['GET'])
+def filtrar_registros():
     try:
-        # Obtener los parámetros de búsqueda del cuerpo de la solicitud
+        # Obtener los parámetros de filtrado de la consulta GET
         lugar = request.args.get('lugar', '').lower()
         item = request.args.get('item', '').lower()
         estado = request.args.get('estado', '')
@@ -23,7 +23,7 @@ def buscar_reportes():
         reciente = request.args.get('reciente', '')
         orden = request.args.get('orden', '')
 
-        # Construir la consulta SQL basada en los parámetros de búsqueda
+        # Construir la consulta SQL basada en los parámetros de filtrado
         consulta = "SELECT * FROM FormularioRegistro WHERE 1=1"
         parametros = []
 

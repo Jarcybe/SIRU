@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify
-from models import db, Usuario
+from . import db
+
 
 actualizar_reporte_bp = Blueprint('actualizar_reporte', __name__)
 

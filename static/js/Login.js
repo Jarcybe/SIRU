@@ -1,42 +1,39 @@
-function login(event) {
+function Login(event) {
     event.preventDefault();
 
     const codigo = document.getElementById("CodigoL").value;
     const contraseña = document.getElementById("ContraseñaL").value;
 
-    // Construir el cuerpo de la solicitud para enviar al servidor
-    const data = {
+    const datos = {
         codigo: codigo,
         contraseña: contraseña
     };
 
-    // Enviar la solicitud POST al endpoint de login en el servidor
     fetch('/login', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(datos),
     })
-    .then(response => {
-        if (response.ok) {
-            // Si la respuesta es exitosa, redirige según el tipo de usuario
-            return response.json();
-        } else {
-            // Si la respuesta no es exitosa, muestra un mensaje de error
-            throw new Error('Código o contraseña incorrectos');
-        }
-    })
+    .then(response => response.json())
     .then(data => {
-        // Redirige según el tipo de usuario
-        if (data.usuario.tipo === "Admin") {
-            window.location.href = "MenuAdmin.html";
-        } else if (data.usuario.tipo === "Usuario") {
-            window.location.href = "MenuPrincipal.html";
+        console.log(data); // Verificar el contenido de la respuesta en la consola
+        if (data.success) {
+            localStorage.setItem('LogUsuario', JSON.stringify(data.usuario));
+            console.log('Usuario tipo:', data.usuario.tipo); // Depuración
+            if (data.usuario.tipo === "admin") { // Asegúrate de que coincide con la base de datos
+                console.log('Redirigiendo a /MenuAdmin.html'); // Depuración
+                window.location.href = "menu_admin";
+            } else if (data.usuario.tipo === "usuario") {
+                console.log('Redirigiendo a /MenuPrincipal.html'); // Depuración
+                window.location.href = "menu_principal";
+            }
+        } else {
+            alert(data.message);
         }
     })
     .catch(error => {
-        // Muestra un mensaje de error en caso de credenciales incorrectas
-        alert(error.message);
+        console.error('Error al enviar los datos al servidor:', error);
     });
 }

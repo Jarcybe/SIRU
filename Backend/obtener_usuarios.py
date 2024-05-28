@@ -1,20 +1,23 @@
-from flask import Blueprint, request, jsonify
-from models import db, Usuario
+import mysql.connector
 
-obtener_usuarios_bp = Blueprint('obtener_usuarios', __name__)
+def obtener_usuarios(filtro):
+    # Configurar la conexión a la base de datos MySQL
+    conexion = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="",
+        database="siru"
+    )
 
-@obtener_usuarios_bp.route('/obtener_usuarios', methods=['GET'])
-def obtener_usuarios():
-    try:
-        filtro = request.args.get('filtro', 'todos')
-        if filtro == 'todos':
-            usuarios = Usuario.query.all()
-        else:
-            usuarios = Usuario.query.filter_by(tipo=filtro).all()
+    cursor = conexion.cursor(dictionary=True)
+    if filtro == 'todos':
+        cursor.execute("SELECT * FROM Usuario")
+    else:
+        cursor.execute("SELECT * FROM Usuario WHERE tipo = %s", (filtro,))
+    usuarios = cursor.fetchall()
 
-        usuarios_json = [{'codigo': usuario.codigo, 'tipo': usuario.tipo, 'nombre': usuario.nombre, 'contraseña': usuario.contraseña} for usuario in usuarios]
+    # Cerrar la conexión a la base de datos
+    cursor.close()
+    conexion.close()
 
-        return jsonify({'success': True, 'usuarios': usuarios_json})
-    except Exception as e:
-        print(f"Error al obtener usuarios: {e}")
-        return jsonify({'success': False})
+    return usuarios
