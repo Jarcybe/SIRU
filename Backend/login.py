@@ -1,5 +1,7 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, session, redirect, url_for
 import mysql.connector
+from functools import wraps
+from datetime import timedelta
 
 # Crear un blueprint para el inicio de sesión
 login_bp = Blueprint('login_bp', __name__)
@@ -30,14 +32,46 @@ def login():
     usuario = verificar_credenciales(codigo, contraseña)
     
     if usuario:
-        usuario_info = {
+        # Almacenar la información del usuario en la sesión
+        session['user'] = {
             'id': usuario[0],
             'codigo': usuario[1],
-            'tipo': usuario[2],  # Asegurarse de incluir 'tipo'
+            'tipo': usuario[2],
             'nombre': usuario[3]
         }
-        return jsonify({'success': True, 'usuario': usuario_info})
+        # Hacer la sesión permanente
+        session.permanent = True
+        return jsonify({'success': True, 'usuario': session['user']})
     else:
         return jsonify({'success': False, 'message': 'Código o contraseña incorrectos'})
 
-# Asegúrate de que login_bp se registre correctamente en tu aplicación principal
+# Ruta para manejar el cierre de sesión
+@login_bp.route('/logout')
+def logout():
+    session.pop('user', None)
+    return redirect(url_for('login_bp.login'))
+
+# Decorador para verificar si el usuario ha iniciado sesión
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user' not in session:
+            return redirect(url_for('login_bp.login', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
+
+# Decorador para verificar el rol del usuario
+def role_required(role):
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            if 'user' not in session or session['user'].get('tipo') != role:
+                return redirect(url_for('login_bp.login', next=request.url))
+            return f(*args, **kwargs)
+        return decorated_function
+    return decorator
+
+# Configuración para hacer la sesión permanente
+@login_bp.before_app_request
+def make_session_permanent():
+    session.permanent = True

@@ -22,11 +22,11 @@ function Login(event) {
         if (data.success) {
             localStorage.setItem('LogUsuario', JSON.stringify(data.usuario));
             console.log('Usuario tipo:', data.usuario.tipo); // Depuración
-            if (data.usuario.tipo === "admin") { // Asegúrate de que coincide con la base de datos
-                console.log('Redirigiendo a /MenuAdmin.html'); // Depuración
+            if (data.usuario.tipo === "Admin") { // Asegúrate de que coincide con la base de datos
+                console.log('Redirigiendo a /menu_admin.html'); // Depuración
                 window.location.href = "menu_admin";
-            } else if (data.usuario.tipo === "usuario") {
-                console.log('Redirigiendo a /MenuPrincipal.html'); // Depuración
+            } else if (data.usuario.tipo === "Usuario") {
+                console.log('Redirigiendo a /menu_principal.html'); // Depuración
                 window.location.href = "menu_principal";
             }
         } else {
