@@ -1,15 +1,15 @@
-from flask import Flask, request
+from flask import Blueprint, jsonify, request
 import mysql.connector
 
-app = Flask(__name__)
+registro_bp = Blueprint('registro_bp', __name__)
 
 def conectar_bd():
     try:
         conexion = mysql.connector.connect(
             host="localhost",
-            user="tu_usuario",
-            password="tu_contraseña",
-            database="tu_base_de_datos"
+            user="root",
+            password="",
+            database="siru"
         )
         print("Conexión exitosa a la base de datos.")
         return conexion
@@ -17,24 +17,42 @@ def conectar_bd():
         print("Error al conectar a la base de datos:", error)
         return None
 
-@app.route('/registro', methods=['POST'])
+@registro_bp.route('/registro', methods=['POST'])
 def registro():
     try:
+        datos = request.json
+        codigo = datos.get('codigo')
+        nombre = datos.get('nombre')
+        contraseña = datos.get('contraseña')
+
+        # Verificar que todos los campos requeridos estén presentes y no vacíos
+        if not codigo or not nombre or not contraseña:
+            return jsonify({'mensaje': 'Todos los campos son obligatorios'}), 400
+
         conexion = conectar_bd()
         if conexion:
-            datos = request.json
             cursor = conexion.cursor()
-            cursor.execute("INSERT INTO Usuario (codigo, tipo, nombre, contraseña) VALUES (%s, %s, %s, %s)",
-                           (datos['codigo'], datos['tipo'], datos['nombre'], datos['contraseña']))
+
+            # Verificar si el código existe en la base de datos
+            cursor.execute("SELECT * FROM usuario WHERE codigo = %s", (codigo,))
+            usuario_existente = cursor.fetchone()
+
+            if not usuario_existente:
+                cursor.close()
+                conexion.close()
+                return jsonify({'mensaje': 'El código no está registrado'}), 400
+
+            # Insertar el nuevo usuario
+            cursor.execute(
+                "UPDATE usuario SET nombre = %s, contraseña = %s WHERE codigo = %s",
+                (nombre, contraseña, codigo)
+            )
             conexion.commit()
             cursor.close()
             conexion.close()
-            return {'mensaje': 'Registro exitoso'}, 200
+            return jsonify({'mensaje': 'Registro exitoso'}), 200
         else:
-            return {'mensaje': 'Error al conectar a la base de datos'}, 500
+            return jsonify({'mensaje': 'Error al conectar a la base de datos'}), 500
     except Exception as e:
         print("Error al registrar usuario:", e)
-        return {'mensaje': 'Error interno del servidor'}, 500
-
-if __name__ == '__main__':
-    app.run(debug=True)
+        return jsonify({'mensaje': 'Error interno del servidor'}), 500

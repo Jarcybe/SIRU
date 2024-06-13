@@ -1,4 +1,3 @@
-
 function Registro(event) {
     event.preventDefault(); // Evitar el envío por defecto
 
@@ -7,13 +6,11 @@ function Registro(event) {
     const contraseña = document.getElementById("ContraseñaR").value;
     const confirmar = document.getElementById("ConfirmarR").value;
 
-    //verificacion de contraseñas
-    if(!validarContraseña(contraseña, confirmar)){
-        alert(" Las contraseñas no coinciden.");
-        return;    }
-
-        //Obtener los usuarios
-const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    // Verificación de contraseñas
+    if (!validarContraseña(contraseña, confirmar)) {
+        alert("Las contraseñas no coinciden.");
+        return;
+    }
 
     // Crear el objeto de datos a enviar al backend
     const datos = {
@@ -30,16 +27,19 @@ const usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
         },
         body: JSON.stringify(datos),
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('No se pudo completar el registro. Verifica tus datos e intenta de nuevo.');
+        }
+        return response.json();
+    })
     .then(data => {
-       
         alert(data.mensaje);
-        
         window.location.reload();
     })
     .catch(error => {
-        // Manejar cualquier error que ocurra durante la solicitud
+        // Manejar cualquier otro tipo de error que pueda ocurrir
         console.error('Error al enviar los datos al backend:', error);
+        alert('No se pudo completar el registro');
     });
 }
-

@@ -1,13 +1,14 @@
-from flask import Flask, render_template, session, redirect, url_for
-from flask import Blueprint
-from Backend.login import login_bp, login_required, role_required
+from flask import Flask, render_template, session, jsonify, redirect, url_for
 from datetime import timedelta
+from Backend.login import login_bp, login_required, role_required
 from Backend.crear_codigo import crear_codigo_bp
 from Backend.obtener_usuarios import obtener_usuarios
 from Backend.guardar_formulario import guardar_formulario_bp
 from Backend.buscar_reportes import buscar_reportes_bp
 from Backend.filtro import filtro_bp
 from Backend.editar_usuario import editar_usuario_bp
+from Backend.estados import estados_bp
+from Backend.registro import registro_bp  # Importar el blueprint de registro
 import os
 
 secret_key = os.urandom(24)
@@ -21,7 +22,7 @@ app.secret_key = secret_key
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=10)
 
 # Configurar el decorador para hacer la sesión permanente
-@login_bp.before_app_request
+@app.before_request
 def make_session_permanent():
     session.permanent = True
 
@@ -32,6 +33,8 @@ app.register_blueprint(guardar_formulario_bp)
 app.register_blueprint(buscar_reportes_bp)
 app.register_blueprint(filtro_bp)
 app.register_blueprint(editar_usuario_bp)
+app.register_blueprint(estados_bp)
+app.register_blueprint(registro_bp)  # Registrar el blueprint de registro
 
 # Página de menú de registro (MenuRegistro.html)
 @app.route('/')
@@ -50,10 +53,6 @@ def menu_principal():
 @login_required
 def menu_admin():
     return render_template('MenuAdmin.html')
-
-@app.route('/registro', methods=['POST'])
-def registro():
-    return jsonify({'mensaje': '¡Registro exitoso!'})
 
 @app.route('/obtener_usuarios/<filtro>', methods=['GET'])
 def obtener_usuarios_route(filtro):
