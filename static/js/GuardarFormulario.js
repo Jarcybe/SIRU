@@ -19,7 +19,7 @@ function GuardarFormulario(event) {
     const estadoValue = estado.value;
     const titulo = document.getElementById("Titulo").value;
     const descripcion = document.getElementById("Descripcion").value;
-    const imagen = document.getElementById("Imagen").files[0]; // Obtener el archivo de imagen seleccionado
+    const imagen = document.getElementById("imagen").files[0]; // Obtener el archivo de imagen seleccionado
 
     const formData = new FormData(); // Crear un objeto FormData para enviar datos y archivos al servidor
     if (imagen) {
