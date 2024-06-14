@@ -17,7 +17,7 @@ def verificar_credenciales(codigo, contraseña):
     cursor = connection.cursor()
 
     # Asegurarse de seleccionar el campo 'tipo' en la consulta
-    cursor.execute("SELECT id, codigo, tipo, nombre FROM Usuario WHERE codigo = %s AND contraseña = %s", (codigo, contraseña))
+    cursor.execute("SELECT codigo, tipo, nombre FROM Usuario WHERE codigo = %s AND contraseña = %s", (codigo, contraseña))
     usuario = cursor.fetchone()
     cursor.close()
     connection.close()
@@ -34,10 +34,9 @@ def login():
     if usuario:
         # Almacenar la información del usuario en la sesión
         session['user'] = {
-            'id': usuario[0],
-            'codigo': usuario[1],
-            'tipo': usuario[2],
-            'nombre': usuario[3]
+            'codigo': usuario[0],
+            'tipo': usuario[1],
+            'nombre': usuario[2]
         }
         # Hacer la sesión permanente
         session.permanent = True
@@ -75,3 +74,4 @@ def role_required(role):
 @login_bp.before_app_request
 def make_session_permanent():
     session.permanent = True
+    session.permanent_session_lifetime = timedelta(minutes=30)  # Duración de la sesión

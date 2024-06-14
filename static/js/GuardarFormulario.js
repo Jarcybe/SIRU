@@ -9,40 +9,78 @@ function GuardarFormulario(event) {
 
     const cod = logUsuario.codigo;
     const fecha = new Date().toISOString();
-    const lugar = document.getElementById("Lugar").value;
-    const item = document.getElementById("Item").value;
+    const lugar = document.getElementById("Lugar").value.trim();
+    const item = document.getElementById("Item").value.trim();
     const estado = document.querySelector('input[name="Estado"]:checked');
     if (!estado) {
         alert("Por favor, seleccione un estado.");
         return;
     }
     const estadoValue = estado.value;
-    const titulo = document.getElementById("Titulo").value;
-    const descripcion = document.getElementById("Descripcion").value;
-    const imagen = document.getElementById("Imagen").files[0]; // Obtener el archivo de imagen seleccionado
+    const titulo = document.getElementById("Titulo").value.trim();
+    const descripcion = document.getElementById("Descripcion").value.trim();
 
-    const formData = new FormData(); // Crear un objeto FormData para enviar datos y archivos al servidor
-    if (imagen) {
-        formData.append('imagen', imagen); // Agregar la imagen al objeto FormData
+    // Validar que al menos uno de los campos (lugar, item, titulo, descripcion) esté lleno
+    if (!lugar && !item && !titulo && !descripcion) {
+        alert("Por favor, llene al menos uno de los campos.");
+        return;
     }
-    formData.append('codigo', cod);
-    formData.append('fecha', fecha);
-    formData.append('lugar', lugar);
-    formData.append('item', item);
-    formData.append('estado', estadoValue);
-    formData.append('titulo', titulo);
-    formData.append('descripcion', descripcion);
 
-    // Enviar los datos del formulario al servidor utilizando Fetch API
+    const imagenElement = document.getElementById("imagen");
+    const imagen = imagenElement.files[0]; // Obtener el archivo de imagen seleccionado
+
+    if (imagen) {
+        const formData = new FormData();
+        formData.append('imagen', imagen);
+
+        fetch('/subir_imagen_temp', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                enviarFormulario(cod, fecha, lugar, item, estadoValue, titulo, descripcion, data.filepath);
+            } else {
+                alert("Error al subir la imagen: " + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error al subir la imagen:', error);
+            alert("Error al subir la imagen");
+        });
+    } else {
+        enviarFormulario(cod, fecha, lugar, item, estadoValue, titulo, descripcion, null);
+    }
+}
+
+function enviarFormulario(cod, fecha, lugar, item, estado, titulo, descripcion, filepath) {
+    const formData = {
+        codigo: cod,
+        fecha: fecha,
+        lugar: lugar,
+        item: item,
+        estado: estado,
+        titulo: titulo,
+        descripcion: descripcion
+    };
+
+    if (filepath) {
+        formData.imagen = filepath;
+    }
+
     fetch('/guardar_formulario', {
         method: 'POST',
-        body: formData, // Enviar el objeto FormData que contiene los datos y la imagen
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
     })
     .then(response => response.json())
     .then(data => {
         if (data.success) {
             alert(data.message);
-            window.location.href = "menu_principal.html";
+            window.location.href = "/menu_principal";
         } else {
             alert("Error al guardar el formulario: " + data.error);
         }

@@ -8,7 +8,9 @@ from Backend.buscar_reportes import buscar_reportes_bp
 from Backend.filtro import filtro_bp
 from Backend.editar_usuario import editar_usuario_bp
 from Backend.estados import estados_bp
-from Backend.registro import registro_bp  # Importar el blueprint de registro
+from Backend.registro import registro_bp  
+from Backend.subir_imagen import subir_imagen_bp
+
 import os
 
 secret_key = os.urandom(24)
@@ -34,7 +36,9 @@ app.register_blueprint(buscar_reportes_bp)
 app.register_blueprint(filtro_bp)
 app.register_blueprint(editar_usuario_bp)
 app.register_blueprint(estados_bp)
-app.register_blueprint(registro_bp)  # Registrar el blueprint de registro
+app.register_blueprint(registro_bp)  
+app.register_blueprint(subir_imagen_bp)
+
 
 # Página de menú de registro (MenuRegistro.html)
 @app.route('/')

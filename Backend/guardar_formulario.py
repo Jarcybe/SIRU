@@ -1,50 +1,44 @@
 from flask import Blueprint, jsonify, request
-from werkzeug.utils import secure_filename
-import os
 import mysql.connector
 from datetime import datetime
 
 guardar_formulario_bp = Blueprint('guardar_formulario', __name__)
 
-# Configurar la conexión a la base de datos MySQL
-conexion = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="",
-    database="siru"
-)
-
-UPLOAD_FOLDER = '/ruta/a/carpeta/de/imagenes'
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+def conectar_bd():
+    return mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="",
+        database="siru"
+    )
 
 @guardar_formulario_bp.route('/guardar_formulario', methods=['POST'])
 def guardar_formulario_route():
+    conexion = None
     try:
-        formulario = request.form
+        datos = request.json
+        codigo = datos.get('codigo')
+        fecha_iso = datos.get('fecha')
+        fecha = datetime.fromisoformat(fecha_iso)  # Convertir a objeto de fecha de Python
+        lugar = datos.get('lugar')
+        item = datos.get('item')
+        estado = datos.get('estado')
+        titulo = datos.get('titulo')
+        descripcion = datos.get('descripcion')
+        imagen_path = datos.get('imagen', None)
 
-        if 'imagen' not in request.files:
-            return jsonify({'success': False, 'error': 'No se ha enviado ninguna imagen'}), 400
+        conexion = conectar_bd()
+        cursor = conexion.cursor()
 
-        imagen = request.files['imagen']
-        if imagen.filename == '':
-            return jsonify({'success': False, 'error': 'No se ha seleccionado ningún archivo'}), 400
-
-        if imagen and allowed_file(imagen.filename):
-            filename = secure_filename(imagen.filename)
-            imagen.save(os.path.join(UPLOAD_FOLDER, filename))
-
-            fecha_actual = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-            cursor = conexion.cursor()
+        if imagen_path:
             cursor.execute("INSERT INTO FormularioRegistro (codigo, fecha, lugar, item, estado, titulo, descripcion, imagen) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
-                           (formulario['codigo'], fecha_actual, formulario['lugar'], formulario['item'], formulario['estado'], formulario['titulo'], formulario['descripcion'], os.path.join(UPLOAD_FOLDER, filename)))
-            conexion.commit()
-            return jsonify({'success': True, 'message': 'Formulario guardado exitosamente'})
+                           (codigo, fecha, lugar, item, estado, titulo, descripcion, imagen_path))
         else:
-            return jsonify({'success': False, 'error': 'Formato de imagen no permitido'}), 400
+            cursor.execute("INSERT INTO FormularioRegistro (codigo, fecha, lugar, item, estado, titulo, descripcion) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+                           (codigo, fecha, lugar, item, estado, titulo, descripcion))
+
+        conexion.commit()
+        return jsonify({'success': True, 'message': 'Formulario guardado exitosamente'}), 200
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
     finally:
