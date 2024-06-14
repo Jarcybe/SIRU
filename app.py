@@ -16,6 +16,8 @@ from Backend.actualizar_reporte import actualizar_reporte_bp
 
 import os
 
+UPLOAD_FOLDER = 'Backend/uploads'
+
 secret_key = os.urandom(24)
 
 app = Flask(__name__, template_folder="templates", static_folder="static")

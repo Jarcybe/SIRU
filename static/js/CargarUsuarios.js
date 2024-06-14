@@ -11,9 +11,8 @@ function CargarUsuarios(filtro) {
     const tabla = document.getElementById('Tabla');
     tabla.innerHTML = '';
 
-    // Verificar si se debe cargar desde la base de datos o desde localStorage
     if (filtro === 'todos') {
-        // Cargar usuarios desde la base de datos
+        // Cargar todos los usuarios desde la base de datos
         fetch(`/obtener_usuarios/${filtro}`)
             .then(response => response.json())
             .then(data => {
@@ -48,9 +47,11 @@ function CargarUsuarios(filtro) {
             })
             .catch(error => console.error('Error al cargar usuarios desde la base de datos:', error));
     } else {
-        // Cargar usuarios desde localStorage
+        // Cargar usuarios filtrados desde localStorage
         const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-        usuarios.forEach((usuario, index) => {
+        const usuariosFiltrados = usuarios.filter(usuario => usuario.tipo === filtro);
+
+        usuariosFiltrados.forEach(usuario => {
             tabla.innerHTML += `
                 <div class="w3-row w3-padding-16 w3-white w3-border">
                     <div class="w3-col m2 w3-padding-small">
@@ -72,8 +73,8 @@ function CargarUsuarios(filtro) {
                         <input class="w3-input" type="text" value="${usuario.contraseña}" readonly>
                     </div>
                     <div class="w3-col m2 w3-padding-small">
-                        <button class="w3-button w3-red w3-block w3-select" onclick="EditarUsuario(${index})">Editar</button>
-                        <button class="w3-button w3-red w3-block" onclick="ConfirmarEliminacion(${index})">Borrar</button>
+                        <button class="w3-button w3-red w3-block w3-select" onclick="EditarUsuario(${usuario.id})">Editar</button>
+                        <button class="w3-button w3-red w3-block" onclick="ConfirmarEliminacion(${usuario.id})">Borrar</button>
                     </div>
                 </div>
             `;

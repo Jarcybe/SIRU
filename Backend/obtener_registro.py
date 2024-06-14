@@ -106,3 +106,4 @@ def eliminar_registro(id):
     cursor.close()
     conexion.close()
     return jsonify({"mensaje": "Registro eliminado correctamente"})
+
