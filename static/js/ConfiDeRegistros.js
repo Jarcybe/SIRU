@@ -1,11 +1,15 @@
 function ConfiDeRegistro(index){
 
-const registro = JSON.parse(localStorage.getItem("formRegistro")) || [];
 const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+const codigo = usuarios.codigo;
 
-if(registro.length > index){
+  fetch(`/obtener_registros/${codigo}`)
+      .then(response => response.json())
+      .then(data => {
+        
+if(data.length > index){
 
-const recordar = registro[index];
+const recordar = data[index];
 const usuario = usuarios.find(us => us.codigo === recordar.codigo);
 const nombre = usuario ? usuario.nombre: "desconocido";
 
@@ -100,7 +104,8 @@ onclick="ActualizarReporte(${index})">
 `;
 
 modal.style.display = "block";
-}
+}})
+.catch(error => console.error('Error al obtener registro desde el backend:', error));
 }
 
 function Cerrar() {
