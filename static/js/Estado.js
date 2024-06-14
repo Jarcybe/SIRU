@@ -1,20 +1,25 @@
 function Estado() {
+
     const LogUsuario = JSON.parse(localStorage.getItem("LogUsuario"));
 
     if (!LogUsuario) {
         console.error("No hay usuario iniciado sesion");
         return;
     }
+
     const codigo = LogUsuario.codigo;
 
     fetch(`/obtener_registros/${codigo}`)
         .then(response => response.json())
         .then(data => {
+    
             const contenedores = document.getElementById("Contenedores");
+    
             if (data.length === 0) {
                 contenedores.innerHTML = "<p> Sin registros hechos por ahora</p>";
             } else {
                 contenedores.innerHTML = "";
+                
                 data.forEach((recuerdo, index) => {
                     const carta = document.createElement("div");
                     carta.className = "w3-col m5 w3-card w3-margin";

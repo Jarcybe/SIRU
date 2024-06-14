@@ -1,11 +1,14 @@
 function VisualRegistro(index) {
-  const LogUsuario = JSON.parse(localStorage.getItem('LogUsuario'));
-  const url = `/obtener_registro/${index}`;
+const LogUsuario = JSON.parse(localStorage.getItem('LogUsuario'));
 
-  fetch(url)
+const codigo = LogUsuario.codigo;
+
+  fetch(`/obtener_registros/${codigo}`)
       .then(response => response.json())
       .then(data => {
-          const recuerdo = data.registro; // Suponiendo que el backend devuelve un objeto con el registro
+
+        if(data.length > index){
+          const recuerdo = data[index]; 
 
           const modal = document.getElementById("Modal");
           const contenido = modal.querySelector(".w3-modal-content");
@@ -38,7 +41,7 @@ function VisualRegistro(index) {
           `;
 
           modal.style.display = "block";
-      })
+      }})
       .catch(error => console.error('Error al obtener registro desde el backend:', error));
 }
 
