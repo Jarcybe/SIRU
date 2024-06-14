@@ -1,30 +1,37 @@
-function ActualizarReporte(index){
+function ActualizarReporte(index) {
+    const comentario = document.getElementById("Comentario").value;
+    const encargado = document.getElementById("Encargado").value;
+    const desarrollo = document.querySelector('input[name="desarrollo"]:checked').value;
 
-const registro=JSON.parse(localStorage.getItem("formRegistro"))
+    // Construir el objeto con los datos a enviar al backend
+    const datosActualizar = {
+        comentario: comentario,
+        encargado: encargado,
+        desarrollo: desarrollo
+    };
 
-if(registro.length > index){
-
-const recordar = registro[index];
-const modal = document.getElementById("Modal");
-
-const comentario = document.getElementById("Comentario").value;
-const encargado  = document.getElementById("Encargado").value;
-const desarrollo = document.querySelector('input[name="desarrollo"]:checked').value;
-
-recordar.comentario = comentario;
-recordar.encargado = encargado;
-recordar.desarrollo = desarrollo;
-
-registro[index] = recordar;
-
-localStorage.setItem("formRegistro", JSON.stringify(registro));
-
-modal.style.display= "none";
-
-alert("Registro actualizado correctamente.");
-}else{
-
-    alert("No se encontró el registro correspondiente."); 
-}
-
+    fetch(`/actualizar_reporte/${index}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(datosActualizar)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Manejar la respuesta del backend si es necesario
+        console.log('Registro actualizado correctamente:', data);
+        const modal = document.getElementById("Modal");
+        modal.style.display = "none";
+        alert("Registro actualizado correctamente.");
+    })
+    .catch(error => {
+        console.error('Error al actualizar registro:', error);
+        alert("Ocurrió un error al actualizar el registro.");
+    });
 }

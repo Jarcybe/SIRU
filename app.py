@@ -10,6 +10,9 @@ from Backend.editar_usuario import editar_usuario_bp
 from Backend.estados import estados_bp
 from Backend.registro import registro_bp  
 from Backend.subir_imagen import subir_imagen_bp
+from Backend.eliminar_registro import eliminar_registro_bp
+from Backend.obtener_registro import registros_bp
+from Backend.actualizar_reporte import actualizar_reporte_bp
 
 import os
 
@@ -38,6 +41,12 @@ app.register_blueprint(editar_usuario_bp)
 app.register_blueprint(estados_bp)
 app.register_blueprint(registro_bp)  
 app.register_blueprint(subir_imagen_bp)
+app.register_blueprint(eliminar_registro_bp)
+app.register_blueprint(registros_bp)
+app.register_blueprint(actualizar_reporte_bp)
+
+
+
 
 
 # Página de menú de registro (MenuRegistro.html)
