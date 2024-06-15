@@ -18,8 +18,11 @@ def guardar_formulario_route():
     try:
         datos = request.json
         codigo = datos.get('codigo')
-        fecha_iso = datos.get('fecha')
-        fecha = datetime.fromisoformat(fecha_iso)  # Convertir a objeto de fecha de Python
+        fecha = datos.get('fecha')
+        #print('fecha ', fecha)
+        #date_format = '%Y-%m-%d'
+        #fecha = datetime.strptime(fecha_iso, date_format)
+        #fecha = datetime.fromisoformat(fecha_iso)  # Convertir a objeto de fecha de Python
         lugar = datos.get('lugar')
         item = datos.get('item')
         estado = datos.get('estado')
