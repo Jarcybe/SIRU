@@ -8,7 +8,10 @@ function Registro(event) {
 
     // Verificación de contraseñas
     if (!validarContraseña(contraseña, confirmar)) {
-        alert("Las contraseñas no coinciden.");
+        Swal.fire({
+          icon: "error",
+          title: "Las contraseñas no coinciden.",
+        });
         return;
     }
 
@@ -34,12 +37,16 @@ function Registro(event) {
         return response.json();
     })
     .then(data => {
+        
         alert(data.mensaje);
         window.location.reload();
     })
     .catch(error => {
         // Manejar cualquier otro tipo de error que pueda ocurrir
         console.error('Error al enviar los datos al backend:', error);
-        alert('No se pudo completar el registro');
+        Swal.fire({
+            icon: "error",
+            title: "No se pudo completar el registro",
+          });
     });
 }

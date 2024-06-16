@@ -5,22 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
 
+
     <link rel = "stylesheet" 
     href="https://www.w3schools.com/w3css/4/w3.css">
     
     <link rel="stylesheet"
     href="../static/css/EstilosRegistro.css">
 
-    <!--Scripts-->
-<script src="../static/js/Login.js">
-</script>
 
-<script src="../static/js/Registro.js">
-</script>
 
-<script src="../static/js/Validacion.js">
-
-</script>
 </head>
 
 <body>
@@ -39,7 +32,7 @@
     </div>
 
 <!--login-->
-<div class="w3-container">
+<div id="inicio" class="w3-container">
 
  <div class = "w3-modal-content w3-card-4 w3-animate-zoom"
  style="max-width: 600px;">
@@ -53,18 +46,20 @@
         onsubmit="Login(event)">
 
 <div class="w3-section">
-    <label> <b> Codigo </b></label>
+    <label for="CodigoL"> <b> Codigo </b></label>
     <input 
     id="CodigoL"
+    title="Ingresar codigo"
 class="w3-input w3-border w3-margin-bottom"
 type="text" 
-placeholder="Ingresar Codigo" 
+placeholder="Ingresar codigo" 
 name="Codigo" 
 required>
 
-    <label> <b> Contraseña </b> </label>
+    <label for="ContraseñaL"> <b> Contraseña </b> </label>
     <input class= "w3-input w3-border" 
     id = "ContraseñaL"
+    title="Ingresar contraseña"
     type = "password"
     placeholder="Ingresar contraseña"
     name = "contraseña"
@@ -72,18 +67,18 @@ required>
 
     <button class="w3-button w3-block w3-red w3-section w3-padding"
     type="submit"
+    title="Iniciar sesion"
     > Iniciar sesion </button>
 
-    <input class="w3-check w3-margin-top" 
-    type="checkbox"
-    checked = "checked"> 
-    Recuerdame </div></form>
+    </div></form>
   
 <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
 
 <span class = "w3-right w3-padding w3-hide-small"> 
 No estas 
-<a href = "javascript:void(0)" onclick="document.getElementById('registrarse').style.display='block'"> 
+<a href = "javascript:void(0)" 
+title="Registrarse"
+onclick="document.getElementById('registrarse').style.display='block'"> 
     <b> Registrado?</b> </a></span>
 
 </div></div>
@@ -91,7 +86,7 @@ No estas
 <p> </p></div>
 
 <!--registro-->
-<div class ="w3-container">
+<div id="registro" class ="w3-container">
 
     <div id="registrarse"
     class="w3-modal">
@@ -114,53 +109,76 @@ class="w3-container"
 onsubmit="Registro(event)">
 
 <div class="w3-section">
-<label> <b> Codigo </b></label>
+<label for="CodigoR"> <b> Codigo </b></label>
 
 <input 
 id = "CodigoR"
+title="Ingresar codigo"
 class="w3-input w3-border w3-margin-bottom"
 type="text" 
-placeholder="Ingresar Codigo" 
+placeholder="Ingresar codigo" 
 required
 ></div>
 
-    <label> <b> Nombre </b></label>
+    <label for="NombreR"> <b> Nombre </b></label>
 
 <input class="w3-input w3-border w3-margin-bottom"
 id = "NombreR"
 type="text" 
-placeholder="Ingresar Nombre de usuario" 
+title="Ingresar nombre de usuario"
+placeholder="Ingresar nombre de usuario" 
 required
     >
 
-    <label> <b> Contraseña </b></label>
+    <label for="ContraseñaR"> <b> Contraseña </b></label>
 
 <input 
 id = "ContraseñaR"
 class="w3-input w3-border w3-margin-bottom"
 type="password" 
-placeholder="Ingresar Contraseña"  
+title="Ingresar contraseña"
+placeholder="Ingresar contraseña"  
 required
     >
 
-    <label> <b> Confirmar contraseña </b></label>
+    <label for="ConfirmarR"> <b> Confirmar contraseña </b></label>
 
 <input 
 id = "ConfirmarR"
 class="w3-input w3-border w3-margin-bottom"
 type="password" 
+title="Confirmar contraseña"
 placeholder="Confirmar contraseña" 
 name="Confirmarcontraseña "
 required>
 
 <button 
 class="w3-button w3-block w3-red w3-section w3-padding"
- type="submit" >Registrarse</button>
+ type="submit"
+ title="Registrarme" >Registrarse</button>
 </div>
 </form>
 </div>
 </div>
 </div>
+
+<div class="w3-container">
+    <p><a href="#inicioSesion">Ir al inicio de sesión</a></p>
+    <p><a href="#registro">Ir al formulario de registro</a></p>
+</div>
+
+
+    <!--Scripts-->
+<script src="../static/js/Login.js">
+</script>
+
+<script src="../static/js/Registro.js">
+</script>
+
+<script src="../static/js/Validacion.js">
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </body>
 </html>
