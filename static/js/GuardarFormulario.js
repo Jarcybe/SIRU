@@ -1,6 +1,8 @@
 function GuardarFormulario(event) {
     event.preventDefault();
 
+    console.log('Se ha llamado a GuardarFormulario'); // Verificar si se activa esta función
+
     const logUsuario = JSON.parse(localStorage.getItem("LogUsuario"));
     if (!logUsuario) {
         alert("Debe iniciar sesión para realizar un registro.");
@@ -8,7 +10,7 @@ function GuardarFormulario(event) {
     }
 
     const cod = logUsuario.codigo;
-    const fecha = new Date().toISOString();
+    const fecha = obtenerFechaActual(); // Obtener la fecha actual formateada
     const lugar = document.getElementById("Lugar").value.trim();
     const item = document.getElementById("Item").value.trim();
     const estado = document.querySelector('input[name="Estado"]:checked');
@@ -21,8 +23,8 @@ function GuardarFormulario(event) {
     const descripcion = document.getElementById("Descripcion").value.trim();
 
     // Validar que al menos uno de los campos (lugar, item, titulo, descripcion) esté lleno
-    if (!lugar && !item && !titulo && !descripcion) {
-        alert("Por favor, llene al menos uno de los campos.");
+    if (!lugar || !item || !descripcion) {
+        alert("Los campos Lugar, Item y Descripción son obligatorios.");
         return;
     }
 
@@ -89,4 +91,16 @@ function enviarFormulario(cod, fecha, lugar, item, estado, titulo, descripcion, 
         console.error('Error al enviar los datos al servidor:', error);
         alert("Error al enviar los datos al servidor");
     });
+}
+
+// Función para obtener la fecha actual formateada YYYY-MM-DD HH:MM:SS
+function obtenerFechaActual() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = ('0' + (now.getMonth() + 1)).slice(-2);
+    const day = ('0' + now.getDate()).slice(-2);
+    const hours = ('0' + now.getHours()).slice(-2);
+    const minutes = ('0' + now.getMinutes()).slice(-2);
+    const seconds = ('0' + now.getSeconds()).slice(-2);
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
