@@ -32,6 +32,10 @@ def obtener_registros():
     cursor.close()
     conexion.close()
 
+    for registro in registros:
+        if registro['imagen']:
+            registro['imagen'] = f"/uploads/{registro['imagen']}"  # Ruta relativa para la imagen
+
     return jsonify({"registros": registros})
 
 @registros_bp.route('/obtener_registro/<int:id>', methods=['GET'])

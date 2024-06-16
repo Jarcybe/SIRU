@@ -33,7 +33,7 @@ function VisualRegistro(index) {
                                 <button class="w3-button w3-small w3-red" onclick="Dropdown('detalles')">Detalles</button>
                             </div>
                             <div class="w3-col m6">
-                                <div class="w3-border w3-light-grey" style="height: 150px;"></div>
+                                ${recuerdo.imagen ? `<img src="${recuerdo.imagen}" class="w3-image">` : `<div class="w3-border w3-light-grey" style="height: 150px;"></div>`}
                             </div>
                             <div id="detalles" class="w3-container" style="display: none;">
                                 <h3>Comentarios</h3>

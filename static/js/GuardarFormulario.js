@@ -67,8 +67,9 @@ function enviarFormulario(cod, fecha, lugar, item, estado, titulo, descripcion, 
         descripcion: descripcion
     };
 
+    // Asegurar que la ruta de la imagen esté en el formato correcto
     if (filepath) {
-        formData.imagen = filepath;
+        formData.imagen = filepath.replace('\\', '/');
     }
 
     fetch('/guardar_formulario', {
@@ -92,6 +93,7 @@ function enviarFormulario(cod, fecha, lugar, item, estado, titulo, descripcion, 
         alert("Error al enviar los datos al servidor");
     });
 }
+
 
 // Función para obtener la fecha actual formateada YYYY-MM-DD HH:MM:SS
 function obtenerFechaActual() {

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, jsonify, redirect, url_for
+from flask import Flask, render_template, session, jsonify, redirect, url_for,send_from_directory
 from datetime import timedelta
 from Backend.login import login_bp, login_required, role_required
 from Backend.crear_codigo import crear_codigo_bp
@@ -73,6 +73,13 @@ def menu_admin():
 def obtener_usuarios_route(filtro):
     usuarios = obtener_usuarios(filtro)
     return jsonify(usuarios)
+
+@app.route('/uploads/<filename>')
+def servir_imagen(filename):
+    try:
+        return send_from_directory(os.path.join(app.root_path, UPLOAD_FOLDER), filename)
+    except FileNotFoundError:
+        return "Imagen no encontrada", 404
 
 if __name__ == '__main__':
     app.run(debug=True)

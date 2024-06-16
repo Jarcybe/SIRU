@@ -1,9 +1,9 @@
 from flask import Blueprint, jsonify, request
 import mysql.connector
-from datetime import datetime
 
 guardar_formulario_bp = Blueprint('guardar_formulario', __name__)
 
+# Función para conectar a la base de datos
 def conectar_bd():
     return mysql.connector.connect(
         host="localhost",
@@ -19,16 +19,16 @@ def guardar_formulario_route():
         datos = request.json
         codigo = datos.get('codigo')
         fecha = datos.get('fecha')
-        #print('fecha ', fecha)
-        #date_format = '%Y-%m-%d'
-        #fecha = datetime.strptime(fecha_iso, date_format)
-        #fecha = datetime.fromisoformat(fecha_iso)  # Convertir a objeto de fecha de Python
         lugar = datos.get('lugar')
         item = datos.get('item')
         estado = datos.get('estado')
         titulo = datos.get('titulo')
         descripcion = datos.get('descripcion')
         imagen_path = datos.get('imagen', None)
+
+        # Asegurar que la ruta de la imagen no contenga el prefijo 'Backend/'
+        if imagen_path and imagen_path.startswith('Backend/'):
+            imagen_path = imagen_path.replace('Backend/', '', 1)  # Eliminar solo el primer 'Backend/'
 
         conexion = conectar_bd()
         cursor = conexion.cursor()
