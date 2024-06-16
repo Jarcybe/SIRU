@@ -9,7 +9,18 @@ item.innerHTML = '<option value="" disabled selected>Item</option>';
 const items ={
 informatica1: ['Computadores', 'AireAcondicionado', 'Bombillo', 'Pantalla', 'Silla', 'Otros..'],
 bañosH1: ['Tazas', 'Urinarios', 'Espejos', 'Lavamanos', 'Otros...'],
+bañosM1: ['Tazas', 'Espejos', 'Lavamanos', 'Elementos higenicos', 'Otros...'],
 informatica2: ['Computadores', 'AireAcondicionado', 'Bombillo', 'Pantalla', 'Silla', 'Otros..'],
+salon1: ['Cupitres', 'AireAcondicionado', 'Tablero', 'VideoBeams', 'Enchufes', 'Ventiladores', 'Otros...'],
+biblioteca: ['Mesas', 'AireAcondicionado', 'Sillas', 'Enchufes', 'Ventiladores', 'Otros...'],
+salon2: ['Computador', 'Sillas', 'Mesas','Enchufes', 'Ventiladores', 'Otros...'],informatica2: ['Computadores', 'AireAcondicionado', 'Bombillo', 'Pantalla', 'Silla', 'Otros..'],
+informatica3: ['Computadores', 'AireAcondicionado', 'Bombillo', 'Pantalla', 'Silla', 'Otros..'],
+salon3: ['Cupitres', 'AireAcondicionado', 'Tablero', 'VideoBeams', 'Enchufes', 'Ventiladores','Otros...'],
+bañosH2: ['Tazas', 'Urinarios', 'Espejos', 'Lavamanos', 'Otros...'],
+bañosM2: ['Tazas', 'Espejos', 'Lavamanos', 'Elementos higenicos', 'Otros...'],
+salon4: ['Cupitres', 'AireAcondicionado', 'Tablero', 'VideoBeams', 'Enchufes', 'Ventiladores','Otros...'],
+salon5: ['Cupitres', 'AireAcondicionado', 'Tablero', 'VideoBeams', 'Enchufes', 'Ventiladores','Otros...'],
+salon6: ['Cupitres', 'AireAcondicionado', 'Tablero', 'VideoBeams', 'Enchufes', 'Ventiladores', 'Otros...'],
 patio: ['Asientos', 'MaquinaExpendedora', 'Escaleras', 'Mesas', 'Suelo', 'Otros..']
 };
 

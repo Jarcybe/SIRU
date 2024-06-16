@@ -189,7 +189,18 @@ onchange="ActualizarItems(); ActualizarTitulo();" required>
 <option value = "" disabled selected> Lugar </option>
 <option value = "informatica1"> Sala de informatica1 </option>
 <option value = "bañosH1"> Baños de hombres primer piso </option>
+<option value = "bañosM1"> Baños de mujeres primer piso </option>
 <option value = "informatica2"> Sala de informatica2 </option>
+<option value = "salon1"> Salon 1 </option>
+<option value = "biblioteca"> Biblioteca </option>
+<option value = "salon2"> Salon 2 </option>
+<option value = "informatica3"> Sala de informatica3 </option>
+<option value = "salon3"> Salon 3 </option>
+<option value = "bañosH2"> Baños de hombres segundo piso </option>
+<option value = "bañosM2"> Baños de mujeres segundo piso </option>
+<option value = "salon4"> Salon 4 </option>
+<option value = "salon5"> Salon 5 </option>
+<option value = "salon6"> Salon 6 </option>
 <option value = "patio"> Patio </option>
 ></select>
 
@@ -254,12 +265,12 @@ required
     placeholder="Descripcion" 
     name="Descripcion" 
     style = "width:100%;height: 150px;"
-   maxlength="250"
+   maxlength="400"
    required
     ></textarea>
 </div>
 
-<div class="w3-col s6"
+<div class="w3-center w3-col s6"
 style="padding-left: 20px">
 
 <label for="imagen"
@@ -273,12 +284,16 @@ class="w3-button w3-white w3-border w3-margin-bottom">
     style="display:none;"
     name="imagen"
     accept="image/*">
+</div>
+
+<div class="w3-center w3-col s6"
+style="padding-left: 20px">
 
     <button
      class="w3-button w3-xlarge w3-white w3-border w3-margin-bottom"
      type="submit"
      onclick="GuardarFormulario(event)">
-     Mandar »
+     Enviar »
 </button>
 
 </div>
