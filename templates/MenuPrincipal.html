@@ -24,6 +24,8 @@
     <script src="../static/js/BuscarReportes.js"></script>
     <script src="../static/js/EliminarRegistro.js"></script>
     <script src="../static/js/Restablecer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
 </head>
 
@@ -35,23 +37,28 @@ id="miSitio">
 
 <a href="javascript:void(0)" 
 onclick="w3_close()"
+title="Cerrar el menu desplebable"
 class="w3-bar-item w3-button w3-border-bottom w3-hover-red with w3-hover-opacity"> 
 Cerrar el menu </a>
 
 <a onclick="document.getElementById('forma').style.display='block'" 
+title="Crear reporte"
 class="w3-bar-item w3-button w3-border-bottom w3-hover-red with w3-hover-opacity">
 Crear Reporte</a>
 
-<a onclick="document.getElementById('buscar').style.display='block'" 
+<a onclick="document.getElementById('buscar').style.display='block'"
+title="Buscar registros" 
 class="w3-bar-item w3-button w3-border-bottom w3-hover-red with w3-hover-opacity">
 Buscar</a>
 
-<a href="javascript:void(0)"           
+<a href="javascript:void(0)"
+title="Guia de la aplicacion"           
 onclick="w3_close()" 
 class="w3-bar-item w3-button w3-border-bottom w3-hover-red with w3-hover-opacity">
 Guia</a>
 
 <a onclick="CerrarSesion()" 
+title="Cerrar sesion"
 class="w3-bar-item
 w3-button w3-border-bottom w3-hover-red with w3-hover-opacity">
 Cerrar sesion</a>
@@ -66,79 +73,11 @@ Cerrar sesion</a>
   onload="MostrarNombre()">
 
   <button class="w3-button w3-section w3-right"
+  title="Menu desplebable"
   onclick="w3_open()">☰</button>
 
- <h2>Bienvenidos al sistema SIRU </h2>
+ <h1><b>Bienvenidos al sistema SIRU </b></h1>
 </header>
-
-<!--login-->
-<div class="w3-container">
-
-    <div id="login" class="w3-modal">
-
- <div class = "w3-modal-content w3-card-4 w3-animate-zoom"
- style="max-width: 600px;">
-
-  <div class="w3-center"><br>
-        <span
-        onclick= "document.getElementById('login').style.display='none'"
-        class  = "w3-button w3-xlarge w3-hover-red w3-display-topright"
-        title  = "Cerrar pestaña"> &times; 
-        </span>
-        </div>
-
-        <form 
-        class="w3-container" 
-        action="/action_page.php">
-
-<div class="w3-section">
-    <label> <b> Codigo </b></label>
-    <input 
-class="w3-input w3-border w3-margin-bottom"
-type="text" 
-placeholder="Ingresar Codigo" 
-name="Codigo" 
-required
-    >
-
-    <label> <b> Contraseña </b> </label>
-    <input
-    class= "w3-input w3-border" 
-    type = "password"
-    placeholder="Ingresar contraseña"
-    name = "contraseña"
-    required
-    >
-
-    <button 
-    class="w3-button w3-block w3-green w3-section w3-padding"
-    type="submit"
-    > Registrarme </button>
-
-    <input
-    class="w3-check w3-margin-top" 
-    type="checkbox"
-    checked = "checked"
-    > Recuerdame </div>
-    </form>
-  
-<div 
-class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-<button
-onclick="document.getElementById('login').style.display='none'"
-type = "button"
-class="w3-button w3-red">
-Cancelar
-</button>
-
-<span
-class = "w3-right w3-padding w3-hide-small"
-> Olvidaste tu
-<a href = "#"> Contraseña? </a></span>
-</div>
-</div>
-</div>
-</div>
 
 <!--relleno de la pagina-->
 <div class=" w3-row-padding w3-center"
@@ -182,6 +121,7 @@ onsubmit="return false">
 
 <select id="Lugar"
 class="w3-select w3-border w3-margin-bottom "
+title="Opcion salon"
 name="Opcion salon"
 style = "width:100% ;margin-top:20px" 
 onchange="ActualizarItems(); ActualizarTitulo();" required>
@@ -208,6 +148,7 @@ onchange="ActualizarItems(); ActualizarTitulo();" required>
 class="w3-select w3-border w3-margin-bottom"
 name="items"
 style = "width:100%;margin-top:20px" 
+title="Item"
 onchange = "ActualizarTitulo();" disabled
 required>
 
@@ -219,27 +160,33 @@ required>
 <h5> Estado </h5>
 <p>
 <input class="w3-radio"
+title="Opcion de sugerencia"
 type  = "radio"
 name  = "Estado" 
 value = "baja" 
 checked> 
-<label> Sugerencia </label>
+<label for="sugerencia">
+     Sugerencia </label>
 </p>
 
 <p>
     <input class="w3-radio"
+    title="Opcion de pedido"
     type  = "radio"
     name  = "Estado" 
     value = "media" > 
-    <label> Pedido </label>
+    <label for="pedido"> 
+        Pedido </label>
     </p>
 
     <p>
         <input class="w3-radio"
+        title="Opcion de arreglo"
         type  = "radio"
         name  = "Estado" 
         value = "Alta" > 
-        <label> Arreglo </label>
+        <label for="arreglo"> 
+            Arreglo </label>
         </p>
 </div>
 
@@ -248,6 +195,7 @@ checked>
 id="Titulo"
 class="w3-input w3-border w3-margin-bottom"
 type="text" 
+title="Titulo"
 placeholder="Titulo" 
 name="Titulo" 
 style = "width:50%" 
@@ -274,7 +222,8 @@ required
 style="padding-left: 20px">
 
 <label for="imagen"
-class="w3-button w3-white w3-border w3-margin-bottom">   
+class="w3-button w3-white w3-border w3-margin-bottom"
+title="Boton para subir imagen">   
     Subir imagen
         </label>
 
@@ -292,6 +241,7 @@ style="padding-left: 20px">
     <button
      class="w3-button w3-xlarge w3-white w3-border w3-margin-bottom"
      type="submit"
+     title="Boton para enviar el formulario"
      onclick="GuardarFormulario(event)">
      Enviar »
 </button>
@@ -333,7 +283,8 @@ title   = "Cerrar pestaña"> &times; </span>
             <div class="w3-row-padding">
                 <div class="w3-half">
                     <b>Buscar por zona</b>
-                    <input id="buscarLugar" 
+                    <input id="buscarLugar"
+                    title="Buscar por lugar" 
                     class="w3-input w3-border" 
                     type="text" 
                     placeholder="Lugar a buscar">
@@ -342,6 +293,7 @@ title   = "Cerrar pestaña"> &times; </span>
                 <div class="w3-half">
                     <b>Buscar por item</b>
                     <input id="buscarItem" 
+                    title="Buscar por items"
                     class="w3-input w3-border" 
                     type="text" 
                     placeholder="Item a buscar">
@@ -354,7 +306,8 @@ title   = "Cerrar pestaña"> &times; </span>
                 <div class="w3-half w3-padding-small">
                     <b>Ordenar por antiguo o reciente</b>
                     <select id="ordenarRecienteAntiguo" 
-                    class="w3-select w3-border">
+                    class="w3-select w3-border"
+                    title="Mas reciente o mas antiguo">
                         <option value="" selected> ---  </option>
                         <option value="Antiguo">Más antiguo</option>
                         <option value="Reciente">Mas reciente</option>
@@ -364,7 +317,8 @@ title   = "Cerrar pestaña"> &times; </span>
                 <div class="w3-half w3-padding-small">
                     <b>Estado del formulario</b>
                     <select id="Estado" 
-                    class="w3-select w3-border">
+                    class="w3-select w3-border"
+                    title="Estado del formulario">
                         <option value="" selected> --- </option>
                         <option value="baja">Sugerencia</option>
                         <option value="media">Pedido</option>
@@ -377,7 +331,8 @@ title   = "Cerrar pestaña"> &times; </span>
                     <div class="w3-half w3-padding-small">
                     <b>Desarrollo del formulario</b>
                     <select id="Desarrollo" 
-                    class="w3-select w3-border">
+                    class="w3-select w3-border"
+                    title="Desarrollo del formulario">
                         <option value="" selected> --- </option>
                         <option value="No verificado">No verificado</option>
                         <option value="En proceso">En proceso</option>
@@ -388,6 +343,7 @@ title   = "Cerrar pestaña"> &times; </span>
                 <div class="w3-half w3-padding-small">
                     <b>Editado en la apartado de comentarios y encargado</b>
                     <select id="Reciente" 
+                    title="Mas reciente en desarrollo"
                     class="w3-select w3-border">
                         <option value="" selected> --- </option>
                         <option value="Ninguna">Si no tiene ninguna</option>
@@ -398,11 +354,13 @@ title   = "Cerrar pestaña"> &times; </span>
                 </div>
             </div>
 
-            <button class="w3-button w3-red w3-margin-top w3-block" 
+            <button class="w3-button w3-red w3-margin-top w3-block"
+            title="Buscar" 
             type="submit">Buscar</button>
 
             <button class="w3-button w3-gray w3-margin-top w3-small w3-right"
             type="button"
+            title="Restablecer"
             onclick="RestablecerBuscar()">
             Restablecer</button>
         </form>

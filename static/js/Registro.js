@@ -9,7 +9,7 @@ function Registro(event) {
     // Verificación de contraseñas
     if (!validarContraseña(contraseña, confirmar)) {
         Swal.fire({
-          icon: "error",
+          icon: "warning",
           title: "Las contraseñas no coinciden.",
         });
         return;
@@ -37,16 +37,23 @@ function Registro(event) {
         return response.json();
     })
     .then(data => {
+        console.log('Redirigiendo a /menu_admin.html'); 
+        Swal.fire({
+            title: data.mensaje,
+            text:'Ahora puedes iniciar sesion',
+            icon: 'success',
+            confirmButtonText: 'Continuar'
+        }).then(() => {
+            window.location.reload();
+        });
         
-        alert(data.mensaje);
-        window.location.reload();
     })
     .catch(error => {
         // Manejar cualquier otro tipo de error que pueda ocurrir
         console.error('Error al enviar los datos al backend:', error);
         Swal.fire({
             icon: "error",
-            title: "No se pudo completar el registro",
+            title: "No se pudo completar el registro por codigo erroneo",
           });
     });
 }

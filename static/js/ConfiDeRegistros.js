@@ -1,12 +1,5 @@
-function VisualRegistro(index) {
-    const LogUsuario = JSON.parse(localStorage.getItem('LogUsuario'));
-
-    if (!LogUsuario) {
-        alert("Debe iniciar sesión para visualizar este registro.");
-        return;
-    }
-
-    fetch(`/obtener_registros/${LogUsuario.codigo}`)
+function ConfiDeRegistro(id) {
+    fetch(`/obtener_registro/${id}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -14,42 +7,77 @@ function VisualRegistro(index) {
             return response.json();
         })
         .then(data => {
-            if (data.length > index) {
-                const recuerdo = data[index];
-                const modal = document.getElementById("Modal");
-                const contenido = modal.querySelector(".w3-modal-content");
+            const recordar = data.registro;
+            const modal = document.getElementById("Modal");
+            const contenido = modal.querySelector(".w3-modal-content");
 
-                // Construir el contenido del modal
-                contenido.innerHTML = `
-                    <div class="w3-container">
-                        <header class="w3-container">
-                            <h2 style="text-align: center;">${recuerdo.titulo}</h2>
-                            <span class="w3-button w3-xlarge w3-hover-red w3-display-topright"
-                                  onclick="Cerrar()" title="Cerrar">&times;</span>
-                        </header>
-                        <div class="w3-row">
-                            <div class="w3-col m6">
-                                <p><b>Estado:</b> ${recuerdo.desarrollo}</p>
-                                <p>${recuerdo.descripcion}</p>
-                                <button class="w3-button w3-small w3-red" onclick="Dropdown('detalles')">Detalles</button>
-                                <div id="detalles" class="w3-container" style="display: none;">
-                                    <h3>Comentarios</h3>
-                                    <textarea class="w3-input w3-border" type="text" style="height: 100px;" readonly>${recuerdo.comentario || ''}</textarea>
-                                    <h3>Encargado</h3>
-                                    <input class="w3-input w3-border" type="text" placeholder="Nombre encargado" value="${recuerdo.encargado || ''}" readonly/>
-                                    <button class="w3-button w3-small w3-red w3-right w3-margin-top" onclick="eliminarRegistro(${recuerdo.id})">Eliminar registro</button>
-                                </div>
-                            </div>
-                            <div class="w3-col m6" style="position: relative;">
-                                <img src="${recuerdo.imagen}" class="w3-image" style="max-width: 100%; max-height: 100%;">
-                            </div>
+            const imagenHTML = recordar.imagen ? `<img src="${recordar.imagen}" class="w3-image">` : '<div class="w3-border w3-light-grey" style="height: 150px;"></div>';
+
+            contenido.innerHTML = `
+                <header class="w3-container w3-red w3-center">
+                    <span onclick="Cerrar()"
+                     class="w3-button w3-xlarge w3-hover-grey w3-display-topright" title="Cerrar pestaña">&times;</span>
+                    <h2>${recordar.titulo}</h2>
+                </header>
+                <div class="w3-container" style="padding: 20px;">
+                    <div class="w3-row">
+                        <div class="w3-col s6">
+                            <p><b> Fecha: </b> ${recordar.fecha}</p>
+                            <p><b> Estado: </b> ${recordar.estado}</p>
+                            <p><b> Usuario: </b> ${recordar.codigo} (${recordar.nombre_usuario || "Desconocido"})</p>
+                            <p>${recordar.descripcion}</p>
+                        </div>
+                        <div class="w3-col m6" 
+                        style="position: relative; display: flex; justify-content: center; align-items: center; height: 100%;">
+                            <div style="height:150px; width: 200px; top: 20px;">
+                            ${imagenHTML}</div>
                         </div>
                     </div>
-                `;
+                    <div class="w3-row" style="margin-top: 20px">
+                        <div class="w3-col s6 w3-center">
+                            <h5> Encargado </h5>
+                            <input class="w3-input w3-border" 
+                            type="text"
+                            id="Encargado" 
+                            placeholder="Nombre del encargado" 
+                            maxlength="500" value="${recordar.encargado || ''}">
+                            
+                            <h5> Comentarios </h5>
+                            <textarea class="w3-input w3-border" id="Comentario" style="height: 100px;">${recordar.comentario || ''}</textarea>
+                            <p> </p>
+                        </div>
+                        <div class="w3-col s6 w3-center w3-section">
+                            <h3> Desarrollo </h3>
+                            <input class="w3-radio" 
+                            type="radio" 
+                            name="desarrollo"
+                             value="No verificado" 
+                             id="noVerificado"
+                             title="Desarrollo" 
+                             ${recordar.desarrollo === "No verificado" ? "checked" : ""}>
+                            
+                             <label>No verificado </label><br>
+                            <input class="w3-radio" 
+                            type="radio" 
+                            title = "En proceso"
+                            name="desarrollo" 
+                            value="En proceso" 
+                            id="EnProceso" ${recordar.desarrollo === "En proceso" ? "checked" : ""}>
+                            
+                            <label> En proceso</label><br>
+                            <input class="w3-radio" type="radio" name="desarrollo" value="Terminado" id="Terminado" ${recordar.desarrollo === "Terminado" ? "checked" : ""}>
+                            <label>Terminado</label>
+                        </div>
+                    </div>
+                    <button class="w3-button w3-block w3-red" 
+                    type="submit"
+                    title="Guardar Datos"
+                     onclick="ActualizarReporte(${recordar.id})"> 
+                     Guardar datos </button>
+                </div>
+            `;
 
-                // Mostrar el modal
-                modal.style.display = "block";
-            }
+            modal.style.display = "block";
         })
         .catch(error => console.error('Error al obtener registro desde el backend:', error));
 }

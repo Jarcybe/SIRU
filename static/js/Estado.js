@@ -26,9 +26,11 @@ function Estado() {
 
                     carta.innerHTML = `
                         <div class="w3-container">
-                            <h3>${recuerdo.titulo}</h3>
+                            <h3><b>${recuerdo.titulo}</b></h3>
                             ${imagenHTML}
-                            <button class="w3-small w3-button w3-block w3-red" onclick="VisualRegistro(${index})">Ver detalles</button>
+                            <button class="w3-small w3-button w3-block w3-red"
+                            title ="Ver detalles"
+                             onclick="VisualRegistro(${index})">Ver detalles</button>
                         </div>
                     `;
                     contenedores.appendChild(carta);

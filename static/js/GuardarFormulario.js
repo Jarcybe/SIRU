@@ -24,7 +24,11 @@ function GuardarFormulario(event) {
 
     // Validar que al menos uno de los campos (lugar, item, titulo, descripcion) esté lleno
     if (!lugar || !item || !descripcion) {
-        alert("Los campos Lugar, Item y Descripción son obligatorios.");
+        Swal.fire({
+            icon: 'warning',
+            title: 'Error en los datos',
+            text: 'Los campos Lugar, Item y Descripción son obligatorios.'
+          });
         return;
     }
 
@@ -44,12 +48,20 @@ function GuardarFormulario(event) {
             if (data.success) {
                 enviarFormulario(cod, fecha, lugar, item, estadoValue, titulo, descripcion, data.filepath);
             } else {
-                alert("Error al subir la imagen: " + data.error);
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Error en los datos',
+                    text: "Error al subir la imagen: " + data.error
+                  });
             }
         })
         .catch(error => {
             console.error('Error al subir la imagen:', error);
-            alert("Error al subir la imagen");
+            Swal.fire({
+                icon: 'warning',
+                title: 'Error en los datos',
+                text: "Error al subir la imagen"
+              });
         });
     } else {
         enviarFormulario(cod, fecha, lugar, item, estadoValue, titulo, descripcion, null);
@@ -82,15 +94,28 @@ function enviarFormulario(cod, fecha, lugar, item, estado, titulo, descripcion, 
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert(data.message);
-            window.location.href = "/menu_principal";
+            Swal.fire({
+                title: data.message,
+                icon: 'success',
+                confirmButtonText: 'Continuar'
+            }).then(() => {
+                window.location.href = "/menu_principal";
+            });
         } else {
-            alert("Error al guardar el formulario: " + data.error);
+            Swal.fire({
+                    icon: 'warning',
+                    title: 'Error en los datos',
+                    text: "Error al guardar el formulario " + data.error
+                  });
         }
     })
     .catch(error => {
         console.error('Error al enviar los datos al servidor:', error);
-        alert("Error al enviar los datos al servidor");
+        Swal.fire({
+            icon: 'error',
+            title: 'Error en los datos',
+            text: "Error al enviar los datos al servidor"
+          });
     });
 }
 

@@ -1,8 +1,11 @@
 function CerrarSesion(){
 
     localStorage.removeItem("LogUsuario");
-    alert("sesion cerrada");
-    window.location.href = "/";
-
-
+      Swal.fire({
+                title: "Sesion cerrada",
+                text: "Vuelva pronto",
+                icon: 'success'
+            }).then(() => {
+                window.location.href = "/";
+            });
 }
