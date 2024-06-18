@@ -24,11 +24,11 @@ function CargarUsuarios(filtro) {
                     tabla.innerHTML += `
                         <div class="w3-row w3-padding-16 w3-white w3-border">
                             <div class="w3-col m2 w3-padding-small">
-                                <b>Codigo: </b> ${usuario.codigo}
+                                <b>Código: </b> ${usuario.codigo}
                             </div>
                             
                             <div class="w3-col m2 w3-padding-small">
-                                <b> Estado: </b>
+                                <b>Estado: </b>
                                 <select class="w3-select" id="estado-${uniqueId}" disabled>
                                     <option value="Admin" ${usuario.tipo === 'Admin' ? 'selected' : ''}>Admin</option>  
                                     <option value="Usuario" ${usuario.tipo === 'Usuario' ? 'selected' : ''}>Usuario</option>
@@ -65,11 +65,11 @@ function CargarUsuarios(filtro) {
                     tabla.innerHTML += `
                         <div class="w3-row w3-padding-16 w3-white w3-border">
                             <div class="w3-col m2 w3-padding-small">
-                                <b>Codigo: </b> ${usuario.codigo}
+                                <b>Código: </b> ${usuario.codigo}
                             </div>
                             
                             <div class="w3-col m2 w3-padding-small">
-                                <b> Estado: </b>
+                                <b>Estado: </b>
                                 <select class="w3-select" id="estado-${uniqueId}" disabled>
                                     <option value="Admin" ${usuario.tipo === 'Admin' ? 'selected' : ''}>Admin</option>  
                                     <option value="Usuario" ${usuario.tipo === 'Usuario' ? 'selected' : ''}>Usuario</option>
@@ -96,4 +96,55 @@ function CargarUsuarios(filtro) {
             })
             .catch(error => console.error('Error al cargar usuarios desde la base de datos:', error));
     }
+}
+
+// Función para guardar cambios de usuarios
+function GuardarCambios() {
+    const usuariosActualizados = [];
+
+    // Recorrer todos los elementos de la tabla
+    const elementosUsuario = document.querySelectorAll('[id^="user-"]');
+    elementosUsuario.forEach(elemento => {
+        const uniqueId = elemento.id.split('-')[1];
+
+        // Obtener los valores actualizados del usuario
+        const codigo = document.getElementById(`codigo-${uniqueId}`).innerText;
+        const estado = document.getElementById(`estado-${uniqueId}`).value;
+        const nombre = document.getElementById(`nombre-${uniqueId}`).value;
+        const contraseña = document.getElementById(`contraseña-${uniqueId}`).value;
+
+        // Crear objeto con los datos del usuario actualizado
+        const usuarioActualizado = {
+            codigo: codigo,
+            estado: estado,
+            nombre: nombre,
+            contraseña: contraseña
+        };
+
+        // Agregar usuario actualizado al array
+        usuariosActualizados.push(usuarioActualizado);
+    });
+
+    // Enviar datos al backend para guardarlos
+    fetch('/guardar_cambios_usuarios', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ usuarios: usuariosActualizados })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Error en la solicitud: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        alert('Cambios guardados correctamente');
+        // Aquí puedes añadir más lógica si deseas actualizar la interfaz o realizar alguna acción adicional después de guardar
+    })
+    .catch(error => {
+        console.error('Error al guardar cambios:', error);
+        alert('Error al guardar cambios. Por favor, intenta de nuevo.');
+    });
 }

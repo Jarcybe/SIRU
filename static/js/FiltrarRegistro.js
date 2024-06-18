@@ -4,17 +4,17 @@ function FiltrarRegistro(event) {
     const contenedor = document.getElementById("Muchos");
     contenedor.innerHTML = ""; // Limpiar contenedor antes de agregar nuevos elementos
 
-    const codigo = document.getElementById("CodigoNombre").value.toLowerCase();
-    const lugar = document.getElementById("buscarLugar").value.toLowerCase();
-    const item = document.getElementById("buscarItem").value.toLowerCase();
-    const estado = document.getElementById("Estado").value;
-    const ordenar = document.getElementById("ordenarRecienteAntiguo").value;
-    const desarrollo = document.getElementById("Desarrollo").value;
-    const titulos = document.querySelector('input[name="titulos"]:checked').value === 'activado';
-    const resueltos = document.querySelector('input[name="resueltos"]:checked').value === 'activado';
+    let codigo = document.getElementById("CodigoNombre").value.toLowerCase();
+    let lugar = document.getElementById("buscarLugar").value.toLowerCase();
+    let item = document.getElementById("buscarItem").value.toLowerCase();
+    let estado = document.getElementById("Estado").value.toLowerCase();
+    let ordenar = document.getElementById("ordenarRecienteAntiguo").value;
+    let desarrollo = document.getElementById("Desarrollo").value.toLowerCase();
+    let titulos = document.querySelector('input[name="titulos"]:checked') ? document.querySelector('input[name="titulos"]:checked').value === 'activado' : false;
+    let resueltos = document.querySelector('input[name="resueltos"]:checked') ? document.querySelector('input[name="resueltos"]:checked').value === 'activado' : false;
 
     // Construir la URL base para la solicitud al backend
-    let url = `/api/registros?codigo=${codigo}&lugar=${lugar}&item=${item}&estado=${estado}&orden=${ordenar}&desarrollo=${desarrollo}&titulos=${titulos}&resueltos=${resueltos}`;
+    let url = `/obtener_registros?codigo=${codigo}&lugar=${lugar}&item=${item}&estado=${estado}&orden=${ordenar}&desarrollo=${desarrollo}&titulos=${titulos}&resueltos=${resueltos}`;
 
     // Realizar la solicitud al backend
     fetch(url)
@@ -26,44 +26,51 @@ function FiltrarRegistro(event) {
         })
         .then(data => {
             // Filtrar registros en base a los criterios recibidos
-            let filtrados = data.registros;
+            let filtrados = data.registros || [];
 
-            if (codigo) {
+            // Filtrar por código
+            if (codigo && codigo.trim() !== "") {
                 filtrados = filtrados.filter(record =>
-                    record.codigo.toLowerCase().includes(codigo)
+                    record.codigo.toLowerCase().includes(codigo.toLowerCase())
                 );
             }
 
-            if (lugar) {
+            // Filtrar por lugar
+            if (lugar && lugar.trim() !== "") {
                 filtrados = filtrados.filter(record =>
-                    record.lugar.toLowerCase().includes(lugar)
+                    record.lugar.toLowerCase().includes(lugar.toLowerCase())
                 );
             }
 
-            if (item) {
+            // Filtrar por item
+            if (item && item.trim() !== "") {
                 filtrados = filtrados.filter(record =>
-                    record.item.toLowerCase().includes(item)
+                    record.item.toLowerCase().includes(item.toLowerCase())
                 );
             }
 
-            if (estado) {
+            // Filtrar por estado
+            if (estado && estado.trim() !== "") {
                 filtrados = filtrados.filter(record =>
                     record.estado.toLowerCase() === estado.toLowerCase()
                 );
             }
 
-            if (desarrollo) {
+            // Filtrar por desarrollo
+            if (desarrollo && desarrollo.trim() !== "") {
                 filtrados = filtrados.filter(record =>
                     record.desarrollo.toLowerCase() === desarrollo.toLowerCase()
                 );
             }
 
+            // Ordenar por fecha
             if (ordenar === "Reciente") {
                 filtrados.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
             } else if (ordenar === "Antiguo") {
                 filtrados.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
             }
 
+            // Filtrar por títulos
             if (titulos) {
                 const grupos = {};
                 filtrados.forEach(record => {
@@ -74,6 +81,7 @@ function FiltrarRegistro(event) {
                 filtrados = Object.values(grupos);
             }
 
+            // Filtrar por resueltos
             if (resueltos) {
                 filtrados = filtrados.filter(record =>
                     !(record.desarrollo === 'Terminado' && record.comentario && record.encargado)
@@ -91,10 +99,10 @@ function FiltrarRegistro(event) {
                             <h2>${record.titulo}</h2>
                         </header>
                         <p><b>Fecha: </b>${record.fecha}</p>
-                        <p><b>Usuario: </b>${record.codigo} (${record.nombre})</p>
+                        <p><b>Usuario: </b>${record.codigo} (${record.nombre_usuario})</p>
                         <p>${record.descripcion}</p>
                         <footer class="w3-container w3-grey">
-                            <button class="w3-button w3-block" onclick="ConfiDeRegistro(${index})">SABER MAS >></button>
+                            <button class="w3-button w3-block" onclick="ConfiDeRegistro(${record.id})">SABER MAS >></button>
                         </footer>
                     `;
 

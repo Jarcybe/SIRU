@@ -4,18 +4,25 @@ import mysql.connector
 buscar_reportes_bp = Blueprint('buscar_reportes_bp', __name__)
 
 # Configurar la conexión a la base de datos MySQL
-conexion = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="",
-    database="siru"
-)
+def conectar_bd():
+    try:
+        conexion = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="",  # Aquí deberías tener la contraseña de tu base de datos
+            database="siru"
+        )
+        return conexion
+    except mysql.connector.Error as error:
+        print("Error al conectar a la base de datos:", error)
+        return None
 
 # Manejar las solicitudes GET en la ruta "/buscar_reportes"
 @buscar_reportes_bp.route('/buscar_reportes', methods=['GET'])
 def buscar_reportes():
     try:
         # Obtener los parámetros de búsqueda del cuerpo de la solicitud
+        codigo_usuario = request.args.get('codigo_usuario')
         lugar = request.args.get('lugar', '').lower()
         item = request.args.get('item', '').lower()
         estado = request.args.get('estado', '')
@@ -23,9 +30,23 @@ def buscar_reportes():
         reciente = request.args.get('reciente', '')
         orden = request.args.get('orden', '')
 
+        # Validar que el código de usuario esté presente
+        if not codigo_usuario:
+            return jsonify({'success': False, 'error': 'Código de usuario requerido'}), 400
+
+        conexion = conectar_bd()
+        if conexion is None:
+            return jsonify({"error": "No se pudo conectar a la base de datos"}), 500
+
+        cursor = conexion.cursor(dictionary=True)
+
         # Construir la consulta SQL basada en los parámetros de búsqueda
-        consulta = "SELECT * FROM FormularioRegistro WHERE 1=1"
-        parametros = []
+        consulta = """
+            SELECT *
+            FROM FormularioRegistro
+            WHERE codigo = %s
+        """
+        parametros = [codigo_usuario]
 
         if lugar:
             consulta += " AND LOWER(lugar) LIKE %s"
@@ -55,11 +76,15 @@ def buscar_reportes():
             consulta += " ORDER BY fecha ASC"
 
         # Ejecutar la consulta SQL en la base de datos
-        cursor = conexion.cursor(dictionary=True)
-        cursor.execute(consulta, parametros)
+        cursor.execute(consulta, tuple(parametros))
         registros = cursor.fetchall()
         cursor.close()
+        conexion.close()
 
         return jsonify({'success': True, 'registros': registros})
+
+    except mysql.connector.Error as error:
+        return jsonify({'success': False, 'error': str(error)}), 500
+
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
