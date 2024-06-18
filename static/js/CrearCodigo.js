@@ -23,10 +23,20 @@ function CrearCodigo(event) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert("Código creado!!");
+            Swal.fire({
+                title: '¡Exito!',
+                text: "Código creado",
+                icon: 'success',
+                confirmButtonText: 'Intentar de nuevo'
+            });
             document.getElementById('Crear').style.display = 'none'; // Ocultar el botón de creación
         } else {
-            alert(data.message); // Mostrar mensaje de error del servidor
+            Swal.fire({
+                title: 'Error',
+                text: data.message,
+                icon: 'error',
+                confirmButtonText: 'Intentar de nuevo'
+            });
         }
     })
     .catch(error => {

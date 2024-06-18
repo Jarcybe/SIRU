@@ -24,9 +24,9 @@
     <script src="../static/js/BuscarReportes.js"></script>
     <script src="../static/js/EliminarRegistro.js"></script>
     <script src="../static/js/Restablecer.js"></script>
+    <script src="../static/js/GuiaUsuario.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
+  
 </head>
 
 <body>
@@ -53,7 +53,7 @@ Buscar</a>
 
 <a href="javascript:void(0)"
 title="Guia de la aplicacion"           
-onclick="w3_close()" 
+onclick="GuiaUsuario()" 
 class="w3-bar-item w3-button w3-border-bottom w3-hover-red with w3-hover-opacity">
 Guia</a>
 
@@ -175,7 +175,7 @@ checked>
     type  = "radio"
     name  = "Estado" 
     value = "media" > 
-    <label for="pedido"> 
+    <label> 
         Pedido </label>
     </p>
 
@@ -186,6 +186,7 @@ checked>
         name  = "Estado" 
         value = "Alta" > 
         <label for="arreglo"> 
+
             Arreglo </label>
         </p>
 </div>
@@ -367,6 +368,54 @@ title   = "Cerrar pestaña"> &times; </span>
     </div>
 </div>
 </div>
+
+
+<!--Guia-->
+<div id="pdf"
+class="w3-modal"
+style="display: none;">
+
+<div class="w3-modal-content w3-card-4 w3-animate-zoom"
+style="max-width:80%;">
+
+<header class="w3-container w3-red w3-center">
+<span onclick="document.getElementById('pdf').style.display='none'"
+class="w3-button w3-xlarge w3-hover-red w3-display-topright"
+title="Cerrar pestaña">
+&times;
+</span>
+<h2>Guia de la aplicacion</h2>
+</header>
+
+<div class="w3-container w3-center">
+
+    <div class="w3-content w3-display-container"
+style="max-width: 800px;">
+
+<img class="mySlides" 
+src="../static/images/GuiaUsu1.png" 
+style="width:100%">
+
+<img class="mySlides" 
+src="../static/images/GuiaUsu2.png" 
+style="width:100%">
+
+<img class="mySlides" 
+src="../static/images/GuiaUsu3.png" 
+style="width:100%">
+
+<button class="w3-button w3-display-left w3-red" onclick="plusDivs(-1)">&#10094;</button>
+<button class="w3-button w3-display-right w3-red" onclick="plusDivs(1)">&#10095;</button>
+
+<button class="w3-button w3-display-left w3-red" 
+onclick="plusDivs(-1)">&#10094;</button>
+<button class="w3-button w3-display-right w3-red" 
+onclick="plusDivs(1)">&#10095;</button>
+
+</div> 
+</div>
+</div>
+</div>   
 
 </body>
 </html>
