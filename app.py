@@ -13,6 +13,7 @@ from Backend.subir_imagen import subir_imagen_bp
 from Backend.eliminar_registro import eliminar_registro_bp
 from Backend.obtener_registro import registros_bp
 from Backend.actualizar_reporte import actualizar_reporte_bp
+from Backend.actualizar_usuarios import usuarios_bp
 
 import os
 
@@ -46,6 +47,7 @@ app.register_blueprint(subir_imagen_bp)
 app.register_blueprint(eliminar_registro_bp)
 app.register_blueprint(registros_bp)
 app.register_blueprint(actualizar_reporte_bp)
+app.register_blueprint(usuarios_bp)
 
 
 
