@@ -1,8 +1,5 @@
 function eliminarRegistro(id) {
     
-
-    const logUsuario = JSON.parse(localStorage.getItem('LogUsuario'));
-
     const botones = Swal.mixin({
         customClass: {
           confirmButton: "btn btn-success",
@@ -10,11 +7,6 @@ function eliminarRegistro(id) {
         },
         buttonsStyling: false
       });
-
-    if (!logUsuario) {
-        alert("Debe iniciar sesión para realizar esta acción.");
-        return;
-    }
 
     botones.fire({
         title: "¿Estas seguro?",

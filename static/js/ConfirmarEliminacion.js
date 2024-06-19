@@ -1,21 +1,33 @@
-function ConfirmarEliminacion(index) {
-    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
-    const usu = usuarios[index];
-    const admins = usuarios.filter(us => us.tipo === 'Admin');
+function ConfirmarEliminacion(uniqueId) {
 
-    if (usu.tipo === 'Admin' && admins.length === 1) {
-        alert('No se puede eliminar el último administrador.');
-        return;
-    }
+    const botones = Swal.mixin({
+        customClass: {
+          confirmButton: "btn btn-success",
+          cancelButton: "btn btn-danger"
+        },
+        buttonsStyling: false
+      });
 
-    if (confirm(`¿Seguro que quieres eliminar al usuario con código ${usu.codigo}?`)) {
-        if (usu.codigo === JSON.parse(localStorage.getItem('LogUsuario')).codigo) {
-            if (confirm('Estás intentando eliminar el administrador que estás usando. ¿Deseas continuar?')) {
-                EliminarUsuario(index, true);
-                window.location.href = "MenuPrincipal.html"; // Redirigir a otra página después de eliminar el usuario
-            }
-        } else {
-            EliminarUsuario(index, false);
-        }
-    }
+    botones.fire({
+        title: "¿Estas seguro?",
+        text: "Si lo eliminas ya no podras revertirlo",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Si, Eliminar",
+        cancelButtonText: "No, Cancelar",
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+        EliminarUsuario(uniqueId);
+    }else if (
+        /* Read more about handling dismissals below */
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        botones.fire({
+          title: "Cancelado",
+          text: "La eliminacion a sido cancelada",
+          icon: "error"
+        });
+      }
+    });
 }

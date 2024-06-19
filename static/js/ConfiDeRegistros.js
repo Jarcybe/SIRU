@@ -65,7 +65,11 @@ function ConfiDeRegistro(id) {
                             id="EnProceso" ${recordar.desarrollo === "En proceso" ? "checked" : ""}>
                             
                             <label> En proceso</label><br>
-                            <input class="w3-radio" type="radio" name="desarrollo" value="Terminado" id="Terminado" ${recordar.desarrollo === "Terminado" ? "checked" : ""}>
+                            <input class="w3-radio" 
+                            type="radio"
+                             name="desarrollo" 
+                             value="Terminado" 
+                             id="Terminado" ${recordar.desarrollo === "Terminado" ? "checked" : ""}>
                             <label>Terminado</label>
                         </div>
                     </div>

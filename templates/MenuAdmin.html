@@ -31,7 +31,7 @@
 </head>
 
 <!--Encabezado-->
-<body class="w3-light-grey">
+<body style="background-color: #CFCFCF;">
     <header class="w3-container w3-center w3-padding-32" 
     style="background-color: #C20E1A;"> 
         <h1><b>SIRU - Reportes de Daños</b></h1>
@@ -55,7 +55,7 @@
                    <h4><b>Bienvenido -Admin-</b></h4>
                     <p>¿Que opcion quieres hacer?:</p>
                    
-                    <button class="w3-button w3-center w3-red w3-hover-grey w3-section w3-block"
+                    <button class="w3-button w3-center w3-red w3-hover-opacity w3-section w3-block"
                    onclick="Dropdown('opciones')">
                 Opciones</button>
                    
@@ -65,22 +65,22 @@
 
                    <button 
                     onclick="document.getElementById('Crear').style.display='block'"  
-                    class="w3-button w3-red w3-hover-grey w3-section w3-block">
+                    class="w3-button w3-red w3-hover-pink w3-section w3-block">
                     Crear Usuario</button>
 
                     <button 
                     onclick="document.getElementById('Filtrar').style.display='block'" 
-                    class="w3-button w3-center w3-red w3-hover-grey w3-section w3-block">
+                    class="w3-button w3-center w3-red w3-hover-pink w3-section w3-block">
                     Filtrar Registro</button>
                     
                     <button 
                     onclick="AbrirModal()"
-                    class="w3-button w3-red w3-hover-grey w3-section w3-block">
+                    class="w3-button w3-red w3-hover-pink w3-section w3-block">
                     Administrar usuarios</button>
 
                     <button 
                     onclick="CerrarSesion()" 
-                    class="w3-button w3-red w3-hover-pink w3-section w3-block">
+                    class="w3-button w3-red w3-hover-grey w3-section w3-block">
                     Cerrar sesion</button>
                 </div>
             </div>
@@ -144,10 +144,11 @@ type="submit">
 </div>
 </form>
 
-<div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+<div class="w3-container w3-border-top w3-padding-16"
+style="background-color: #CFCFCF;">
 <button onclick ="document.getElementById('Crear').style.display='none'"
 type="button"
-class="w3-button w3-red"> 
+class="w3-button w3-red w3-hover-pink"> 
 Cancelar </button>   
 </div>
 </div>
@@ -164,39 +165,66 @@ style="display: none;">
 </div>
 </div>
 
-<!-- Administración -->
-<div class="w3-modal" id="administrar">
-    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:800px;">
-        <header class="w3-container w3-red">
-            <span onclick="document.getElementById('administrar').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-            <h2>Administración de usuarios</h2>
-        </header>
+<!--Administracion-->
+<div class="w3-modal"
+id="administrar">
 
-        <div class="w3-bar w3-light-grey">
-            <button class="w3-bar-item w3-button" onclick="CargarUsuarios('Usuario')">Usuarios</button>
-            <button class="w3-bar-item w3-button" onclick="CargarUsuarios('Admin')">Admin</button>
-            <button class="w3-bar-item w3-button" onclick="CargarUsuarios('todos')">Todos</button>
-        </div>
+document.addEventListener("DOMContentLoaded", CargarRegistros); // Cargar registros al cargar la página
+<div class="w3-modal-content w3-card-4 w3-animate-zoom"
+style="max-width:800px;">
 
-            <div id="Tabla" class="w3-container w3-padding-16">
-                <!-- Aquí se cargarán los usuarios -->
-            </div>
-        </div>
+<header class="w3-container"
+style="background-color: #C20E1A;">
+<span onclick="document.getElementById('administrar').style.display='none'"
+class="w3-button w3-display-toprigth">&times;</span>
+<h3><b>Administracion de usuarios</b></h3>
+</header>
 
-        <footer class="w3-container w3-light-grey">
-            <button class="w3-button w3-red w3-block w3-section" onclick="GuardarCambios()">Guardar</button>
-            <button class="w3-block w3-button w3-red" onclick="document.getElementById('administrar').style.display='none'">Cancelar</button>
-        </footer>
-    </div>
+<div class="w3-container">
+<div class="w3-bar w3-light-grey">
+
+<button class="w3-bar-item w3-button"
+onclick="CargarUsuarios('Usuario')">
+Usuarios
+</button>
+
+<button class="w3-bar-item w3-button"
+onclick="CargarUsuarios('Admin')">
+Admin
+</button>
+
+<button class="w3-bar-item w3-button"
+onclick="CargarUsuarios('todos')">
+Todos
+</button>
 </div>
 
+<div id="Tabla"
+class="w3-container w3-padding-16">
+</div>
+</div>
+
+<footer class="w3-container w3-light-grey">
+<button class="w3-button w3-red w3-block w3-section"
+
+onclick="GuardarCambios()">
+Guardar</button>
+
+<button class="w3-block w3-button w3-red"
+onclick="cancelar()">
+Cancelar</button>
+
+</footer>
+</div>
+</div>
 
 <!-- Filtro -->
 <div class="w3-container w3-center">
     <div class="w3-modal" id="Filtrar">
         <div class="w3-modal-content w3-card-4 w3-white">
-            <header class="w3-container w3-red w3-center">
-                <h2 class="w3-black-text">Filtrar reportes en específico</h2>
+            <header class="w3-container w3-center"
+            style="background-color: #C20E1A;">
+                <h3><b>Filtrar reportes en específico</b></h3>
                 <span onclick="document.getElementById('Filtrar').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Cerrar pestaña">&times;</span>
             </header>
 
@@ -222,7 +250,7 @@ style="display: none;">
                 </div>
 
                 <!-- Elementos varios -->
-                <h3 class="w3-center-all w3-black-text">Elementos varios</h3>
+                <h2 class="w3-center-all w3-black-text">Elementos varios</h2>
 
                 <div class="w3-row-padding w3-margin-bottom">
                     <div class="w3-third">
@@ -256,7 +284,7 @@ style="display: none;">
                 </div>
 
                 <!-- Opciones avanzadas -->
-                <h3 class="w3-center-all w3-black-text">Opciones avanzadas</h3>
+                <h2 class="w3-center-all w3-black-text">Opciones avanzadas</h2>
 
                 <div class="w3-section w3-center-all">
                     <div class="w3-container w3-border w3-margin-bottom w3-padding-small">

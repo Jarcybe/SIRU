@@ -28,10 +28,16 @@ function ActualizarReporte(index) {
         console.log('Registro actualizado correctamente:', data);
         const modal = document.getElementById("Modal");
         modal.style.display = "none";
-        alert("Registro actualizado correctamente.");
+        Swal.fire({
+            title: "Registro actualizado correctamente.",
+            icon: 'success'
+        });
     })
     .catch(error => {
         console.error('Error al actualizar registro:', error);
-        alert("Ocurrió un error al actualizar el registro.");
+        Swal.fire({
+            title: "Ocurrió un error al actualizar el registro.",
+            icon: 'error'
+        });
     });
 }

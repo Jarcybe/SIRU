@@ -19,11 +19,9 @@ function CargarRegistros() {
                     const carta = document.createElement("div");
                     carta.className = "w3-card w3-margin w3-white";
 
-                    const imagenHTML = record.imagen ? `<img src="${record.imagen}" class="w3-image">` : '<div class="w3-border w3-light-grey" style="height: 150px;"></div>';
-
                     carta.innerHTML = `
                         <header class="w3-container w3-center w3-red">
-                            <h2>${record.titulo}</h2>
+                            <h2><b>${record.titulo}</b></h2>
                         </header>
                         <p><b>Fecha: </b>${record.fecha}</p>
                         <p><b>Usuario: </b>${record.codigo} (${record.nombre_usuario || "Desconocido"})</p>

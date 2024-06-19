@@ -14,10 +14,7 @@ function GuardarFormulario(event) {
     const lugar = document.getElementById("Lugar").value.trim();
     const item = document.getElementById("Item").value.trim();
     const estado = document.querySelector('input[name="Estado"]:checked');
-    if (!estado) {
-        alert("Por favor, seleccione un estado.");
-        return;
-    }
+    
     const estadoValue = estado.value;
     const titulo = document.getElementById("Titulo").value.trim();
     const descripcion = document.getElementById("Descripcion").value.trim();
