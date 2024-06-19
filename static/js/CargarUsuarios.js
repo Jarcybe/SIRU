@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", CargarRegistros); // Cargar registros al cargar la página
+
 let filtrar = [];
 
 // Función para abrir el modal y cargar usuarios
@@ -6,25 +8,25 @@ function AbrirModal() {
     CargarUsuarios('todos');
 }
 
-// Función para cargar usuarios desde la base de datos o localStorage según filtro
 function CargarUsuarios(filtro) {
     filtrar = []; // Limpiar el array de índices filtrados
 
     const tabla = document.getElementById('Tabla');
     tabla.innerHTML = '';
 
-    if (filtro === 'todos') {
-        // Cargar todos los usuarios desde la base de datos
-        fetch('/obtener_usuarios/todos')
-            .then(response => response.json())
-            .then(data => {
+    let url = `/obtener_usuarios/${filtro}`;
+
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (Array.isArray(data)) {
                 data.forEach((usuario, index) => {
                     const uniqueId = `user-${index}`;
 
                     tabla.innerHTML += `
-                        <div class="w3-row w3-padding-16 w3-white w3-border">
+                        <div class="w3-row w3-padding-16 w3-white w3-border" id="${uniqueId}">
                             <div class="w3-col m2 w3-padding-small">
-                                <b>Código: </b> ${usuario.codigo}
+                                <b>Código: </b> <span id="codigo-${uniqueId}">${usuario.codigo}</span>
                             </div>
                             
                             <div class="w3-col m2 w3-padding-small">
@@ -37,66 +39,29 @@ function CargarUsuarios(filtro) {
 
                             <div class="w3-col m3 w3-padding-small">
                                 <b>Nombre:</b>
-                                <input class="w3-input" type="text" id="nombre-${uniqueId}" value="${usuario.nombre}" readonly></input>
+                                <input class="w3-input" type="text" id="nombre-${uniqueId}" value="${usuario.nombre}" readonly>
                             </div>
 
                             <div class="w3-col m3 w3-padding-small">
                                 <b>Contraseña:</b>
-                                <input class="w3-input" type="text" id="contraseña-${uniqueId}" value="${usuario.contraseña}" readonly></input>
+                                <input class="w3-input" type="text" id="contraseña-${uniqueId}" value="${usuario.contraseña}" readonly>
                             </div>
 
                             <div class="w3-col m2 w3-padding-small">
-                                <button class="w3-button w3-red w3-block w3-select" onclick="EditarUsuario('${uniqueId}')">Editar</button>
+                                <button class="w3-button w3-red w3-block" onclick="EditarUsuario('${uniqueId}')">Editar</button>
                                 <button class="w3-button w3-red w3-block" onclick="ConfirmarEliminacion('${uniqueId}')">Borrar</button>
                             </div>
                         </div>
                     `;
                 });
-            })
-            .catch(error => console.error('Error al cargar usuarios desde la base de datos:', error));
-    } else {
-        // Cargar usuarios filtrados desde la base de datos
-        fetch(`/obtener_usuarios/${filtro}`)
-            .then(response => response.json())
-            .then(data => {
-                data.forEach((usuario, index) => {
-                    const uniqueId = `user-${index}`;
-
-                    tabla.innerHTML += `
-                        <div class="w3-row w3-padding-16 w3-white w3-border">
-                            <div class="w3-col m2 w3-padding-small">
-                                <b>Código: </b> ${usuario.codigo}
-                            </div>
-                            
-                            <div class="w3-col m2 w3-padding-small">
-                                <b>Estado: </b>
-                                <select class="w3-select" id="estado-${uniqueId}" disabled>
-                                    <option value="Admin" ${usuario.tipo === 'Admin' ? 'selected' : ''}>Admin</option>  
-                                    <option value="Usuario" ${usuario.tipo === 'Usuario' ? 'selected' : ''}>Usuario</option>
-                                </select>
-                            </div>
-
-                            <div class="w3-col m3 w3-padding-small">
-                                <b>Nombre:</b>
-                                <input class="w3-input" type="text" id="nombre-${uniqueId}" value="${usuario.nombre}" readonly></input>
-                            </div>
-
-                            <div class="w3-col m3 w3-padding-small">
-                                <b>Contraseña:</b>
-                                <input class="w3-input" type="text" id="contraseña-${uniqueId}" value="${usuario.contraseña}" readonly></input>
-                            </div>
-
-                            <div class="w3-col m2 w3-padding-small">
-                                <button class="w3-button w3-red w3-block w3-select" onclick="EditarUsuario('${uniqueId}')">Editar</button>
-                                <button class="w3-button w3-red w3-block" onclick="ConfirmarEliminacion('${uniqueId}')">Borrar</button>
-                            </div>
-                        </div>
-                    `;
-                });
-            })
-            .catch(error => console.error('Error al cargar usuarios desde la base de datos:', error));
-    }
+            } else {
+                console.error('La respuesta del servidor no contiene usuarios o no es un array');
+            }
+        })
+        .catch(error => console.error('Error al cargar usuarios desde la base de datos:', error));
 }
+
+
 
 // Función para guardar cambios de usuarios
 function GuardarCambios() {
@@ -105,7 +70,7 @@ function GuardarCambios() {
     // Recorrer todos los elementos de la tabla
     const elementosUsuario = document.querySelectorAll('[id^="user-"]');
     elementosUsuario.forEach(elemento => {
-        const uniqueId = elemento.id.split('-')[1];
+        const uniqueId = elemento.id;
 
         // Obtener los valores actualizados del usuario
         const codigo = document.getElementById(`codigo-${uniqueId}`).innerText;
@@ -124,6 +89,8 @@ function GuardarCambios() {
         // Agregar usuario actualizado al array
         usuariosActualizados.push(usuarioActualizado);
     });
+
+    console.log('Usuarios que se enviarán:', usuariosActualizados);
 
     // Enviar datos al backend para guardarlos
     fetch('/guardar_cambios_usuarios', {
@@ -146,5 +113,44 @@ function GuardarCambios() {
     .catch(error => {
         console.error('Error al guardar cambios:', error);
         alert('Error al guardar cambios. Por favor, intenta de nuevo.');
+    });
+}
+
+// Función para editar un usuario (habilitar campos)
+function EditarUsuario(uniqueId) {
+    document.getElementById(`estado-${uniqueId}`).disabled = false;
+    document.getElementById(`nombre-${uniqueId}`).readOnly = false;
+    document.getElementById(`contraseña-${uniqueId}`).readOnly = false;
+}
+
+// Función para confirmar la eliminación de un usuario
+function ConfirmarEliminacion(uniqueId) {
+    const confirmacion = confirm('¿Estás seguro de que deseas eliminar este usuario?');
+    if (confirmacion) {
+        EliminarUsuario(uniqueId);
+    }
+}
+
+// Función para eliminar un usuario
+function EliminarUsuario(uniqueId) {
+    const codigo = document.getElementById(`codigo-${uniqueId}`).innerText;
+
+    fetch(`/eliminar_usuario/${codigo}`, {
+        method: 'DELETE'
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Error en la solicitud: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        alert('Usuario eliminado correctamente');
+        // Eliminar el elemento del DOM
+        document.getElementById(uniqueId).remove();
+    })
+    .catch(error => {
+        console.error('Error al eliminar usuario:', error);
+        alert('Error al eliminar usuario. Por favor, intenta de nuevo.');
     });
 }

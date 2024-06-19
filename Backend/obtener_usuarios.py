@@ -21,3 +21,5 @@ def obtener_usuarios(filtro):
     conexion.close()
 
     return usuarios
+
+

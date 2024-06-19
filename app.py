@@ -13,7 +13,7 @@ from Backend.subir_imagen import subir_imagen_bp
 from Backend.eliminar_registro import eliminar_registro_bp
 from Backend.obtener_registro import registros_bp
 from Backend.actualizar_reporte import actualizar_reporte_bp
-from Backend.actualizar_usuarios import usuarios_bp
+from Backend.guardar_cambios_usuarios import usuarios_bp
 
 import os
 

@@ -28,15 +28,16 @@ def obtener_usuarios(filtro):
     cursor = conexion.cursor(dictionary=True)
     if filtro == 'todos':
         cursor.execute("SELECT * FROM usuario")
+    elif filtro in ['Admin', 'Usuario']:
+        cursor.execute("SELECT * FROM usuario WHERE tipo = %s", (filtro,))
     else:
-        # Ejemplo de filtro específico (código de usuario específico)
         cursor.execute("SELECT * FROM usuario WHERE codigo = %s", (filtro,))
     
     usuarios = cursor.fetchall()
     cursor.close()
     conexion.close()
 
-    return jsonify({"usuarios": usuarios})
+    return jsonify(usuarios)  # Asegúrate de que devuelves solo la lista de usuarios
 
 # Endpoint para guardar los cambios realizados en los usuarios
 @usuarios_bp.route('/guardar_cambios_usuarios', methods=['POST'])
@@ -84,5 +85,3 @@ def guardar_cambios_usuarios():
     except Exception as e:
         print("Error general al guardar cambios:", e)
         return jsonify({"error": "Error general al guardar cambios"}), 500
-
-
