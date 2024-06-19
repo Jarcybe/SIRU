@@ -10,11 +10,14 @@ function FiltrarRegistro(event) {
     let estado = document.getElementById("Estado").value.toLowerCase();
     let ordenar = document.getElementById("ordenarRecienteAntiguo").value;
     let desarrollo = document.getElementById("Desarrollo").value.toLowerCase();
+
+    // Obtener el estado de los checkboxes
     let titulos = document.querySelector('input[name="titulos"]:checked') ? document.querySelector('input[name="titulos"]:checked').value === 'activado' : false;
     let resueltos = document.querySelector('input[name="resueltos"]:checked') ? document.querySelector('input[name="resueltos"]:checked').value === 'activado' : false;
+    let sinImagen = document.querySelector('input[name="sin_imagen"]:checked') ? document.querySelector('input[name="sin_imagen"]:checked').value === 'activado' : false;
 
     // Construir la URL base para la solicitud al backend
-    let url = `/obtener_registros?codigo=${codigo}&lugar=${lugar}&item=${item}&estado=${estado}&orden=${ordenar}&desarrollo=${desarrollo}&titulos=${titulos}&resueltos=${resueltos}`;
+    let url = `/obtener_registros?codigo=${codigo}&lugar=${lugar}&item=${item}&estado=${estado}&orden=${ordenar}&desarrollo=${desarrollo}&titulos=${titulos}&resueltos=${resueltos}&sinImagen=${sinImagen}`;
 
     // Realizar la solicitud al backend
     fetch(url)
@@ -59,18 +62,11 @@ function FiltrarRegistro(event) {
             // Filtrar por desarrollo
             if (desarrollo && desarrollo.trim() !== "") {
                 filtrados = filtrados.filter(record =>
-                    record.desarrollo.toLowerCase() === desarrollo.toLowerCase()
+                    record.desarrollo && record.desarrollo.toLowerCase() === desarrollo.toLowerCase()
                 );
             }
 
-            // Ordenar por fecha
-            if (ordenar === "Reciente") {
-                filtrados.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
-            } else if (ordenar === "Antiguo") {
-                filtrados.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
-            }
-
-            // Filtrar por títulos
+            // Filtrar por títulos (juntar y responder por títulos iguales)
             if (titulos) {
                 const grupos = {};
                 filtrados.forEach(record => {
@@ -81,11 +77,25 @@ function FiltrarRegistro(event) {
                 filtrados = Object.values(grupos);
             }
 
-            // Filtrar por resueltos
+            // Filtrar por resueltos (que no aparezcan los que ya fueron resueltos)
             if (resueltos) {
                 filtrados = filtrados.filter(record =>
                     !(record.desarrollo === 'Terminado' && record.comentario && record.encargado)
                 );
+            }
+
+            // Filtrar por sin imagen (que no aparezcan los que no tienen imagen)
+            if (sinImagen) {
+                filtrados = filtrados.filter(record =>
+                    record.imagen !== null && record.imagen !== undefined && record.imagen !== ""
+                );
+            }
+
+            // Ordenar por fecha
+            if (ordenar === "Reciente") {
+                filtrados.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+            } else if (ordenar === "Antiguo") {
+                filtrados.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
             }
 
             // Mostrar los registros filtrados en el contenedor
@@ -118,4 +128,21 @@ function FiltrarRegistro(event) {
         });
 
     document.getElementById("Filtrar").style.display = "none";
+}
+
+// Función para restablecer el filtro
+function RestablecerFiltro() {
+    document.getElementById("CodigoNombre").value = "";
+    document.getElementById("buscarLugar").value = "";
+    document.getElementById("buscarItem").value = "";
+    document.getElementById("Estado").value = "";
+    document.getElementById("ordenarRecienteAntiguo").value = "";
+    document.getElementById("Desarrollo").value = "";
+
+    document.querySelector('input[name="titulos"][value="desactivado"]').checked = true;
+    document.querySelector('input[name="resueltos"][value="desactivado"]').checked = true;
+    document.querySelector('input[name="sin_imagen"][value="desactivado"]').checked = true;
+
+    // Llamar a la función de filtrado para actualizar con los valores por defecto
+    FiltrarRegistro(event);
 }

@@ -191,177 +191,131 @@ style="display: none;">
 </div>
 
 
-<!--filtro-->
-<div class="w3-container  w3-center">
+<!-- Filtro -->
+<div class="w3-container w3-center">
+    <div class="w3-modal" id="Filtrar">
+        <div class="w3-modal-content w3-card-4 w3-white">
+            <header class="w3-container w3-red w3-center">
+                <h2 class="w3-black-text">Filtrar reportes en específico</h2>
+                <span onclick="document.getElementById('Filtrar').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Cerrar pestaña">&times;</span>
+            </header>
 
-    <div class="w3-modal"
-    id="Filtrar">
-    
-    <div class="w3-modal-content w3-card-4 w3-white">
-        
-        <header class="w3-container w3-red w3-center">
-            <h2 class="w3-black-text">Filtrar reportes en especifico</h2>
-
-            <span 
-onclick = "document.getElementById('Filtrar').style.display='none'"
-class   = "w3-button w3-xlarge w3-hover-red w3-display-topright"
-title   = "Cerrar pestaña"> &times; </span>
-
-        </header>
-
-        <form class="w3-container w3-padding-16"
-        onsubmit="FiltrarRegistro(event)">
-
-        <div class="w3-row-padding w3-margin-bottom">
-            <div class="w3-col s12">
-                <b>Buscar usuario o por codigo</b>
-                <input id="CodigoNombre" 
-                class="w3-input w3-border" 
-                type="text" 
-                placeholder="Codigo o usuario a buscar">
-            </div>
-            </div>
-
-            <div class="w3-row-padding w3-margin-bottom">
-                <div class="w3-half">
-                    <b>Buscar por zona</b>
-                    <input id="buscarLugar" 
-                    class="w3-input w3-border" 
-                    type="text" 
-                    placeholder="Lugar a buscar">
+            <form class="w3-container w3-padding-16" onsubmit="FiltrarRegistro(event)">
+                <!-- Campos de filtro básicos -->
+                <div class="w3-row-padding w3-margin-bottom">
+                    <div class="w3-col s12">
+                        <b>Buscar usuario o por código</b>
+                        <input id="CodigoNombre" class="w3-input w3-border" type="text" placeholder="Código o usuario a buscar">
+                    </div>
                 </div>
 
-                <div class="w3-half">
-                    <b>Buscar por item</b>
-                    <input id="buscarItem" 
-                    class="w3-input w3-border" 
-                    type="text" 
-                    placeholder="Item a buscar">
+                <div class="w3-row-padding w3-margin-bottom">
+                    <div class="w3-half">
+                        <b>Buscar por zona</b>
+                        <input id="buscarLugar" class="w3-input w3-border" type="text" placeholder="Lugar a buscar">
+                    </div>
+
+                    <div class="w3-half">
+                        <b>Buscar por item</b>
+                        <input id="buscarItem" class="w3-input w3-border" type="text" placeholder="Item a buscar">
+                    </div>
                 </div>
-            </div>
-    
-            <h3 class="w3-center-all w3-black-text">Elementos varios</h3>
+
+                <!-- Elementos varios -->
+                <h3 class="w3-center-all w3-black-text">Elementos varios</h3>
 
                 <div class="w3-row-padding w3-margin-bottom">
                     <div class="w3-third">
-                    <b>Nivel de importacion del formulario</b>
-                    <select id="Estado" 
-                    class="w3-select w3-border">
-                        <option value="" selected> --- </option>
-                        <option value="baja">Sugerencia</option>
-                        <option value="media">Pedido</option>
-                        <option value="Alta">Arreglo</option>
-                    </select>
-                </div>
-
-                <div class="w3-third">
-                       <b>Ordenar por antiguo o reciente</b>
-                        <select id="ordenarRecienteAntiguo" 
-                        class="w3-select w3-border">
-                            <option value="" selected> ---  </option>
-                            <option value="Antiguo">Más antiguo</option>
-                            <option value="Reciente">Mas reciente</option>
+                        <b>Nivel de importación del formulario</b>
+                        <select id="Estado" class="w3-select w3-border">
+                            <option value="" selected>---</option>
+                            <option value="baja">Sugerencia</option>
+                            <option value="media">Pedido</option>
+                            <option value="alta">Arreglo</option>
                         </select>
                     </div>
 
-                <div class="w3-third">
-                    <b>Desarrollo del formulario</b>
-                    <select id="Desarrollo" 
-                    class="w3-select w3-border">
-                        <option value="" selected> --- </option>
-                        <option value="No verificado">No verificado</option>
-                        <option value="En proceso">En proceso</option>
-                        <option value="Terminado">Terminado</option>
-                    </select>
-                </div>
+                    <div class="w3-third">
+                        <b>Ordenar por antiguo o reciente</b>
+                        <select id="ordenarRecienteAntiguo" class="w3-select w3-border">
+                            <option value="" selected>---</option>
+                            <option value="Antiguo">Más antiguo</option>
+                            <option value="Reciente">Más reciente</option>
+                        </select>
+                    </div>
+
+                    <div class="w3-third">
+                        <b>Desarrollo del formulario</b>
+                        <select id="Desarrollo" class="w3-select w3-border">
+                            <option value="" selected>---</option>
+                            <option value="No verificado">No verificado</option>
+                            <option value="En proceso">En proceso</option>
+                            <option value="Terminado">Terminado</option>
+                        </select>
+                    </div>
                 </div>
 
+                <!-- Opciones avanzadas -->
                 <h3 class="w3-center-all w3-black-text">Opciones avanzadas</h3>
-                
+
                 <div class="w3-section w3-center-all">
-                    <div class="w3-container  w3-border w3-margin-bottom w3-padding-small">
+                    <div class="w3-container w3-border w3-margin-bottom w3-padding-small">
                         <div class="w3-row">
                             <div class="w3-col s9">
-                        <p>Juntar y responder por títulos iguales</p>
+                                <p>Juntar y responder por títulos iguales</p>
+                            </div>
+                            <div class="w3-col s3">
+                                <label class="w3-right">
+                                    <input class="w3-radio" type="radio" name="titulos" value="desactivado" checked> Desactivado
+                                </label>
+                                <label class="w3-right w3-margin-right">
+                                    <input class="w3-radio" type="radio" name="titulos" value="activado"> Activar
+                                </label>
+                            </div>
                         </div>
-                        
-                        <div class="w3-col s3">
-                        <label class="w3-right">
-                            <input class="w3-radio" 
-                            type="radio" 
-                            name="titulos"
-                            value="desactivado" 
-                            checked> Desactivado
-                        </label>
-
-                        <label class="w3-right w3-margin-right">
-                            <input class="w3-radio"
-                             type="radio"
-                              name="titulos"
-                               value="activado">
-                                Activar
-                        </label>
                     </div>
-                </div>
-                </div>
 
                     <div class="w3-container w3-border w3-margin-bottom w3-padding-small">
-                       <div class="w3-row">
-                        <div class="w3-col s9">
-                        <p>Que no aparezcan los que ya fueron resueltos</p>
+                        <div class="w3-row">
+                            <div class="w3-col s9">
+                                <p>Que no aparezcan los que ya fueron resueltos</p>
+                            </div>
+                            <div class="w3-col s3">
+                                <label class="w3-right">
+                                    <input class="w3-radio" type="radio" name="resueltos" value="desactivado" checked> Desactivado
+                                </label>
+                                <label class="w3-right w3-margin-right">
+                                    <input class="w3-radio" type="radio" name="resueltos" value="activado"> Activar
+                                </label>
+                            </div>
                         </div>
-
-                        <div class="w3-col s3">
-                        <label class="w3-right">
-                            <input class="w3-radio" 
-                            type="radio" 
-                            name="resueltos" 
-                            value="desactivado" 
-                            checked> Desactivado
-                        </label>
-                        <label class="w3-right w3-margin-right">
-                            <input class="w3-radio" 
-                            type="radio" 
-                            name="resueltos" 
-                            value="activado"> Activar
-                        </label>
-                    </div>
-                    </div>
                     </div>
 
-                    <div class="w3-container w3-border w3-margin-bottom">
-                      <div class="w3-row">
-                        <div class="w3-col s9"> 
-                        <p>Que no aparezcan los que no tienen imagen</p>
+                    <div class="w3-container w3-border w3-margin-bottom w3-padding-small">
+                        <div class="w3-row">
+                            <div class="w3-col s9">
+                                <p>Que no aparezcan los que no tienen imagen</p>
+                            </div>
+                            <div class="w3-col s3">
+                                <label class="w3-right">
+                                    <input class="w3-radio" type="radio" name="sin_imagen" value="desactivado" checked> Desactivado
+                                </label>
+                                <label class="w3-right w3-margin-right">
+                                    <input class="w3-radio" type="radio" name="sin_imagen" value="activado"> Activar
+                                </label>
+                            </div>
                         </div>
-
-                        <div class="w3-col s3">
-                        <label class="w3-right">
-                            <input class="w3-radio" 
-                            type="radio" 
-                            name="sin_imagen" 
-                            value="desactivado" checked> Desactivado
-                        </label>
-                        <label class="w3-right w3-margin-right">
-                            <input class="w3-radio" type="radio" name="sin_imagen" value="activado"> Activar
-                        </label>
                     </div>
                 </div>
-                </div>
-                </div>
 
-            <button class="w3-button w3-red w3-margin-top w3-block" 
-            type="submit">Buscar</button>
-
-            <button class="w3-button w3-gray w3-margin-top w3-small w3-right"
-            type="button"
-            onclick="RestablecerFiltro()">
-            Restablecer</button>
-            </div>
-        </form>
+                <!-- Botones de acción -->
+                <button class="w3-button w3-red w3-margin-top w3-block" type="submit">Buscar</button>
+                <button class="w3-button w3-gray w3-margin-top w3-small w3-right" type="button" onclick="RestablecerFiltro()">Restablecer</button>
+            </form>
+        </div>
     </div>
 </div>
-</div>
+
 
 <script>
 document.addEventListener("DOMContentLoaded", CargarRegistros); // Cargar registros al cargar la página
