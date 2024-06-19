@@ -22,32 +22,27 @@ VALUES
 ('admin3', 'Eva Hernández', 'adminpass3', 'Admin');
 
 -- Creación de la tabla formularioregistro
-CREATE TABLE IF NOT EXISTS `formularioregistro` (
-    `id` INT(11) NOT NULL AUTO_INCREMENT,
-    `codigo` VARCHAR(255) NOT NULL COLLATE 'latin1_swedish_ci',
-    `titulo` VARCHAR(255) NOT NULL COLLATE 'latin1_swedish_ci',
-    `descripcion` TEXT NOT NULL COLLATE 'latin1_swedish_ci',
-    `fecha` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    `lugar` VARCHAR(255) NOT NULL COLLATE 'latin1_swedish_ci',
-    `item` VARCHAR(255) NOT NULL COLLATE 'latin1_swedish_ci',
-    `estado` VARCHAR(50) NOT NULL COLLATE 'latin1_swedish_ci',
-    `desarrollo` VARCHAR(255) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
-    `encargado` VARCHAR(255) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
-    `comentario` VARCHAR(255) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
-    `imagen` VARCHAR(255) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
-    `codigo_usuario` VARCHAR(255) NOT NULL COLLATE 'latin1_swedish_ci',
-    PRIMARY KEY (`id`),
-    CONSTRAINT `fk_formularioregistro_usuario` FOREIGN KEY (`codigo_usuario`) REFERENCES `usuario` (`codigo`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
+CREATE TABLE `formularioregistro` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`codigo` VARCHAR(255) NOT NULL COLLATE 'latin1_swedish_ci',
+	`titulo` VARCHAR(255) NOT NULL COLLATE 'latin1_swedish_ci',
+	`descripcion` TEXT NOT NULL COLLATE 'latin1_swedish_ci',
+	`fecha` TIMESTAMP NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+	`lugar` VARCHAR(255) NOT NULL COLLATE 'latin1_swedish_ci',
+	`item` VARCHAR(255) NOT NULL COLLATE 'latin1_swedish_ci',
+	`estado` VARCHAR(50) NOT NULL COLLATE 'latin1_swedish_ci',
+	`desarrollo` VARCHAR(255) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`encargado` VARCHAR(255) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`comentario` VARCHAR(255) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	`imagen` VARCHAR(255) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
+	PRIMARY KEY (`id`) USING BTREE,
+	INDEX `FK_formularioregistro_usuario` (`codigo`) USING BTREE,
+	CONSTRAINT `FK_formularioregistro_usuario` FOREIGN KEY (`codigo`) REFERENCES `usuario` (`codigo`) ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=16
+;
 -- Inserciones de ejemplo en la tabla formularioregistro
-INSERT INTO `formularioregistro` (`codigo`, `titulo`, `descripcion`, `fecha`, `lugar`, `item`, `estado`, `desarrollo`, `encargado`, `comentario`, `imagen`, `codigo_usuario`)
-VALUES
-('ABC123', 'Reporte 1', 'Descripción del reporte 1', NOW(), 'Lugar 1', 'Item 1', 'Alta', 'En proceso', 'Juan Pérez', 'Comentario 1', 'imagen1.jpg', 'usr1'),
-('DEF456', 'Reporte 2', 'Descripción del reporte 2', NOW(), 'Lugar 2', 'Item 2', 'Media', 'Terminado', 'María Gómez', 'Comentario 2', 'imagen2.jpg', 'usr2'),
-('GHI789', 'Reporte 3', 'Descripción del reporte 3', NOW(), 'Lugar 3', 'Item 3', 'Baja', 'No verificado', NULL, NULL, NULL, 'usr3'),
-('JKL012', 'Reporte 4', 'Descripción del reporte 4', NOW(), 'Lugar 4', 'Item 4', 'Alta', 'Terminado', 'Carlos López', 'Comentario 3', 'imagen3.jpg', 'admin1'),
-('MNO345', 'Reporte 5', 'Descripción del reporte 5', NOW(), 'Lugar 5', 'Item 5', 'Media', 'En proceso', 'Ana Martínez', 'Comentario 4', 'imagen4.jpg', 'admin2'),
-('PQR678', 'Reporte 6', 'Descripción del reporte 6', NOW(), 'Lugar 6', 'Item 6', 'Baja', 'No verificado', NULL, NULL, NULL, 'admin3');
 
 -- Fin del script
