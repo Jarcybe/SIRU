@@ -42,7 +42,6 @@ VALUES
 ('2155379', 'salon3 - tablero', 'tablero rayado', NOW(), 'salon3', 'tablero', 'Alta', 'En proceso', 'Eva Hernández', 'ya se limpio', 'imagen1.jpg'),
 ('2155379', 'salon2 - computador', 'teclado sucio', NOW(), 'salon2', 'computador', 'Media', 'Terminado', 'Eva Hernández', 'ya lo limpiamos', 'imagen2.jpg'),
 ('2266480', 'salon6 - ventilador', 'se cayó el ventilador', NOW(), 'salon6', 'ventilador', 'Alta', 'Terminado', 'Eva Hernández', 'ya se puso uno nuevo', 'imagen3.jpg'),
-('2266480', 'informatica1 - aireacondicionado', 'aire acondicionado no enfria', NOW(), 'informatica1', 'aireacondicionado', 'Media', 'En proceso', 'Eva Hernández', 'se mandó al tecnico a comprobar', 'imagen4.jpg'),
-
+('2266480', 'informatica1 - aireacondicionado', 'aire acondicionado no enfria', NOW(), 'informatica1', 'aireacondicionado', 'Media', 'En proceso', 'Eva Hernández', 'se mandó al tecnico a comprobar', 'imagen4.jpg');
 
 -- Fin del script
