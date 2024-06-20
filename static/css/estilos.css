@@ -1,4 +1,4 @@
-body, h2, h3, h4, h5, h6 {
+body, h3, h4, h5, h6 {
     font-family: "Karma", sans-serif;
 }
 
@@ -6,7 +6,13 @@ body, h2, h3, h4, h5, h6 {
     padding: 20px;
 }
  
-h1 {
+h1 , h2 {
     font-family: "Karma", sans-serif;
     color: #ffffff;
+}
+
+.w3-image {
+    width: 200px;
+    height: 150px;
+    object-fit: cover; /* Para que la imagen se ajuste al tamaño del contenedor sin deformarse */
 }

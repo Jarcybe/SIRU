@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <title> SIRU </title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
+    <a href="#Contenedores" 
+class="sr-only sr-only-focusable">Saltar a la pagina principal</a>
+
     <link rel = "stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     
     <link rel="stylesheet"
@@ -103,14 +107,15 @@ class="w3-modal">
 <div class="w3-modal-content w3-card-4 w3-animate-zoom"
 style="max-width: 600px;">
 
-<header class="w3-container w3-red w3-center">
+<header class="w3-container w3-center"
+style="background-color: #C20E1A;">
 
 <span 
 onclick = "document.getElementById('forma').style.display='none'"
 class   = "w3-button w3-xlarge w3-hover-red w3-display-topright"
 title   = "Cerrar pestaña"> &times; </span>
 
-<h2> REGISTRO SIRA </h2>
+<h2> <b> Registro sira </b></h2>
 </header>
 
 <form
@@ -118,12 +123,12 @@ class="w3-container w3-row-padding"
 onsubmit="return false">
 
 <div class="w3-half">
-
+    <label for="Lugar">Zona a escoger</label>
 <select id="Lugar"
 class="w3-select w3-border w3-margin-bottom "
 title="Opcion salon"
 name="Opcion salon"
-style = "width:100% ;margin-top:20px" 
+style = "width:100% ;" 
 onchange="ActualizarItems(); ActualizarTitulo();" required>
 
 <option value = "" disabled selected> Lugar </option>
@@ -144,10 +149,11 @@ onchange="ActualizarItems(); ActualizarTitulo();" required>
 <option value = "patio"> Patio </option>
 ></select>
 
+<label for="Item">Item de la zona</label>
 <select id ="Item"
 class="w3-select w3-border w3-margin-bottom"
 name="items"
-style = "width:100%;margin-top:20px" 
+style = "width:100%;" 
 title="Item"
 onchange = "ActualizarTitulo();" disabled
 required>
@@ -157,9 +163,10 @@ required>
 </div>
 
 <div class="w3-half w3-border-bottom">
-<h5> Estado </h5>
+<label for="sugerencia"> Estado </label>
 <p>
 <input class="w3-radio"
+id="sugerencia"
 title="Opcion de sugerencia"
 type  = "radio"
 name  = "Estado" 
@@ -172,10 +179,11 @@ checked>
 <p>
     <input class="w3-radio"
     title="Opcion de pedido"
+    id="pedido"
     type  = "radio"
     name  = "Estado" 
     value = "media" > 
-    <label> 
+    <label for="pedido"> 
         Pedido </label>
     </p>
 
@@ -183,6 +191,7 @@ checked>
         <input class="w3-radio"
         title="Opcion de arreglo"
         type  = "radio"
+        id="arreglo"
         name  = "Estado" 
         value = "Alta" > 
         <label for="arreglo"> 
@@ -192,6 +201,7 @@ checked>
 </div>
 
 <div class="w3-row w3-col s12">
+    <label for="Titulo">Titulo del formulario</label>
 <input 
 id="Titulo"
 class="w3-input w3-border w3-margin-bottom"
@@ -207,6 +217,7 @@ required
 
 <div class="w3-row">
 <div class="w3-col s6">
+    <label for="Descripcion">Descripcion del problema</label>
     <textarea 
     id = "Descripcion"
     class="w3-input w3-border w3-margin-bottom"
@@ -268,8 +279,9 @@ document.addEventListener("DOMContentLoaded", Estado);
     
     <div class="w3-modal-content w3-card-4 w3-white">
         
-        <header class="w3-container w3-red w3-center">
-            <h2 class="w3-black-text">Buscar reporte en especifico</h2>
+        <header class="w3-container w3-center"
+        style="background-color: #C20E1A;">
+            <h2> <b>Buscar reporte en especifico</b></h2>
 
             <span 
 onclick = "document.getElementById('buscar').style.display='none'"
@@ -378,13 +390,14 @@ style="display: none;">
 <div class="w3-modal-content w3-card-4 w3-animate-zoom"
 style="max-width:80%;">
 
-<header class="w3-container w3-red w3-center">
+<header class="w3-container w3-center"
+style="background-color: #C20E1A;">
 <span onclick="document.getElementById('pdf').style.display='none'"
 class="w3-button w3-xlarge w3-hover-red w3-display-topright"
 title="Cerrar pestaña">
 &times;
 </span>
-<h2>Guia de la aplicacion</h2>
+<h2><b> Guia de la aplicacion </b></h2>
 </header>
 
 <div class="w3-container w3-center">
@@ -393,15 +406,18 @@ title="Cerrar pestaña">
 style="max-width: 800px;">
 
 <img class="mySlides" 
-src="../static/images/GuiaUsu1.png" 
+src="../static/images/GuiaUsu1.png"
+alt="Una breve descripcion corta de la intrefas del aplicativo" 
 style="width:100%">
 
 <img class="mySlides" 
 src="../static/images/GuiaUsu2.png" 
+alt="Parte 2 de la guia"
 style="width:100%">
 
 <img class="mySlides" 
 src="../static/images/GuiaUsu3.png" 
+alt="Parte 3 de la guia"
 style="width:100%">
 
 <button class="w3-button w3-display-left w3-red" onclick="plusDivs(-1)">&#10094;</button>
@@ -411,6 +427,17 @@ style="width:100%">
 </div>
 </div>
 </div>
+
+<a href="#pdf" 
+class="sr-only sr-only-focusable">Saltar a la guia</a>
+
+
+<a href="#buscar" 
+class="sr-only sr-only-focusable">Saltar al formulario de búsqueda</a>
+
+<a href="#forma" 
+class="sr-only sr-only-focusable">Saltar al formulario</a>
+
 
 </body>
 </html>

@@ -1,3 +1,4 @@
+let resultadosFiltrados = [];
 function BuscarReportes(event) {
     event.preventDefault();
 
@@ -21,6 +22,8 @@ function BuscarReportes(event) {
         .then(data => {
             if (data.success) {
                 const registros = data.registros;
+                resultadosFiltrados = registros;
+              
                 const contenedores = document.getElementById("Contenedores");
                 contenedores.innerHTML = "";
 
@@ -38,7 +41,7 @@ function BuscarReportes(event) {
                                 ${imagenHTML}
                                 <button class="w3-small w3-button w3-block w3-red"
                                     title="Ver detalles"
-                                    onclick="VisualRegistro(${index})">Ver detalles</button>
+                                    onclick="VisualRegistro(${index}, true)">Ver detalles</button>
                             </div>
                         `;
                         contenedores.appendChild(carta);

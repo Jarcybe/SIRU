@@ -70,11 +70,17 @@ function FiltrarRegistro(event) {
             if (titulos) {
                 const grupos = {};
                 filtrados.forEach(record => {
-                    if (!grupos[record.titulo] || new Date(grupos[record.titulo].fecha) < new Date(record.fecha)) {
-                        grupos[record.titulo] = record;
+                    if (!grupos[record.titulo]) {
+                        grupos[record.titulo] = [];
                     }
+                    grupos[record.titulo].push(record);
                 });
-                filtrados = Object.values(grupos);
+
+             const gruposOrdenados = Object.values(grupos).flatMap(grupo => {
+                    return grupo.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
+                });
+
+                filtrados = gruposOrdenados;
             }
 
             // Filtrar por resueltos (que no aparezcan los que ya fueron resueltos)
