@@ -22,7 +22,7 @@ function Registro(event) {
         contraseña: contraseña
     };
 
-    // Enviar los datos al backend utilizando Fetch API
+  
     fetch('/registro', {
         method: 'POST',
         headers: {
@@ -49,7 +49,7 @@ function Registro(event) {
         
     })
     .catch(error => {
-        // Manejar cualquier otro tipo de error que pueda ocurrir
+
         console.error('Error al enviar los datos al backend:', error);
         Swal.fire({
             icon: "error",

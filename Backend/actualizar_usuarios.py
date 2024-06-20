@@ -9,7 +9,7 @@ def conectar_bd():
     return mysql.connector.connect(
         host="localhost",
         user="root",
-        password="",  # Ajusta según sea necesario
+        password="", 
         database="siru"
     )
 
@@ -18,8 +18,6 @@ def actualizar_usuarios():
     try:
         datos = request.get_json()
         usuarios = datos.get('usuarios', [])
-
-        print("Usuarios recibidos:", usuarios)  # Imprimir los datos recibidos para depuración
 
         if not usuarios:
             return jsonify({'success': False, 'error': 'No se recibieron datos de usuarios'}), 400

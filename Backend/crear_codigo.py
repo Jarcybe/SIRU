@@ -3,7 +3,7 @@ import mysql.connector
 
 crear_codigo_bp = Blueprint('crear_codigo_bp', __name__)
 
-# Configurar la conexión a la base de datos MySQL
+
 conexion = mysql.connector.connect(
     host="localhost",
     user="root",

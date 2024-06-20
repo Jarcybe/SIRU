@@ -24,7 +24,7 @@ salon6: ['Pupitres', 'AireAcondicionado', 'Tablero', 'VideoBeams', 'Enchufes', '
 patio: ['Asientos', 'MaquinaExpendedora', 'Escaleras', 'Mesas', 'Suelo', 'Otros..']
 };
 
-//asegurarse de si el lugar esta definido les saldra los items especificos
+
 if(items[lugar]){
 items[lugar].forEach(function(itm){
 

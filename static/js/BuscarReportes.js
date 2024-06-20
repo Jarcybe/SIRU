@@ -9,14 +9,12 @@ function BuscarReportes(event) {
     const desarrollo = document.getElementById("Desarrollo").value;
     const reciente = document.getElementById("Reciente").value;
 
-    // Supongamos que obtienes el código de usuario de localStorage
+  
     const LogUsuario = JSON.parse(localStorage.getItem("LogUsuario"));
     const codigo_usuario = LogUsuario.codigo;
 
-    // Construir la URL base para la solicitud al backend, incluyendo el código del usuario y los parámetros de búsqueda
     let url = `/buscar_reportes?codigo_usuario=${codigo_usuario}&lugar=${lugar}&item=${item}&estado=${estado}&desarrollo=${desarrollo}&reciente=${reciente}&orden=${AntiguoReciente}`;
 
-    // Realizar la solicitud al servidor para buscar los registros
     fetch(url)
         .then(response => response.json())
         .then(data => {

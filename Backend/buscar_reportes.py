@@ -3,13 +3,13 @@ import mysql.connector
 
 buscar_reportes_bp = Blueprint('buscar_reportes_bp', __name__)
 
-# Configurar la conexión a la base de datos MySQL
+
 def conectar_bd():
     try:
         conexion = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="",  # Aquí deberías tener la contraseña de tu base de datos
+            password="", 
             database="siru"
         )
         return conexion
