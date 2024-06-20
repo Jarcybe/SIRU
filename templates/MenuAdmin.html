@@ -1,19 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>SIRU - Reportes de Daños</title>
+
     <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <a href="#Muchos" 
+    class="sr-only sr-only-focusable">Saltar a la pagina principal</a>
+
     <link rel="stylesheet" 
     href="https://www.w3schools.com/w3css/4/w3.css">
     
-    <link rel="stylesheet" 
-    href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    
     
     <link rel="stylesheet"
     href="..\static\css\estilosAD.css">
 
+    
     <script src="../static/js/CrearCodigo.js"> </script>
     <script src="../static/js/CargarRegistros.js"></script>
     <script src="../static/js/ConfiDeRegistros.js"></script>
@@ -28,6 +34,12 @@
     <script src="../static/js/Restablecer.js"></script>
     <script src="../static/js/FiltrarRegistro.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", CargarRegistros); // Cargar registros al cargar la página
+        </script>
+       
+        
+        
 
 
 </head>
@@ -43,14 +55,9 @@
     <div class="w3-row">
 
         <!--Parte izquierda-->
-        <div class="w3-col l8 s12">
-
-            <div class="w3-container"
-            id="Muchos">
-
+        <div class="w3-container w3-col l8 s12"
+        id="Muchos">
  </div>
- </div>
-
         <!-- Zona  derecha -->
         <div class="w3-col l4">
             <div class= "w3-container w3-white w3-card w3-margin-top">
@@ -58,8 +65,10 @@
                     <p>¿Que opcion quieres hacer?:</p>
                    
                     <button class="w3-button w3-center w3-red w3-hover-opacity w3-section w3-block"
-                   onclick="Dropdown('opciones')">
-                Opciones</button>
+                   onclick="Dropdown('opciones')"
+                   title="Opciones">
+                Opciones
+            </button>
                    
                    <div class="w3-container"
                    id="opciones"
@@ -67,22 +76,26 @@
 
                    <button 
                     onclick="document.getElementById('Crear').style.display='block'"  
-                    class="w3-button w3-red w3-hover-pink w3-section w3-block">
+                    class="w3-button w3-red w3-hover-pink w3-section w3-block"
+                    title="Crear usuario">
                     Crear Usuario</button>
 
                     <button 
                     onclick="document.getElementById('Filtrar').style.display='block'" 
-                    class="w3-button w3-center w3-red w3-hover-pink w3-section w3-block">
+                    class="w3-button w3-center w3-red w3-hover-pink w3-section w3-block"
+                    title="Filtrar registro">
                     Filtrar Registro</button>
                     
                     <button 
                     onclick="AbrirModal()"
-                    class="w3-button w3-red w3-hover-pink w3-section w3-block">
+                    class="w3-button w3-red w3-hover-pink w3-section w3-block"
+                    title="Administrar usuario">
                     Administrar usuarios</button>
 
                     <button 
                     onclick="CerrarSesion()" 
-                    class="w3-button w3-red w3-hover-grey w3-section w3-block">
+                    class="w3-button w3-red w3-hover-grey w3-section w3-block"
+                    title="Cerrar sesion">
                     Cerrar sesion</button>
                 </div>
             </div>
@@ -113,8 +126,9 @@ class="w3-modal">
 style="max-width: 600px;">
 
 <div class="w3-center"><br>
-<span onclick="document.getElementById('Crear').style.display='none'"
-class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Cerrar pestaña">&times;</span>
+<button onclick="document.getElementById('Crear').style.display='none'"
+class="w3-button w3-xlarge w3-hover-red w3-display-topright" 
+title="Cerrar pestaña">&times;</button>
 </div>
 
 <form class="w3-container" 
@@ -122,17 +136,22 @@ onsubmit="CrearCodigo(event)"
 method="post">
 
 <div class = "w3-section">
-<label><b>Codigo</b></label>
+
+<label for="Codigo">
+    <b>Codigo</b></label>
+
 <input id="Codigo" 
-class = "w3-input w3-border w3-margin-botton"
+class = "w3-input w3-border w3-margin-bottom"
 type="text"
 placeholder="Ingresar Codigo"
 name="codigo"
 required>
 
-<label><b> Tipo de Usuario </b></label>
+<label for="tipo">
+    <b> Tipo de Usuario </b></label>
 
-<select class="w3-select w3-border" 
+<select id="tipo"
+class="w3-select w3-border" 
 name="tipo"
 required>
 <option value="" disabled selected> Seleccionar tipo</option>
@@ -141,15 +160,18 @@ required>
 </select>
 
 <button class="w3-button w3-block w3-red w3-section w3-padding"
-type="submit">
+type="submit"
+title="Crear usuario">
  Crear Usuario </button>
 </div>
 </form>
 
 <div class="w3-container w3-border-top w3-padding-16"
 style="background-color: #CFCFCF;">
+
 <button onclick ="document.getElementById('Crear').style.display='none'"
 type="button"
+title="Cancelar"
 class="w3-button w3-red w3-hover-pink"> 
 Cancelar </button>   
 </div>
@@ -171,14 +193,16 @@ style="display: none;">
 <div class="w3-modal"
 id="administrar">
 
-document.addEventListener("DOMContentLoaded", CargarRegistros); // Cargar registros al cargar la página
 <div class="w3-modal-content w3-card-4 w3-animate-zoom"
 style="max-width:800px;">
 
 <header class="w3-container"
 style="background-color: #C20E1A;">
-<span onclick="document.getElementById('administrar').style.display='none'"
-class="w3-button w3-display-toprigth">&times;</span>
+
+<button onclick="document.getElementById('administrar').style.display='none'"
+class="w3-button w3-display-toprigth"
+title="Cerrar pestaña">&times;
+</button>
 <h3><b>Administracion de usuarios</b></h3>
 </header>
 
@@ -186,16 +210,19 @@ class="w3-button w3-display-toprigth">&times;</span>
 <div class="w3-bar w3-light-grey">
 
 <button class="w3-bar-item w3-button"
+title="Usuario"
 onclick="CargarUsuarios('Usuario')">
 Usuarios
 </button>
 
 <button class="w3-bar-item w3-button"
+title="Admin"
 onclick="CargarUsuarios('Admin')">
 Admin
 </button>
 
 <button class="w3-bar-item w3-button"
+title="Todos"
 onclick="CargarUsuarios('todos')">
 Todos
 </button>
@@ -208,11 +235,12 @@ class="w3-container w3-padding-16">
 
 <footer class="w3-container w3-light-grey">
 <button class="w3-button w3-red w3-block w3-section"
-
+title="Guardar cambios"
 onclick="GuardarCambios()">
 Guardar</button>
 
 <button class="w3-block w3-button w3-red"
+title="Cancelar"
 onclick="cancelar()">
 Cancelar</button>
 
@@ -227,27 +255,44 @@ Cancelar</button>
             <header class="w3-container w3-center"
             style="background-color: #C20E1A;">
                 <h3><b>Filtrar reportes en específico</b></h3>
-                <span onclick="document.getElementById('Filtrar').style.display='none'" class="w3-button w3-xlarge w3-hover-red w3-display-topright" title="Cerrar pestaña">&times;</span>
+                <button onclick="document.getElementById('Filtrar').style.display='none'" 
+                class="w3-button w3-xlarge w3-hover-red w3-display-topright" 
+                title="Cerrar pestaña">&times;</button>
             </header>
 
             <form class="w3-container w3-padding-16" onsubmit="FiltrarRegistro(event)">
                 <!-- Campos de filtro básicos -->
                 <div class="w3-row-padding w3-margin-bottom">
                     <div class="w3-col s12">
-                        <b>Buscar usuario o por código</b>
-                        <input id="CodigoNombre" class="w3-input w3-border" type="text" placeholder="Código o usuario a buscar">
+                        <label for="CodigoNombre"><b>Buscar usuario o por código</b>
+                        </label>
+                            <input id="CodigoNombre" 
+                        title="Buscar usuario o codigo"
+                        class="w3-input w3-border" 
+                        type="text" 
+                        placeholder="Código o usuario a buscar">
                     </div>
                 </div>
 
                 <div class="w3-row-padding w3-margin-bottom">
                     <div class="w3-half">
-                        <b>Buscar por zona</b>
-                        <input id="buscarLugar" class="w3-input w3-border" type="text" placeholder="Lugar a buscar">
+                        <label for="buscarLugar">
+                            <b>Buscar por zona</b></label>
+                        <input id="buscarLugar" 
+                        title="Por zona"
+                        class="w3-input w3-border" 
+                        type="text" 
+                        placeholder="Lugar a buscar">
                     </div>
 
                     <div class="w3-half">
-                        <b>Buscar por item</b>
-                        <input id="buscarItem" class="w3-input w3-border" type="text" placeholder="Item a buscar">
+                        <label for="buscarItem">
+                        <b>Buscar por item</b></label>
+                        <input id="buscarItem" 
+                        title="Buscar por item"
+                        class="w3-input w3-border" 
+                        type="text" 
+                        placeholder="Item a buscar">
                     </div>
                 </div>
 
@@ -256,7 +301,9 @@ Cancelar</button>
 
                 <div class="w3-row-padding w3-margin-bottom">
                     <div class="w3-third">
-                        <b>Nivel de importación del formulario</b>
+                     <label for="Estado">
+                        <b>Nivel de importación del formulario</b></label>
+
                         <select id="Estado" class="w3-select w3-border">
                             <option value="" selected>---</option>
                             <option value="baja">Sugerencia</option>
@@ -266,7 +313,8 @@ Cancelar</button>
                     </div>
 
                     <div class="w3-third">
-                        <b>Ordenar por antiguo o reciente</b>
+                        <label for="ordenarRecienteAntiguo">
+                        <b>Ordenar por antiguo o reciente</b></label>
                         <select id="ordenarRecienteAntiguo" class="w3-select w3-border">
                             <option value="" selected>---</option>
                             <option value="Antiguo">Más antiguo</option>
@@ -275,7 +323,8 @@ Cancelar</button>
                     </div>
 
                     <div class="w3-third">
-                        <b>Desarrollo del formulario</b>
+                        <label for="Desarrollo">
+                        <b>Desarrollo del formulario</b></label>
                         <select id="Desarrollo" class="w3-select w3-border">
                             <option value="" selected>---</option>
                             <option value="No verificado">No verificado</option>
@@ -294,12 +343,27 @@ Cancelar</button>
                             <div class="w3-col s9">
                                 <p>Que aparescan seguido por títulos iguales</p>
                             </div>
+
                             <div class="w3-col s3">
-                                <label class="w3-right">
-                                    <input class="w3-radio" type="radio" name="titulos" value="desactivado" checked> Desactivado
+                                <label for="desactivado1"
+                                class="w3-right">
+                                    <input id="desactivado1"
+                                    class="w3-radio" 
+                                    type="radio" 
+                                    title="Desactivado"
+                                    name="titulos"
+                                     value="desactivado" 
+                                     checked> Desactivado
                                 </label>
-                                <label class="w3-right w3-margin-right">
-                                    <input class="w3-radio" type="radio" name="titulos" value="activado"> Activar
+
+                                <label for="activado1" 
+                                class="w3-right w3-margin-right">
+                                    <input id="activado1" 
+                                    class="w3-radio" 
+                                    type="radio"
+                                    title="Activado" 
+                                    name="titulos" 
+                                    value="activado"> Activar
                                 </label>
                             </div>
                         </div>
@@ -311,11 +375,26 @@ Cancelar</button>
                                 <p>Que no aparezcan los que ya fueron resueltos</p>
                             </div>
                             <div class="w3-col s3">
-                                <label class="w3-right">
-                                    <input class="w3-radio" type="radio" name="resueltos" value="desactivado" checked> Desactivado
+                                <label for="desactivado2"
+                                class="w3-right">
+                                    <input id="desactivado2" 
+                                    class="w3-radio" 
+                                    type="radio"
+                                    title="Desactivado" 
+                                     name="resueltos" 
+                                     value="desactivado" 
+                                     checked> 
+                                     Desactivado
                                 </label>
-                                <label class="w3-right w3-margin-right">
-                                    <input class="w3-radio" type="radio" name="resueltos" value="activado"> Activar
+                                
+                                <label for="activado2"
+                                 class="w3-right w3-margin-right">
+                                    <input id="activado2" 
+                                    class="w3-radio"
+                                     type="radio"
+                                     title="Activado"  
+                                     name="resueltos" 
+                                     value="activado"> Activar
                                 </label>
                             </div>
                         </div>
@@ -327,29 +406,44 @@ Cancelar</button>
                                 <p>Que no aparezcan los que no tienen imagen</p>
                             </div>
                             <div class="w3-col s3">
-                                <label class="w3-right">
-                                    <input class="w3-radio" type="radio" name="sin_imagen" value="desactivado" checked> Desactivado
+
+                                <label  for="desactivado3"
+                                class="w3-right">
+                                    <input id="desactivado3" 
+                                    class="w3-radio" 
+                                    type="radio" 
+                                    name="sin_imagen" 
+                                    value="desactivado" 
+                                    title="Desactivado" 
+                                    checked> 
+                                    Desactivado
                                 </label>
-                                <label class="w3-right w3-margin-right">
-                                    <input class="w3-radio" type="radio" name="sin_imagen" value="activado"> Activar
-                                </label>
+
+                                <label for="activado3"
+                                 class="w3-right w3-margin-right">
+                                    <input id="activado3" 
+                                    class="w3-radio" 
+                                    type="radio"
+                                    title="Activado" 
+                                     name="sin_imagen" 
+                                     value="activado"> Activar</label>
+
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Botones de acción -->
-                <button class="w3-button w3-red w3-margin-top w3-block" type="submit">Buscar</button>
-                <button class="w3-button w3-gray w3-margin-top w3-small w3-right" type="button" onclick="RestablecerFiltro()">Restablecer</button>
+                <button title="Buscar"
+                class="w3-button w3-red w3-margin-top w3-block" type="submit">Buscar</button>
+
+                <button title="Restablecer"
+                class="w3-button w3-gray w3-margin-top w3-small w3-right" type="button" 
+                onclick="RestablecerFiltro()">Restablecer</button>
             </form>
         </div>
     </div>
 </div>
-
-
-<script>
-document.addEventListener("DOMContentLoaded", CargarRegistros); // Cargar registros al cargar la página
-</script>
 
 
 </body>

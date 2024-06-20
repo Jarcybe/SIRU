@@ -38,7 +38,7 @@ class TestLoginBlueprint(TestCase):
                                     content_type='application/json')
         self.assertEqual(response.status_code, 200)
         data = json.loads(response.data)
-        self.assertTrue(data['success'])
+        self.assertTrue(data['success']) 
         self.assertIn('usuario', data)
         self.assertEqual(data['usuario']['codigo'], '123')
         self.assertEqual(data['usuario']['tipo'], 'Admin')  # Asegurar que el tipo es Admin

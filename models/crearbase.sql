@@ -16,7 +16,9 @@ INSERT INTO `usuario` (`codigo`, `nombre`, `contraseña`, `tipo`)
 VALUES
 ('2155379', 'Juan Pérez', 'password1', 'Usuario'),
 ('2266480', 'María Gómez', 'password2', 'Usuario'),
-('2377591', 'Eva Hernández', 'adminpass3', 'Admin');
+('2377591', 'Eva Hernández', 'adminpass3', 'Admin'),
+('123', 'Steven', '3', 'Admin');
+
 
 -- Creación de la tabla formularioregistro
 CREATE TABLE IF NOT EXISTS `formularioregistro` (

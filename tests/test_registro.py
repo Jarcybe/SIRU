@@ -23,6 +23,8 @@ class TestRegistroBlueprint(TestCase):
         
         return app
 
+# Testeo de codigo existente y se logre registrar correctamente
+
     @patch('Backend.registro.conectar_bd')
     def test_registro_exitoso(self, mock_conectar_bd):
         mock_conexion = MagicMock()
@@ -44,6 +46,7 @@ class TestRegistroBlueprint(TestCase):
         data = json.loads(response.data)
         self.assertEqual(data['mensaje'], 'Registro exitoso')
 
+#Testeo si no hay un codigo existente
     @patch('Backend.registro.conectar_bd')
     def test_codigo_inexistente(self, mock_conectar_bd):
         mock_conexion = MagicMock()
@@ -65,6 +68,7 @@ class TestRegistroBlueprint(TestCase):
         data = json.loads(response.data)
         self.assertEqual(data['mensaje'], 'El código no está registrado')
 
+#Testeo de errores en la conexion a la base de datos
     @patch('Backend.registro.conectar_bd')
     def test_error_conexion_bd(self, mock_conectar_bd):
         mock_conectar_bd.return_value = None  # Simular error al conectar a la base de datos
