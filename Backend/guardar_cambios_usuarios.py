@@ -10,8 +10,8 @@ def conectar_bd():
         conexion = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="",  # Coloca tu contraseña de MySQL aquí si tiene
-            database="siru"  # Nombre de tu base de datos
+            password="",  
+            database="siru" 
         )
         return conexion
     except mysql.connector.Error as error:
@@ -37,13 +37,13 @@ def obtener_usuarios(filtro):
     cursor.close()
     conexion.close()
 
-    return jsonify(usuarios)  # Asegúrate de que devuelves solo la lista de usuarios
+    return jsonify(usuarios)  
 
 # Endpoint para guardar los cambios realizados en los usuarios
 @usuarios_bp.route('/guardar_cambios_usuarios', methods=['POST'])
 def guardar_cambios_usuarios():
     try:
-        datos = request.json  # Obtener datos del cuerpo de la solicitud
+        datos = request.json  
 
         if 'usuarios' not in datos:
             return jsonify({"error": "Datos de usuarios no encontrados"}), 400

@@ -34,7 +34,7 @@ def obtener_registros():
 
     for registro in registros:
         if registro['imagen']:
-            registro['imagen'] = f"/uploads/{registro['imagen']}"  # Ruta relativa para la imagen
+            registro['imagen'] = f"/uploads/{registro['imagen']}"  
 
     return jsonify({"registros": registros})
 

@@ -9,7 +9,7 @@ def conectar_bd():
         conexion = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="tu_contraseña",  # Coloca aquí tu contraseña de MySQL
+            password="", 
             database="siru"
         )
         print("Conexión exitosa a la base de datos.")

@@ -1,10 +1,10 @@
 function CrearCodigo(event) {
-    event.preventDefault(); // Evitar el envío por defecto
+    event.preventDefault(); 
     
     const NCodigo = document.getElementById("Codigo").value;
     const tipo = document.querySelector("select[name='tipo']").value;
 
-    // Crear el objeto de datos a enviar al servidor
+   
     const datos = {
         codigo: NCodigo,
         tipo: tipo,
@@ -12,7 +12,7 @@ function CrearCodigo(event) {
         contraseña: ''
     };
 
-    // Enviar los datos al servidor utilizando Fetch API
+ 
     fetch('/crear_codigo', {
         method: 'POST',
         headers: {

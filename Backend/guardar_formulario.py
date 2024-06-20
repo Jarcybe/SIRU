@@ -3,7 +3,7 @@ import mysql.connector
 
 guardar_formulario_bp = Blueprint('guardar_formulario', __name__)
 
-# Función para conectar a la base de datos
+
 def conectar_bd():
     return mysql.connector.connect(
         host="localhost",
@@ -26,9 +26,9 @@ def guardar_formulario_route():
         descripcion = datos.get('descripcion')
         imagen_path = datos.get('imagen', None)
 
-        # Asegurar que la ruta de la imagen no contenga el prefijo 'Backend/'
+     
         if imagen_path and imagen_path.startswith('Backend/'):
-            imagen_path = imagen_path.replace('Backend/', '', 1)  # Eliminar solo el primer 'Backend/'
+            imagen_path = imagen_path.replace('Backend/', '', 1)  
 
         conexion = conectar_bd()
         cursor = conexion.cursor()
