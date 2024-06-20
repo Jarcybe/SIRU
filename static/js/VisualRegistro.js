@@ -34,7 +34,7 @@ function mostrarDetallesRecuerdo(recuerdo) {
 
     contenido.innerHTML = `
         <header class="w3-container w3-center">
-            <h2><b>${recuerdo.titulo}</b></h2>
+            <h3><b>${recuerdo.titulo}</b></h3>
             <span class="w3-button w3-xlarge w3-hover-red w3-display-topright"
                   onclick="Cerrar()" title="Cerrar">&times;</span>
         </header>

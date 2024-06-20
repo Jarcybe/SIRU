@@ -47,7 +47,7 @@ function ConfiDeRegistro(id) {
                             <p> </p>
                         </div>
                         <div class="w3-col s6 w3-center w3-section">
-                            <h3> Desarrollo </h3>
+                            <h5> Desarrollo </h5>
                             <input class="w3-radio" 
                             type="radio" 
                             name="desarrollo"
