@@ -16,3 +16,56 @@ h1 , h2 {
     height: 150px;
     object-fit: cover; /* Para que la imagen se ajuste al tamaño del contenedor sin deformarse */
 }
+
+#Contenedores{ 
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.w3-card{
+    max-width: 450px;
+    margin: 10px;
+}
+
+.red-margin-left, .red-margin-right {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    background-color: #a00000;
+    width: 5%;
+    z-index: -10;
+
+}
+.red-margin-left {
+    left: 0; /* Fija el margen izquierdo */
+  }
+  
+  .red-margin-right {
+    right: 0; /* Fija el margen derecho */
+  }
+
+.w3-bar-item{
+    text-align: center;
+    padding: 10px;
+    width: 40%;
+    margin: 20px auto;
+    font-size: 25px;
+    color: #000;
+    list-style: none;
+}
+
+.w3-sidebar{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width:5px !important;
+    height: 75%;
+}
+
+
+
+
+
+

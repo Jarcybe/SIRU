@@ -4,6 +4,7 @@
     
     <title> SIRU </title>
     <link rel="icon" type="image/x-icon" href="../static/images/favicon.ico">
+    
    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -17,7 +18,11 @@ class="sr-only sr-only-focusable">Saltar a la pagina principal</a>
      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
      
     <link rel="stylesheet"
-    href="..\static\css\estilos.css">  
+    href="..\static\css\estilos.css">
+    
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
 
     <link rel="icon"  
     href="../static/images/logo.png"
@@ -26,7 +31,7 @@ class="sr-only sr-only-focusable">Saltar a la pagina principal</a>
 
     <script src="../static/js/ActualizarTitulo.js"> </script>
     <script src="../static/js/Formulario.js"></script>
-
+    <script src="../static/js/Abrir_cerrar.js"></script>
     <script src="../static/js/GuardarFormulario.js"></script>
     <script src="../static/js/cerrarsesion.js"></script>
     <script src="../static/js/Estado.js"></script>
@@ -35,72 +40,84 @@ class="sr-only sr-only-focusable">Saltar a la pagina principal</a>
     <script src="../static/js/BuscarReportes.js"></script>
     <script src="../static/js/EliminarRegistro.js"></script>
     <script src="../static/js/Restablecer.js"></script>
-    <script src="../static/js/GuiaUsuario.js"></script>
+    <script src="../static/js/ImagenesDefecto.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../static/js/Abrir_cerrar.js"></script>
+    <script> document.addEventListener("DOMContentLoaded", Estado);</script>
   
 </head>
 
 <body>
     <!--menu desplebable-->
-<nav class="w3-sidebar w3-bar-block w3-card w3-top w3-xlarge w3-animate-right"
+<div id="tooltip"
+style = "display: none;
+position: absolute;
+background-color: #333;
+color: #fff;
+padding: 5px;
+border-radius: 5px;
+z-index: 1000;"></div>
+
+
+<nav class="w3-sidebar w3-bar-block  w3-animate-right"
 style = "display:none;z-index:2;width:40%;right:0;min-width:300px"
 id="miSitio">
 
-<a href="javascript:void(0)" 
-onclick="w3_close()"
-title="Cerrar el menu desplebable"
-class="w3-bar-item w3-button w3-border-bottom w3-hover-red with w3-hover-opacity"> 
-Cerrar el menu </a>
+<a  onmouseover="showTooltip(event, 'Crear un registro')" 
+onmouseout="hideTooltip()"
+onclick="document.getElementById('forma').style.display='block'"
+class="w3-bar-item w3-center w3-border-bottom w3-hover-red with w3-hover-opacity">
+<i class="fa fa-pencil-alt">
+</i> </a>
 
-<a onclick="document.getElementById('forma').style.display='block'" 
-title="Crear reporte"
-class="w3-bar-item w3-button w3-border-bottom w3-hover-red with w3-hover-opacity">
-Crear Reporte</a>
+<a onmouseover="showTooltip(event, 'Buscar un registro')" 
+onmouseout="hideTooltip()" 
+onclick="document.getElementById('buscar').style.display='block'"
+class="w3-bar-item w3-center w3-border-bottom w3-hover-red with w3-hover-opacity">
+<i class="fa fa-search">
+</i> </a> 
 
-<a onclick="document.getElementById('buscar').style.display='block'"
-title="Buscar registros" 
-class="w3-bar-item w3-button w3-border-bottom w3-hover-red with w3-hover-opacity">
-Buscar</a>
-
-<a href="javascript:void(0)"
-title="Guia de la aplicacion"           
-onclick="GuiaUsuario()" 
-class="w3-bar-item w3-button w3-border-bottom w3-hover-red with w3-hover-opacity">
-Guia</a>
-
-<a onclick="CerrarSesion()" 
-title="Cerrar sesion"
-class="w3-bar-item
-w3-button w3-border-bottom w3-hover-red with w3-hover-opacity">
-Cerrar sesion</a>
+<a onmouseover="showTooltip(event, 'Cerrar Sesion')" 
+onmouseout="hideTooltip()" 
+onclick="CerrarSesion()" 
+class="w3-bar-item w3-center w3-border-bottom w3-hover-red with w3-hover-opacity">
+<i class="fa fa-sign-out-alt">
+</i> </a>
 
 </nav>
 <script src="../static/js/Abrir_cerrar.js">
 </script>
 
+
 <!--encabezado-->
   <header class="w3-container w3-center w3-padding"
-  style="background-color: #C20E1A;"
-  onload="MostrarNombre()">
+  style="background-color: #C20E1A;
+  position: sticky;
+  top: 0;">
 
   <button class="w3-button w3-section w3-right"
-  title="Menu desplebable"
-  onclick="w3_open()">☰</button>
+  title="Abrir y cerrar el menu desplebable"
+
+  onclick="Abrir_cerrar()">☰</button>
 
  <h1><b>Bienvenidos al sistema SIRU </b></h1>
+
+
 </header>
+
 
 <!--relleno de la pagina-->
 <div class=" w3-row-padding w3-center"
 id="Contenedores">
-</div>
+</div> 
+
+<div class="red-margin-left"></div>
+<div class="red-margin-right"></div>
 
 <!--Visualizar reportes-->
 <div class="w3-modal"
-id="Modal"
-style="display: none;">
-<div class="w3-modal-content w3-card-4"
-style="padding: 16px;">
+id="Modal">
+<div class="w3-modal-content">
  
 </div>
 </div>
@@ -112,7 +129,8 @@ style="padding: 16px;">
 class="w3-modal">
 
 <div class="w3-modal-content w3-card-4 w3-animate-zoom"
-style="max-width: 600px;">
+style="max-width: 600px;
+bottom: 10%;">
 
 <header class="w3-container w3-center"
 style="background-color: #C20E1A;">
@@ -125,19 +143,25 @@ title   = "Cerrar pestaña"> &times; </button>
 <h2> <b> Registro sira </b></h2>
 </header>
 
-<form
-class="w3-container w3-row-padding"
+<form class="w3-container w3-row-padding"
 onsubmit="return false">
 
-<div class="w3-half">
-    <label for="Lugar">
-        Zona a escoger</label>
+<div class="w3-row">
+<!--Lugar-->
+    <div class="w3-col s6"
+    style = "padding-right: 15px;">
+
+<label for="Lugar" 
+style="display: block; text-align: center;">
+Zona a escoger</label>
+
 <select id="Lugar"
 class="w3-select w3-border w3-margin-bottom "
 title="Opcion salon"
 name="Opcion salon"
 style = "width:100% ;" 
-onchange="ActualizarItems(); ActualizarTitulo();" required>
+onchange="ActualizarItems(); ActualizarTitulo();" 
+required>
 
 <option value = "" disabled selected> Lugar </option>
 <option value = "informatica1"> Sala de informatica1 </option>
@@ -155,23 +179,58 @@ onchange="ActualizarItems(); ActualizarTitulo();" required>
 <option value = "salon5"> Salon 5 </option>
 <option value = "salon6"> Salon 6 </option>
 <option value = "patio"> Patio </option>
-></select>
+</select>
 
-<label for="Item">Item de la zona</label>
+<!--Item-->
+<label for="Item"
+style="display: block; text-align: center;">
+Item de la zona</label>
+
 <select id ="Item"
 class="w3-select w3-border w3-margin-bottom"
 name="items"
 style = "width:100%;" 
 title="Item"
-onchange = "ActualizarTitulo();" disabled
-required>
+onchange = "ActualizarTitulo();" 
+disabled required>
 
 <option value = "" disabled selected> Item </option>
-></select>
+</select>
+
+<label for="Titulo"
+style="display: block; text-align: center;">
+Titulo del formulario</label>
+
+<input id="Titulo"
+class="w3-input w3-border w3-margin-bottom"
+type="text" 
+title="Titulo"
+placeholder="Titulo" 
+name="Titulo" 
+style = "width:100%" 
+readonly required>
+
+<!--Descripcion-->
+<label for="Descripcion"
+style="display: block; text-align: center;">
+ Descripcion del problema</label>
+<textarea id = "Descripcion"
+class="w3-input w3-border w3-margin-bottom"
+type="text" 
+placeholder="Descripcion" 
+name="Descripcion" 
+style = "width:100%;height: 150px;"
+maxlength="400"
+required>
+</textarea>
 </div>
 
-<div class="w3-half w3-border-bottom">
-<label for="sugerencia"> Estado </label>
+<!--Estado-->
+<div class="w3-col s6">
+<label for="sugerencia"
+style="display: block; text-align: center; display: block;">
+ Estado </label>
+
 <p>
 <input class="w3-radio"
 id="sugerencia"
@@ -206,79 +265,55 @@ checked>
 
             Arreglo </label>
         </p>
-</div>
 
-<div class="w3-row w3-col s12">
-    <label for="Titulo">Titulo del formulario</label>
-<input 
-id="Titulo"
-class="w3-input w3-border w3-margin-bottom"
-type="text" 
-title="Titulo"
-placeholder="Titulo" 
-name="Titulo" 
-style = "width:50%" 
-readonly
-required
-></div>
-
-
-<div class="w3-row">
-<div class="w3-col s6">
-    <label for="Descripcion">
-        Descripcion del problema</label>
-    <textarea 
-    id = "Descripcion"
-    class="w3-input w3-border w3-margin-bottom"
-    type="text" 
-    placeholder="Descripcion" 
-    name="Descripcion" 
-    style = "width:100%;height: 150px;"
-   maxlength="400"
-   required
-    ></textarea>
-</div>
-
-<div class="w3-center w3-col s6"
-style="padding-left: 20px">
-
+        <!--Boton imagen-->
 <label for="imagen"
-class="w3-button w3-white w3-border w3-margin-bottom"
-title="Boton para subir imagen">   
+class="w3-button w3-white w3-block w3-border"
+title="Botons para subir imagen">   
     Subir imagen
         </label>
 
-    <input
-    id="imagen"
+        <input id="imagen"
     type="file"
     style="display:none;"
     name="imagen"
-    accept="image/*">
+    accept="image/*"
+    onchange="previewImage(event)">
+
+   <!--Vista previa--> 
+<div id="imagenPreview"
+style="display: flex;
+       justify-content: center;
+       align-items: center;">
+
+<img id="preview"
+scr=""
+class = "w3-image"
+style = "border: 1px solid #ccc;
+         background-color: #eee;
+">
 </div>
 
-<div class="w3-center w3-col s6"
-style="padding-left: 20px">
-
+<!--boton enviar-->
     <button
-     class="w3-button w3-xlarge w3-white w3-border w3-margin-bottom"
+     class="w3-button w3-xlarge w3-red w3-border w3-margin-bottom  w3-block"
      type="submit"
      title="Boton para enviar el formulario"
      onclick="GuardarFormulario(event)">
      Enviar »
 </button>
 
+
 </div>
 </div>
+
 </form>
 
 </div>
 </div>
 </div>
 
-<script src="../static/js/Abrir_cerrar.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", Estado);
-</script>
+
 
 <!--buscar-->
 <div class="w3-container  w3-center">
@@ -389,57 +424,6 @@ title   = "Cerrar pestaña"> &times; </button>
     </div>
 </div>
 </div>
-
-
-<!--Guia-->
-<div id="pdf"
-class="w3-modal"
-style="display: none;">
-
-<div class="w3-modal-content w3-card-4 w3-animate-zoom"
-style="max-width:80%;">
-
-<header class="w3-container w3-center"
-style="background-color: #C20E1A;">
-<button onclick="document.getElementById('pdf').style.display='none'"
-class="w3-button w3-xlarge w3-hover-red w3-display-topright"
-title="Cerrar pestaña">
-&times;
-</button>
-<h2><b> Guia de la aplicacion </b></h2>
-</header>
-
-<div class="w3-container w3-center">
-
-    <div class="w3-content w3-display-container"
-style="max-width: 800px;">
-
-<img class="mySlides" 
-src="../static/images/GuiaUsu1.png"
-alt="Una breve descripcion corta de la intrefas del aplicativo" 
-style="width:100%">
-
-<img class="mySlides" 
-src="../static/images/GuiaUsu2.png" 
-alt="Parte 2 de la guia"
-style="width:100%">
-
-<img class="mySlides" 
-src="../static/images/GuiaUsu3.png" 
-alt="Parte 3 de la guia"
-style="width:100%">
-
-<button class="w3-button w3-display-left w3-red" onclick="plusDivs(-1)">&#10094;</button>
-<button class="w3-button w3-display-right w3-red" onclick="plusDivs(1)">&#10095;</button>
-
-</div> 
-</div>
-</div>
-</div>
-
-<a href="#pdf" 
-class="sr-only sr-only-focusable">Saltar a la guia</a>
-
 
 <a href="#buscar" 
 class="sr-only sr-only-focusable">Saltar al formulario de búsqueda</a>

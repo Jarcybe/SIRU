@@ -1,5 +1,6 @@
 let resultadosFiltrados = [];
 function BuscarReportes(event) {
+    
     event.preventDefault();
 
     const lugar = document.getElementById("buscarLugar").value.toLowerCase();
@@ -31,7 +32,19 @@ function BuscarReportes(event) {
                     registros.forEach((rec, index) => {
                         const carta = document.createElement("div");
                         carta.className = "w3-col m5 w3-card w3-margin";
-                        const imagenHTML = rec.imagen ? `<img src="${rec.imagen}" class="w3-image">` : '<div class="w3-border w3-light-grey" style="height: 150px;"></div>';
+                        
+                        let imagenHTML;
+
+                    if(rec.imagen){
+                      imagenHTML = `<img src="${rec.imagen}" class="w3-image">`;
+                    }else{
+                        const lugar = rec.lugar.toLowerCase();
+                        const ImagenPorDefecto = ImagenesDefecto[lugar];
+                        
+                        imagenHTML = ImagenPorDefecto ? 
+                        `<img src="${ImagenPorDefecto}" class="w3-image">`
+                        : `<div class = "w3-border w3-light-grey" style="height: 150px;"></div>`;
+                    }
 
                         carta.innerHTML = `
                             <div class="w3-container">

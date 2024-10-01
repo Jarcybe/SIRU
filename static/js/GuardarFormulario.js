@@ -128,3 +128,25 @@ function obtenerFechaActual() {
     const seconds = ('0' + now.getSeconds()).slice(-2);
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 }
+
+function previewImage(event){
+
+const input = event.target;
+const preview = document.getElementById("imagenPreview");
+const image = document.getElementById("preview");
+
+if(input.files && input.files[0]){
+const reader = new FileReader();
+
+reader.onload= function(e){
+image.src = e.target.result;
+preview.style.display = "block";
+};
+
+reader.readAsDataURL(input.files[0]);
+}else{
+    preview.style.display = "none";
+}
+
+ 
+}

@@ -11,7 +11,18 @@ function ConfiDeRegistro(id) {
             const modal = document.getElementById("Modal");
             const contenido = modal.querySelector(".w3-modal-content");
 
-            const imagenHTML = recordar.imagen ? `<img src="${recordar.imagen}" class="w3-image">` : '<div class="w3-border w3-light-grey" style="height: 150px;"></div>';
+            let imagenHTML;
+
+    if(recordar.imagen){
+      imagenHTML = `<img src="${recordar.imagen}" class="w3-image">`;
+    }else{
+        const lugar = recordar.lugar.toLowerCase();
+        const ImagenPorDefecto = ImagenesDefecto[lugar];
+        
+        imagenHTML = ImagenPorDefecto ? 
+        `<img src="${ImagenPorDefecto}" class="w3-image">`
+        : `<div class = "w3-border w3-light-grey" style="height: 150px;"></div>`;
+    }
 
             contenido.innerHTML = `
                 <header class="w3-container w3-red w3-center">
@@ -24,8 +35,10 @@ function ConfiDeRegistro(id) {
                         <div class="w3-col s6">
                             <p><b> Fecha: </b> ${recordar.fecha}</p>
                             <p><b> Estado: </b> ${recordar.estado}</p>
-                            <p><b> Usuario: </b> ${recordar.codigo} (${recordar.nombre_usuario || "Desconocido"})</p>
-                            <p>${recordar.descripcion}</p>
+                            <p><b> Usuario: </b> ${recordar.codigo} -  (${recordar.nombre_usuario || "Desconocido"})</p>
+                            <textarea class= "w3-input w3-border w3-light gret"
+                            style = "height: 100px;"
+                            readonly> ${recordar.descripcion}</textarea>
                         </div>
                         <div class="w3-col m6" 
                         style="position: relative; display: flex; justify-content: center; align-items: center; height: 100%;">
