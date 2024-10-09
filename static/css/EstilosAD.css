@@ -13,6 +13,13 @@ h3{
     color: rgb(255, 255, 255);
 }
 
+.w3-card{
+  
+    border-radius: 30px; 
+    overflow: hidden; 
+    border: 1px solid lightgrey;
+}
+
 
 body, h2, h4, h5 {font-family: "Raleway", sans-serif}
         .estilos {

@@ -1,6 +1,6 @@
 function EditarUsuario(uniqueId) {
 
-    const estado = document.getElementById(`estado-${uniqueId}`);
+    const estado = document.getElementById(`tipo-${uniqueId}`);
     const nombre = document.getElementById(`nombre-${uniqueId}`);
     const contra = document.getElementById(`contraseña-${uniqueId}`);
 

@@ -3,13 +3,13 @@ function CrearCodigo(event) {
     
     const NCodigo = document.getElementById("Codigo").value;
     const tipo = document.querySelector("select[name='tipo']").value;
-
    
     const datos = {
         codigo: NCodigo,
         tipo: tipo,
         nombre: '',
-        contraseña: ''
+        contraseña: '', 
+        estado: true
     };
 
  

@@ -11,7 +11,7 @@ def conectar_bd():
             password="",
             database="siru"
         )
-        print("Conexión exitosa a la base de datos.")
+      
         return conexion
     except mysql.connector.Error as error:
         print("Error al conectar a la base de datos:", error)
@@ -41,6 +41,12 @@ def registro():
                 cursor.close()
                 conexion.close()
                 return jsonify({'mensaje': 'El código no está registrado'}), 400
+            
+            estado = usuario_existente[4]
+            if estado == 0:
+                cursor.close()
+                conexion.close()
+                return jsonify({'mensaje': 'El usuaurio esta deshabilitado, no se puede registrar.' }), 400
 
             # Insertar el nuevo usuario
             cursor.execute(

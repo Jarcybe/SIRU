@@ -8,16 +8,17 @@ CREATE TABLE IF NOT EXISTS `usuario` (
     `nombre` VARCHAR(255) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
     `contraseña` VARCHAR(255) NULL DEFAULT NULL COLLATE 'latin1_swedish_ci',
     `tipo` VARCHAR(50) NOT NULL COLLATE 'latin1_swedish_ci',
+    'estado' TINYINT(1) NOT NULL DEFAULT '1',
     PRIMARY KEY (`codigo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- Inserciones de ejemplo en la tabla usuario
 INSERT INTO `usuario` (`codigo`, `nombre`, `contraseña`, `tipo`)
 VALUES
-('2155379', 'Juan Pérez', 'password1', 'Usuario'),
-('2266480', 'María Gómez', 'password2', 'Usuario'),
-('2377591', 'Eva Hernández', 'adminpass3', 'Admin'),
-('123', 'Steven', '3', 'Admin');
+('2155379', 'Juan Pérez', 'password1', 'Usuario', '1'),
+('2266480', 'María Gómez', 'password2', 'Usuario', '1'),
+('2377591', 'Eva Hernández', 'adminpass3', 'Admin', '1'),
+('123', 'Steven', '3', 'Admin', '1');
 
 
 -- Creación de la tabla formularioregistro

@@ -17,11 +17,18 @@ def verificar_credenciales(codigo, contraseña):
     cursor = connection.cursor()
 
     # Asegurarse de seleccionar el campo 'tipo' en la consulta
-    cursor.execute("SELECT codigo, tipo, nombre FROM Usuario WHERE codigo = %s AND contraseña = %s", (codigo, contraseña))
+    cursor.execute("SELECT codigo, tipo, nombre, estado FROM Usuario WHERE codigo = %s AND contraseña = %s", (codigo, contraseña))
     usuario = cursor.fetchone()
     cursor.close()
     connection.close()
-    return usuario
+
+    if usuario:
+        if usuario[3] == 1: 
+            return usuario
+        else: 
+            return None
+    else:
+        return None
 
 # Ruta para manejar el inicio de sesión
 @login_bp.route('/login', methods=['POST'])
@@ -42,7 +49,7 @@ def login():
         session.permanent = True
         return jsonify({'success': True, 'usuario': session['user']})
     else:
-        return jsonify({'success': False, 'message': 'Código o contraseña incorrectos'})
+        return jsonify({'success': False, 'message': 'Código o contraseña incorrectos o cuenta deshabilitada'})
 
 # Ruta para manejar el cierre de sesión
 @login_bp.route('/logout')

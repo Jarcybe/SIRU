@@ -53,7 +53,7 @@ function Registro(event) {
         console.error('Error al enviar los datos al backend:', error);
         Swal.fire({
             icon: "error",
-            title: "No se pudo completar el registro por codigo erroneo",
+            title: "No se pudo completar el registro por codigo erroneo o desactivado",
           });
     });
 }

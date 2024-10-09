@@ -27,13 +27,15 @@
     <script src="../static/js/Dropdown.js"></script>
     <script src="../static/js/cerrarsesion.js"></script>
     <script src="../static/js/CargarUsuarios.js"></script>
-    <script src="../static/js/ConfirmarEliminacion.js"></script>
+    <script src="../static/js/ConfirmarDesacActivacion.js"></script>
     <script src="../static/js/EliminarUsuario.js"></script>
     <script src="../static/js/CancelarYGuardar.js"></script>
     <script src="../static/js/EditarUsuario.js"></script>
     <script src="../static/js/Restablecer.js"></script>
     <script src="../static/js/FiltrarRegistro.js"></script>
     <script src="../static/js/ImagenesDefecto.js"></script>
+    <script src="../static/js/CambiarEstado.js"></script>
+    <script src="../static/js/BuscarUsuario.js"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
@@ -101,7 +103,11 @@
         
         <!-- Zona  derecha -->
         <div class="w3-col l8 s12"
-        id="Muchos">
+        style="border-radius: 50px; 
+                    overflow: hidden; 
+                    border: 1px solid lightgrey;"
+        id="Muchos"
+        >
             
             </div>
             <hr>
@@ -211,6 +217,25 @@ title="Cerrar pestaña">&times;
 </header>
 
 <div class="w3-container">
+
+<div class="w3-row w3-padding-16">
+<div class="w3-col m8">
+    <input class="w3-inpu"
+    type="text"
+    id="BarraBuscar"
+    placeholder="Buscar por codigo o nombre">
+</div>
+
+<div class="w3-col m4">
+<button class="w3-button w3-gray w3-block" 
+onclick="BuscarUsuario()">
+Buscar
+</button>
+
+</div>
+</div>
+
+
 <div class="w3-bar w3-light-grey">
 
 <button class="w3-bar-item w3-button"

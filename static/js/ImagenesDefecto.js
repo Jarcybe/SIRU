@@ -1,9 +1,9 @@
 const ImagenesDefecto = {
 
-    "bañosH1": "/static/images/BañoMH.jpg",
-    "bañosM1": "/static/images/BañoMH.jpg",
-    "bañosH2": "/static/images/BañoMH.jpg",
-    "bañosM2": "/static/images/BañoMH.jpg",
+    "bañosh1": "/static/images/bañoMH.jpg",
+    "bañosm1": "/static/images/bañoMH.jpg",
+    "bañosh2": "/static/images/bañoMH.jpg",
+    "bañosm2": "/static/images/bañoMH.jpg",
     "biblioteca": "/static/images/bibiloteca.png",
     "informatica1": "/static/images/Informatica.png",
     "informatica2": "/static/images/Informatica.png",

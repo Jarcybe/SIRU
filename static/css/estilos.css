@@ -27,6 +27,9 @@ h1 , h2 {
 .w3-card{
     max-width: 450px;
     margin: 10px;
+    border-radius: 30px; 
+    overflow: hidden; 
+    border: 1px solid lightgrey;
 }
 
 .red-margin-left, .red-margin-right {
@@ -60,8 +63,9 @@ h1 , h2 {
     position: fixed;
     bottom: 0;
     right: 0;
+    display:none;
     width:5px !important;
-    height: 75%;
+    height: 85.5%;
 }
 
 

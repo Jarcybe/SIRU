@@ -15,11 +15,13 @@ conexion = mysql.connector.connect(
 @crear_codigo_bp.route('/crear_codigo', methods=['POST'])
 def crear_codigo():
     # Obtener los datos enviados desde el cliente
-    data = request.json
+    data = request.get_json()
+
     codigo = data.get('codigo')
     tipo = data.get('tipo')
     nombre = data.get('nombre')
     contraseña = data.get('contraseña')
+    estado = data.get('estado', True)
 
     # Verificar si el código ya existe en la base de datos
     cursor = conexion.cursor()
@@ -29,7 +31,8 @@ def crear_codigo():
         return jsonify({'success': False, 'message': 'El código ya existe'})
 
     # Insertar un nuevo registro en la tabla Usuario
-    cursor.execute("INSERT INTO Usuario (codigo, tipo, nombre, contraseña) VALUES (%s, %s, %s, %s)", (codigo, tipo, nombre, contraseña))
+    cursor.execute("INSERT INTO Usuario (codigo, tipo, nombre, contraseña, estado) VALUES (%s, %s, %s, %s, %s)", 
+                   (codigo, tipo, nombre, contraseña, estado))
     conexion.commit()
 
     return jsonify({'success': True, 'message': 'Código creado exitosamente'})
