@@ -51,7 +51,7 @@ fetch(`/buscar_usuario/${filtro}`)
         `;
     });
 } else {
-    tabla.innerHTML = '<p>No sdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddde encontraron usuarios con ese término de búsqueda.</p>';
+    tabla.innerHTML = '<p>No se encontraron usuarios con ese término de búsqueda.</p>';
 }
 })
 .catch(error => console.error('Error al buscar usuario:', error));
