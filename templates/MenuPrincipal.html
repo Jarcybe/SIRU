@@ -30,20 +30,23 @@ class="sr-only sr-only-focusable">Saltar a la pagina principal</a>
     size="32x32"
     type="image/png">
 
-    <script src="../static/js/ActualizarTitulo.js"> </script>
-    <script src="../static/js/Formulario.js"></script>
-    <script src="../static/js/Abrir_cerrar.js"></script>
-    <script src="../static/js/GuardarFormulario.js"></script>
-    <script src="../static/js/cerrarsesion.js"></script>
-    <script src="../static/js/Estado.js"></script>
-    <script src="../static/js/VisualRegistro.js"></script>
-    <script src="../static/js/Dropdown.js"></script>
-    <script src="../static/js/BuscarReportes.js"></script>
-    <script src="../static/js/EliminarRegistro.js"></script>
-    <script src="../static/js/Restablecer.js"></script>
-    <script src="../static/js/ImagenesDefecto.js"></script>
+    <script src="../static/js/JS_Usuario/ActualizarTitulo.js"> </script>
+    <script src="../static/js/JS_Usuario/Formulario.js"></script>
+    <script src="../static/js/JS_Usuario/Abrir_cerrar.js"></script>
+    <script src="../static/js/JS_Usuario/GuardarFormulario.js"></script>
+    <script src="../static/js/JS_Usuario/Estado.js"></script>
+    <script src="../static/js/JS_Usuario/VisualRegistro.js"></script>
+    <script src="../static/js/JS_Usuario/BuscarReportes.js"></script>
+    <script src="../static/js/JS_Usuario/PreVisualizacion.js"></script>
+
+    <script src="../static/js/JS_Genericos/EliminarRegistro.js"></script>
+    <script src="../static/js/JS_Genericos/Dropdown.js"></script>
+    <script src="../static/js/JS_Genericos/Restablecer.js"></script>
+    <script src="../static/js/JS_Genericos/ImagenesDefecto.js"></script>
+    <script src="../static/js/JS_Genericos/cerrarsesion.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../static/js/Abrir_cerrar.js"></script>
+
     <script> document.addEventListener("DOMContentLoaded", Estado);</script>
   
 </head>
@@ -68,26 +71,32 @@ id="miSitio">
 onmouseout="hideTooltip()"
 onclick="document.getElementById('forma').style.display='block'"
 class="w3-bar-item w3-center w3-border-bottom w3-hover-red with w3-hover-opacity">
-<i class="fa fa-pencil-alt">
-</i> </a>
+<img src="../static/images/IconoCrear.png"
+alt = "Buscar"
+style="width: 24px;
+height: 24px;">  </a>
 
 <a onmouseover="showTooltip(event, 'Buscar un registro')" 
 onmouseout="hideTooltip()" 
 onclick="document.getElementById('buscar').style.display='block'"
 class="w3-bar-item w3-center w3-border-bottom w3-hover-red with w3-hover-opacity">
-<i class="fa fa-search">
-</i> </a> 
+<img src="../static/images/IconoBuscar.png"
+alt = "Buscar"
+style="width: 24px;
+height: 24px;"> 
+</a> 
 
 <a onmouseover="showTooltip(event, 'Cerrar Sesion')" 
 onmouseout="hideTooltip()" 
 onclick="CerrarSesion()" 
 class="w3-bar-item w3-center w3-border-bottom w3-hover-red with w3-hover-opacity">
-<i class="fa fa-sign-out-alt">
-</i> </a>
+<img src="../static/images/IconoCerrarSesion.png"
+alt = "Buscar"
+style="width: 24px;
+height: 24px;"> 
+</a>
 
 </nav>
-<script src="../static/js/Abrir_cerrar.js">
-</script>
 
 
 <!--encabezado-->

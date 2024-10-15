@@ -59,7 +59,7 @@ def guardar_cambios_usuarios():
         try:
             for usuario in usuarios_actualizados:
                 codigo = usuario.get('codigo')
-                estado = usuario.get('estado')
+                tipo = usuario.get('tipo')
                 nombre = usuario.get('nombre')
                 contraseña = usuario.get('contraseña')
 
@@ -68,7 +68,7 @@ def guardar_cambios_usuarios():
                     UPDATE usuario
                     SET tipo = %s, nombre = %s, contraseña = %s
                     WHERE codigo = %s
-                """, (estado, nombre, contraseña, codigo))
+                """, (tipo, nombre, contraseña, codigo))
 
             conexion.commit()
             cursor.close()

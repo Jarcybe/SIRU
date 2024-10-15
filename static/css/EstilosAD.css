@@ -13,6 +13,21 @@ h3{
     color: rgb(255, 255, 255);
 }
 
+
+.w3-button{
+    border-radius: 30px; 
+    overflow: hidden; 
+    }
+
+    textarea{
+        border-radius: 10px; 
+    overflow: hidden;  
+    }
+.w3-modal-content{
+    border-radius: 30px; 
+    overflow: hidden; 
+}
+
 .w3-card{
   
     border-radius: 30px; 

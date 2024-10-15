@@ -30,32 +30,10 @@ function BuscarReportes(event) {
                     contenedores.innerHTML = "<p>Ningún reporte encontrado con estos criterios de búsqueda</p>";
                 } else {
                     registros.forEach((rec, index) => {
-                        const carta = document.createElement("div");
-                        carta.className = "w3-col m5 w3-card w3-margin";
-                        
-                        let imagenHTML;
 
-                    if(rec.imagen){
-                      imagenHTML = `<img src="${rec.imagen}" class="w3-image">`;
-                    }else{
-                        const lugar = rec.lugar.toLowerCase();
-                        const ImagenPorDefecto = ImagenesDefecto[lugar];
+                        const Carta = PreVisualizacion(rec, index);
                         
-                        imagenHTML = ImagenPorDefecto ? 
-                        `<img src="${ImagenPorDefecto}" class="w3-image">`
-                        : `<div class = "w3-border w3-light-grey" style="height: 150px;"></div>`;
-                    }
-
-                        carta.innerHTML = `
-                            <div class="w3-container">
-                                <h3><b>${rec.titulo}</b></h3>
-                                ${imagenHTML}
-                                <button class="w3-small w3-button w3-block w3-red"
-                                    title="Ver detalles"
-                                    onclick="VisualRegistro(${index}, true)">Ver detalles</button>
-                            </div>
-                        `;
-                        contenedores.appendChild(carta);
+                        contenedores.appendChild(Carta);
                     });
                 }
                 document.getElementById('buscar').style.display = 'none';

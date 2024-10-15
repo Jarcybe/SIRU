@@ -27,7 +27,10 @@ function ConfiDeRegistro(id) {
             contenido.innerHTML = `
                 <header class="w3-container w3-red w3-center">
                     <span onclick="Cerrar()"
-                     class="w3-button w3-xlarge w3-hover-grey w3-display-topright" title="Cerrar pestaña">&times;</span>
+                     class="w3-button w3-xlarge w3-hover-grey w3-display-topright" 
+                     title="Cerrar pestaña">
+                     &times;</span>
+                     
                     <h2>${recordar.titulo}</h2>
                 </header>
                 <div class="w3-container" style="padding: 20px;">

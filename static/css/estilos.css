@@ -11,11 +11,18 @@ h1 , h2 {
     color: #ffffff;
 }
 
+
+
+.w3-button{
+    overflow: hidden; 
+    }
+
 .w3-image {
     width: 200px;
     height: 150px;
     object-fit: cover; /* Para que la imagen se ajuste al tamaño del contenedor sin deformarse */
 }
+
 
 #Contenedores{ 
     display: flex;
@@ -27,7 +34,7 @@ h1 , h2 {
 .w3-card{
     max-width: 450px;
     margin: 10px;
-    border-radius: 30px; 
+    border-radius: 15px; 
     overflow: hidden; 
     border: 1px solid lightgrey;
 }
