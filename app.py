@@ -73,6 +73,12 @@ def menu_principal():
 def menu_admin():
     return render_template('MenuAdmin.html')
 
+@app.route('/menu_encargado')
+@role_required('Encargado')
+@login_required
+def menu_encargado():
+    return render_template('MenuEncargado.html')
+
 @app.route('/obtener_usuarios/<filtro>', methods=['GET'])
 def obtener_usuarios_route(filtro):
     usuarios = obtener_usuarios(filtro)

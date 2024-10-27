@@ -11,12 +11,6 @@ h1 , h2 {
     color: #ffffff;
 }
 
-
-
-.w3-button{
-    overflow: hidden; 
-    }
-
 .w3-image {
     width: 200px;
     height: 150px;
@@ -37,6 +31,21 @@ h1 , h2 {
     border-radius: 15px; 
     overflow: hidden; 
     border: 1px solid lightgrey;
+}
+
+.w3-button{
+    border-radius: 5px; 
+    overflow: hidden;
+}
+
+.w3-modal-content{
+    border-radius: 30px; 
+    overflow: hidden; 
+}
+
+textarea{
+    border-radius: 10px; 
+overflow: hidden;  
 }
 
 .red-margin-left, .red-margin-right {
@@ -63,7 +72,6 @@ h1 , h2 {
     margin: 20px auto;
     font-size: 25px;
     color: #000;
-    list-style: none;
 }
 
 .w3-sidebar{

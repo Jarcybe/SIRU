@@ -103,15 +103,20 @@ function mostrarDetallesRecuerdo(recuerdo) {
 
                 <div class="w3-right">
                 
-                <div style="margin-top: -50px;">
-                <label for="Desarrollo"> Desarrollo: </label>
-                <input id="Desarrollo"
-                class="w3-input w3-border"
+                <div style="margin-top: -50px;
+                text-align: center;">
+
+                 <p> <b>   Desarrollo: </b> <p>
+                
+                 <input id="Desarrollo"
+                class="w3-input"
                 type="text"
                 value="${texto}"
-                style="background-color: ${Color};
-                color: white;
-                text-align: center;"
+                
+                style="color: ${Color};
+                text-align: center;
+                height: 25px;
+                padding: 5px 0;"
                 readonly>
             </div>
             </div>

@@ -1,0 +1,91 @@
+.task-count {
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  .card {
+    border-radius: 10px;
+  }
+
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+ /* Estilos del header */
+ .navbar {
+  background-color: red;
+  height: 100px; /* Altura del header aumentada */
+}
+
+/* Barra lateral fija */
+.sidebar {
+  height: 100%;
+  width: 150px; /* Ancho de la barra lateral */
+  position: fixed;/*mantiene la barra siempre a la vista*/
+
+  left: 0;
+  background-color: white;
+  padding-top: 20px;
+  overflow-x: hidden;
+  box-shadow: 5px 0  rgba(0, 0, 0, 0.1);
+}
+
+.sidebar a {
+  padding-top: 15px;
+  text-decoration: none;
+  margin-bottom: 20px;
+  font-size: 20px;
+  display: flex;
+  width: 100%;
+}
+
+.icon-button {
+  display: flex;
+  flex-direction: column;
+}
+
+.icon-button img {
+  width: 50px; /* Tamaño reducido de los iconos */
+  height: 50px; /* Tamaño reducido de los iconos */
+  cursor: pointer;
+}
+
+/* Ajustar el contenido principal */
+.content {
+  margin-left: 170px; /* Espacio para la barra lateral */
+  padding: 16px;
+}
+
+h1{
+
+  font-size: 50px;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+}
+
+
+h3{
+  font-size: 35px;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+}
+
+
+.w3-button{
+  border-radius: 30px; 
+  overflow: hidden; 
+  }
+
+  textarea{
+      border-radius: 10px; 
+  overflow: hidden;  
+  }
+
+.w3-modal-content{
+  border-radius: 30px; 
+  overflow: hidden; 
+}
+
+.w3-card{
+  border-radius: 30px; 
+  overflow: hidden; 
+}

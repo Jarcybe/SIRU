@@ -17,15 +17,13 @@ const BotonEstado = document.getElementById(`BotonEstado-${Id}`);
 if (data.nuevo_estado === 1){
 
     EstadoInput.value = "Activo";
-    EstadoInput.style.backgroundColor = "green";
-    EstadoInput.style.color = "white";
+    EstadoInput.style.color = "green";
     BotonEstado.textContent = "Desactivar";
 
 }else{
 
     EstadoInput.value = "Inactivo";
-    EstadoInput.style.backgroundColor = "darkred";
-    EstadoInput.style.color = "white";
+    EstadoInput.style.color = "darkred";
     BotonEstado.textContent = "Activar";
 
 }

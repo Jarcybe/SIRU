@@ -63,7 +63,7 @@
 
         <!--Parte izquierda-->
         <div class="w3-container w3-col l4">
-        <div class= "w3-container w3-white w3-card w3-margin-top">
+        <div class= "w3-container w3-white w3-card w3-border w3-margin-top">
                    <h4><b>Bienvenido -Admin-</b></h4>
                     <p>¿Que opcion quieres hacer?:</p>
                    
@@ -88,12 +88,30 @@
                     class="w3-button w3-center w3-red w3-hover-pink w3-section w3-block"
                     title="Filtrar registro">
                     Filtrar Registro</button>
-                    
+
                     <button 
                     onclick="AbrirModal()"
                     class="w3-button w3-red w3-hover-pink w3-section w3-block"
                     title="Administrar usuario">
                     Administrar usuarios</button>
+                    
+                    <button 
+                    onclick=""
+                    class="w3-button w3-red w3-hover-pink w3-section w3-block"
+                    title="Datos Estadisticos">
+                    Datos Estadisticos</button>
+
+                    <button 
+                    onclick=""
+                    class="w3-button w3-red w3-hover-pink w3-section w3-block"
+                    title="Notificaciones">
+                    Notificaciones</button>
+
+                    <button 
+                    onclick=""
+                    class="w3-button w3-red w3-hover-pink w3-section w3-block"
+                    title="Administracion de zonas">
+                    Zonas e items</button>
 
                     <button 
                     onclick="CerrarSesion()" 
@@ -203,7 +221,8 @@ style="display: none;">
 id="administrar">
 
 <div class="w3-modal-content w3-card-4 w3-animate-zoom"
-style="max-width:800px;">
+style="max-width:800px;
+bottom: 10%;">
 
 <header class="w3-container"
 style="background-color: #C20E1A;">
@@ -305,7 +324,7 @@ Cancelar</button>
                 <div class="w3-row-padding w3-margin-bottom">
                     <div class="w3-half">
                         <label for="buscarLugar">
-                            <b>Buscar por zona</b></label>
+                            <b>Buscar por lugar</b></label>
                         <input id="buscarLugar" 
                         title="Por zona"
                         class="w3-input w3-border" 
@@ -330,13 +349,13 @@ Cancelar</button>
                 <div class="w3-row-padding w3-margin-bottom">
                     <div class="w3-third">
                      <label for="Estado">
-                        <b>Nivel de importación del formulario</b></label>
+                        <b>Tipo del formulario</b></label>
 
                         <select id="Estado" class="w3-select w3-border">
                             <option value="" selected>---</option>
-                            <option value="baja">Sugerencia</option>
-                            <option value="media">Pedido</option>
-                            <option value="alta">Arreglo</option>
+                            <option value="Sugerencia">Sugerencia</option>
+                            <option value="Mantenimiento">Mantenimiento</option>
+                            <option value="Reparacion">Reparacion</option>
                         </select>
                     </div>
 

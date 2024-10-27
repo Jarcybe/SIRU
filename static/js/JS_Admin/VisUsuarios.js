@@ -19,13 +19,14 @@ function VisualizacionUsuario(usuario, index){
                 </span>
             
             <b>Estado:</b>
-            <input class="w3-input"
+            <input id="estado-${uniqueId}"
+            class="w3-input"
             type="text"
-            id="estado-${uniqueId}"
             value="${EsTexto}"
-            readonly style="color: white;
-            background-color: ${EsColor};
-            text-align: center;">
+
+            style="color: ${EsColor};
+            text-align: center;"
+            readonly>
             </div>
 
             <div class="w3-col m2 w3-padding-small">
@@ -60,7 +61,7 @@ function VisualizacionUsuario(usuario, index){
             </div>
 
             <div class="w3-col m2 w3-padding-small">
-                <button class="w3-button w3-red w3-border w3-block"
+                <button class="w3-button w3-border w3-block"
                  onclick="EditarUsuario('${uniqueId}')">
                  Editar
                  </button>

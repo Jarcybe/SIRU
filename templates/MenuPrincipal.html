@@ -44,6 +44,7 @@ class="sr-only sr-only-focusable">Saltar a la pagina principal</a>
     <script src="../static/js/JS_Genericos/Restablecer.js"></script>
     <script src="../static/js/JS_Genericos/ImagenesDefecto.js"></script>
     <script src="../static/js/JS_Genericos/cerrarsesion.js"></script>
+    <script src="../static/js/JS_Genericos/Notificaciones.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -86,6 +87,16 @@ style="width: 24px;
 height: 24px;"> 
 </a> 
 
+<a onmouseover="showTooltip(event, 'Notificaciones')" 
+onmouseout="hideTooltip()" 
+onclick="document.getElementById('noticar').style.display='block'"
+class="w3-bar-item w3-center w3-border-bottom w3-hover-red with w3-hover-opacity">
+<img src="../static/images/IconoNotificacion.png"
+alt = "Notificaciones"
+style="width: 24px;
+height: 24px;"> 
+</a> 
+
 <a onmouseover="showTooltip(event, 'Cerrar Sesion')" 
 onmouseout="hideTooltip()" 
 onclick="CerrarSesion()" 
@@ -110,8 +121,7 @@ height: 24px;">
 
   onclick="Abrir_cerrar()">☰</button>
 
- <h1><b>Bienvenidos al sistema SIRU </b></h1>
-
+ <h1><b>Tus reportes </b></h1>
 
 </header>
 
@@ -121,6 +131,7 @@ height: 24px;">
 id="Contenedores">
 </div> 
 
+<!--margeners-->
 <div class="red-margin-left"></div>
 <div class="red-margin-right"></div>
 
@@ -139,7 +150,7 @@ id="Modal">
 class="w3-modal">
 
 <div class="w3-modal-content w3-card-4 w3-animate-zoom"
-style="max-width: 600px;
+style="max-width: 800px;
 bottom: 10%;">
 
 <header class="w3-container w3-center"
@@ -159,11 +170,12 @@ onsubmit="return false">
 <div class="w3-row">
 <!--Lugar-->
     <div class="w3-col s6"
-    style = "padding-right: 15px;">
+    style = "padding-right: 15px;
+    padding: 20px;">
 
 <label for="Lugar" 
 style="display: block; text-align: center;">
-Zona a escoger</label>
+Lugar a reportar</label>
 
 <select id="Lugar"
 class="w3-select w3-border w3-margin-bottom "
@@ -194,7 +206,7 @@ required>
 <!--Item-->
 <label for="Item"
 style="display: block; text-align: center;">
-Item de la zona</label>
+Item del lugar</label>
 
 <select id ="Item"
 class="w3-select w3-border w3-margin-bottom"
@@ -209,7 +221,7 @@ disabled required>
 
 <label for="Titulo"
 style="display: block; text-align: center;">
-Titulo del formulario</label>
+Nombre del reporte</label>
 
 <input id="Titulo"
 class="w3-input w3-border w3-margin-bottom"
@@ -235,11 +247,13 @@ required>
 </textarea>
 </div>
 
-<!--Estado-->
-<div class="w3-col s6">
+<!--Tipo del formulario-->
+<div class="w3-col s6"
+style = "padding-right: 15px;
+    padding: 20px;">
 <label for="sugerencia"
 style="display: block; text-align: center; display: block;">
- Estado </label>
+ Tipo de reporte </label>
 
 <p>
 <input class="w3-radio"
@@ -247,7 +261,7 @@ id="sugerencia"
 title="Opcion de sugerencia"
 type  = "radio"
 name  = "Estado" 
-value = "baja" 
+value = "Sugerencia" 
 checked> 
 <label for="sugerencia">
      Sugerencia </label>
@@ -256,24 +270,24 @@ checked>
 <p>
     <input class="w3-radio"
     title="Opcion de pedido"
-    id="pedido"
+    id="Mantenimiento"
     type  = "radio"
     name  = "Estado" 
-    value = "media" > 
+    value = "Mantenimiento" > 
     <label for="pedido"> 
-        Pedido </label>
+        Mantenimiento </label>
     </p>
 
     <p>
         <input class="w3-radio"
         title="Opcion de arreglo"
         type  = "radio"
-        id="arreglo"
+        id="Reparacion"
         name  = "Estado" 
-        value = "Alta" > 
-        <label for="arreglo"> 
+        value = "Reparacion" > 
+        <label for="Reparacion"> 
 
-            Arreglo </label>
+            Reparación </label>
         </p>
 
         <!--Boton imagen-->
@@ -323,8 +337,6 @@ style = "border: 1px solid #ccc;
 </div>
 </div>
 
-
-
 <!--buscar-->
 <div class="w3-container  w3-center">
 
@@ -335,7 +347,7 @@ style = "border: 1px solid #ccc;
         
         <header class="w3-container w3-center"
         style="background-color: #C20E1A;">
-            <h2> <b>Buscar reporte en especifico</b></h2>
+            <h2> <b>Busca tu reporte</b></h2>
 
             <button 
 onclick = "document.getElementById('buscar').style.display='none'"
@@ -349,7 +361,7 @@ title   = "Cerrar pestaña"> &times; </button>
             
             <div class="w3-row-padding">
                 <div class="w3-half">
-                    <b>Buscar por zona</b>
+                    <b>Buscar por lugar</b>
                     <input id="buscarLugar"
                     title="Buscar por lugar" 
                     class="w3-input w3-border" 
@@ -382,21 +394,21 @@ title   = "Cerrar pestaña"> &times; </button>
                 </div>
 
                 <div class="w3-half w3-padding-small">
-                    <b>Estado del formulario</b>
+                    <b>Tipo del reporte</b>
                     <select id="Estado" 
                     class="w3-select w3-border"
-                    title="Estado del formulario">
+                    title="Tipo del reporte">
                         <option value="" selected> --- </option>
                         <option value="baja">Sugerencia</option>
-                        <option value="media">Pedido</option>
-                        <option value="Alta">Arreglo</option>
+                        <option value="media">Mantenimiento</option>
+                        <option value="Alta">Reparacion</option>
                     </select>
                 </div>
                 </div>
 
                 <div class="w3-row-padding">
                     <div class="w3-half w3-padding-small">
-                    <b>Desarrollo del formulario</b>
+                    <b>Desarrollo del reporte</b>
                     <select id="Desarrollo" 
                     class="w3-select w3-border"
                     title="Desarrollo del formulario">
@@ -408,14 +420,14 @@ title   = "Cerrar pestaña"> &times; </button>
                 </div>
 
                 <div class="w3-half w3-padding-small">
-                    <b>Editado en la apartado de comentarios y encargado</b>
+                    <b>Retroalimentacion del tecnico</b>
                     <select id="Reciente" 
                     title="Mas reciente en desarrollo"
                     class="w3-select w3-border">
                         <option value="" selected> --- </option>
                         <option value="Ninguna">Si no tiene ninguna</option>
-                        <option value="Comentario"> Si tiene comentario </option>
-                        <option value="Encargado">Si tiene encargado</option>
+                        <option value="Comentario"> Si tiene comentarios </option>
+                        <option value="Encargado">Si tiene un encargado</option>
                         <option value="Ambas">Si tiene ambas</option>
                     </select>
                 </div>
@@ -434,6 +446,107 @@ title   = "Cerrar pestaña"> &times; </button>
     </div>
 </div>
 </div>
+
+<!--Notificaiones-->
+<div class="w3-container  w3-center">
+
+    <div class="w3-modal"
+    id="noticar">
+    
+    <div class="w3-modal-content w3-card-4 w3-white">
+        
+        <header class="w3-container w3-center"
+        style="background-color: #C20E1A;">
+
+        <div id="Opciones" 
+        class="w3-dropdown-hover w3-left">
+
+                <button 
+                class="w3-button w3-red w3-margin-top">
+                 Opciones</button>
+                 
+                <div id="Contenido" 
+                class="w3-dropdown-content">
+                   
+                <a  class="w3-button w3-input" 
+                    onclick="">
+                    Marcar todos como leídos
+                </a>
+
+                <a class="w3-button w3-input" 
+                    onclick="">
+                    Ver no leídos
+                </a>
+
+                <a class="w3-button w3-input" 
+                    onclick="">
+                    Ver ya leídos
+                </a>
+
+                <a class="w3-button w3-input" 
+                    onclick="mostrarPeticion()">
+                    Petición
+                </a>
+
+                </div>
+            </div>
+            
+            <h2> <b>Notificaciones</b></h2>
+
+            <button 
+onclick = "document.getElementById('noticar').style.display='none'"
+class   = "w3-button w3-xlarge w3-hover-red w3-display-topright"
+title   = "Cerrar pestaña"> &times; </button>
+
+        </header>
+
+        <div class="w3-row">
+
+
+        <div id="notificacion"
+        class="w3-col s8"
+        style="padding: 20px;">
+
+        <h3>Notificaciones</h3>
+
+        <ul class="w3-ul w3-border">
+            <li class="w3-padding-16">
+                <span class="w3-large">Notificación 1</span><br>
+                <span>Esta es una notificación de ejemplo.</span>
+            </li>
+            <li class="w3-padding-16">
+                <span class="w3-large">Notificación 2</span><br>
+                <span>Otra notificación de ejemplo.</span>
+            </li>
+            <li class="w3-padding-16">
+                <span class="w3-large">Notificación 3</span><br>
+                <span>Más notificaciones de ejemplo.</span>
+            </li>
+        </ul>
+        </div>
+
+        <div id="peticion"
+        class="w3-col s12"
+        style="padding: 20px;
+        display: none;">
+        
+        <h3>Petición</h3>
+        <p>Escribe tu petición en el siguiente campo:</p>
+        
+        <textarea class="w3-input w3-border" rows="5" placeholder="Escribe aquí..."></textarea>
+                    <button class="w3-button w3-margin-top w3-red" >
+                    Mandar Petición</button>
+
+                    <button class="w3-button w3-margin-top w3-red"
+                     onclick="cancelarPeticion()">
+                     Cancelar Petición</button>
+               
+    </div>
+        </div>
+    </div>
+</div>
+
+
 
 <a href="#buscar" 
 class="sr-only sr-only-focusable">Saltar al formulario de búsqueda</a>
