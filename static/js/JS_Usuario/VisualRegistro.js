@@ -84,7 +84,7 @@ function mostrarDetallesRecuerdo(recuerdo) {
                 <div class="w3-col m6"
                 style = "padding-right: 15px;">
 
-                    <p><b>Estado:</b> ${recuerdo.estado}</p>
+                    <p><b>Tipo de reporte:</b> ${recuerdo.estado}</p>
                     
                     <h4><b>Descripcion</b></h4>
                     <textarea class="w3-input w3-borde w3-light-grey"
@@ -106,7 +106,7 @@ function mostrarDetallesRecuerdo(recuerdo) {
                 <div style="margin-top: -50px;
                 text-align: center;">
 
-                 <p> <b>   Desarrollo: </b> <p>
+                 <p> <b>   Estado: </b> <p>
                 
                  <input id="Desarrollo"
                 class="w3-input"

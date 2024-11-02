@@ -1,58 +1,5 @@
-.task-count {
-    font-weight: bold;
-    color: #007bff;
-  }
-  
-  .card {
-    border-radius: 10px;
-  }
-
-.sidebar a:hover {
-  color: #f1f1f1;
-}
- /* Estilos del header */
- .navbar {
-  background-color: red;
-  height: 100px; /* Altura del header aumentada */
-}
-
-/* Barra lateral fija */
-.sidebar {
-  height: 100%;
-  width: 150px; /* Ancho de la barra lateral */
-  position: fixed;/*mantiene la barra siempre a la vista*/
-
-  left: 0;
-  background-color: white;
-  padding-top: 20px;
-  overflow-x: hidden;
-  box-shadow: 5px 0  rgba(0, 0, 0, 0.1);
-}
-
-.sidebar a {
-  padding-top: 15px;
-  text-decoration: none;
-  margin-bottom: 20px;
-  font-size: 20px;
-  display: flex;
-  width: 100%;
-}
-
-.icon-button {
-  display: flex;
-  flex-direction: column;
-}
-
-.icon-button img {
-  width: 50px; /* Tamaño reducido de los iconos */
-  height: 50px; /* Tamaño reducido de los iconos */
-  cursor: pointer;
-}
-
-/* Ajustar el contenido principal */
-.content {
-  margin-left: 170px; /* Espacio para la barra lateral */
-  padding: 16px;
+  body, h3, h4, h5, h6 {
+    font-family: "Karma", sans-serif;
 }
 
 h1{
@@ -88,4 +35,31 @@ h3{
 .w3-card{
   border-radius: 30px; 
   overflow: hidden; 
+}
+
+
+.w3-bar-item{
+  text-align: center;
+  padding: 10px;
+  width: 40%;
+  margin: 20px auto;
+  font-size: 25px;
+  color: #000;
+}
+
+.red-margin-right {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  background-color: #a00000;
+  width: 5%;
+  z-index: -10;
+  right: 0;
+}
+
+
+.w3-image {
+  width: 200px;
+  height: 150px;
+  object-fit: cover; /* Para que la imagen se ajuste al tamaño del contenedor sin deformarse */
 }

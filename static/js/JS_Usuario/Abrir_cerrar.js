@@ -8,16 +8,16 @@ if(menu.style.display === "block"){
 }
 }
 
-function showTooltip(event, text){
+function MostrarMensaje(event, text){
 
-var tool = document.getElementById("tooltip");
+var tool = document.getElementById("Ver");
 tool.style.display = "block";
 tool.innerHTML = text;
 tool.style.left = event.pageX + "px";
 tool.style.top = event.pageY + "px";
 }
 
-function hideTooltip(){
-    var tool = document.getElementById("tooltip");
+function MouseEncima(){
+    var tool = document.getElementById("Ver");
     tool.style.display = "none";
 }

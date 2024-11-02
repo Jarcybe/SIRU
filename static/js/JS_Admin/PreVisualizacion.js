@@ -32,7 +32,8 @@ function PreVisualizacion (record){
                         
                 
                 <footer class="w3-container w3-red">
-                    <button class="w3-button w3-block" onclick="ConfiDeRegistro(${record.id})">SABER MAS >></button>
+                    <button class="w3-button w3-block" 
+                    onclick="ConfiDeRegistro(${record.id})">SABER MAS >></button>
                 </footer>
                         
     `;

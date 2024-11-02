@@ -54,7 +54,7 @@ class="sr-only sr-only-focusable">Saltar a la pagina principal</a>
 
 <body>
     <!--menu desplebable-->
-<div id="tooltip"
+<div id="Ver"
 style = "display: none;
 position: absolute;
 background-color: #333;
@@ -63,22 +63,22 @@ padding: 5px;
 border-radius: 5px;
 z-index: 100;"></div>
 
-
+<!--Opciones-->
 <nav class="w3-sidebar w3-bar-block w3-border w3-animate-right"
 style = "z-index:2;width:40%;min-width:100px"
 id="miSitio">
 
-<a  onmouseover="showTooltip(event, 'Crear un registro')" 
-onmouseout="hideTooltip()"
+<a  onmouseover="MostrarMensaje(event, 'Crear un registro')" 
+onmouseout="MouseEncima()"
 onclick="document.getElementById('forma').style.display='block'"
 class="w3-bar-item w3-center w3-border-bottom w3-hover-red with w3-hover-opacity">
 <img src="../static/images/IconoCrear.png"
-alt = "Buscar"
+alt = "Crear"
 style="width: 24px;
 height: 24px;">  </a>
 
-<a onmouseover="showTooltip(event, 'Buscar un registro')" 
-onmouseout="hideTooltip()" 
+<a onmouseover="MostrarMensaje(event, 'Buscar un registro')" 
+onmouseout="MouseEncima()" 
 onclick="document.getElementById('buscar').style.display='block'"
 class="w3-bar-item w3-center w3-border-bottom w3-hover-red with w3-hover-opacity">
 <img src="../static/images/IconoBuscar.png"
@@ -87,8 +87,8 @@ style="width: 24px;
 height: 24px;"> 
 </a> 
 
-<a onmouseover="showTooltip(event, 'Notificaciones')" 
-onmouseout="hideTooltip()" 
+<a onmouseover="MostrarMensaje(event, 'Notificaciones')" 
+onmouseout="MouseEncima()" 
 onclick="document.getElementById('noticar').style.display='block'"
 class="w3-bar-item w3-center w3-border-bottom w3-hover-red with w3-hover-opacity">
 <img src="../static/images/IconoNotificacion.png"
@@ -97,8 +97,8 @@ style="width: 24px;
 height: 24px;"> 
 </a> 
 
-<a onmouseover="showTooltip(event, 'Cerrar Sesion')" 
-onmouseout="hideTooltip()" 
+<a onmouseover="MostrarMensaje(event, 'Cerrar Sesion')" 
+onmouseout="MouseEncima()" 
 onclick="CerrarSesion()" 
 class="w3-bar-item w3-center w3-border-bottom w3-hover-red with w3-hover-opacity">
 <img src="../static/images/IconoCerrarSesion.png"
@@ -274,7 +274,7 @@ checked>
     type  = "radio"
     name  = "Estado" 
     value = "Mantenimiento" > 
-    <label for="pedido"> 
+    <label for="Mantenimiento"> 
         Mantenimiento </label>
     </p>
 
@@ -453,16 +453,16 @@ title   = "Cerrar pestaña"> &times; </button>
     <div class="w3-modal"
     id="noticar">
     
-    <div class="w3-modal-content w3-card-4 w3-white">
+    <div class="w3-modal-content w3-card-4 ">
         
         <header class="w3-container w3-center"
         style="background-color: #C20E1A;">
 
         <div id="Opciones" 
-        class="w3-dropdown-hover w3-left">
+        class="w3-dropdown-hover w3-red w3-left w3-margin-top">
 
                 <button 
-                class="w3-button w3-red w3-margin-top">
+                class="w3-button w3-red">
                  Opciones</button>
                  
                 <div id="Contenido" 
