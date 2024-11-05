@@ -10,20 +10,14 @@ color: rgb(8, 7, 7);
 
 
 .w3-card-4{
-  
     border-radius: 30px; 
     overflow: hidden; 
 }
 
-.w3-button{
+.w3-button,  .w3-input{
     border-radius: 5px; 
     overflow: hidden; 
     }
-
-    .w3-input{
-        border-radius: 5px; 
-        overflow: hidden; 
-        }
 
 h1{
 

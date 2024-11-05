@@ -77,12 +77,6 @@
                    id="opciones"
                    style="display: none;">
 
-                   <button 
-                    onclick="document.getElementById('Crear').style.display='block'"  
-                    class="w3-button w3-red w3-hover-pink w3-section w3-block"
-                    title="Crear usuario">
-                    Crear Usuario</button>
-
                     <button 
                     onclick="document.getElementById('Filtrar').style.display='block'" 
                     class="w3-button w3-center w3-red w3-hover-pink w3-section w3-block"
@@ -142,69 +136,6 @@
              class="estilos" 
              target="_blank"><b>Cerrar sesion</b></a></p></b> -->
     </footer>
-
-    <!--Crear usuario-->
-<div class="w3-container">
-
-<div id="Crear"
-class="w3-modal">
-
-<div class="w3-modal-content w3-card-4 w3-animate-zoom"
-style="max-width: 600px;">
-
-<div class="w3-center"><br>
-<button onclick="document.getElementById('Crear').style.display='none'"
-class="w3-button w3-xlarge w3-hover-red w3-display-topright" 
-title="Cerrar pestaña">&times;</button>
-</div>
-
-<form class="w3-container" 
-onsubmit="CrearCodigo(event)"
-method="post">
-
-<div class = "w3-section">
-
-<label for="Codigo">
-    <b>Codigo</b></label>
-
-<input id="Codigo" 
-class = "w3-input w3-border w3-margin-bottom"
-type="text"
-placeholder="Ingresar Codigo"
-name="codigo"
-required>
-
-<label for="tipo">
-    <b> Tipo de Usuario </b></label>
-
-<select id="tipo"
-class="w3-select w3-border" 
-name="tipo"
-required>
-<option value="" disabled selected> Seleccionar tipo</option>
-<option value="Admin"> Administrador </option>
-<option value="Usuario"> Usuario</option>
-</select>
-
-<button class="w3-button w3-block w3-red w3-section w3-padding"
-type="submit"
-title="Crear usuario">
- Crear Usuario </button>
-</div>
-</form>
-
-<div class="w3-container w3-border-top w3-padding-16"
-style="background-color: #CFCFCF;">
-
-<button onclick ="document.getElementById('Crear').style.display='none'"
-type="button"
-title="Cancelar"
-class="w3-button w3-red w3-hover-pink"> 
-Cancelar </button>   
-</div>
-</div>
-</div>
-</div>
 
 <!--Mostrar modales-->
 <div class="w3-modal"

@@ -91,20 +91,10 @@ function mostrarDetallesRecuerdo(recuerdo) {
                     style = "height: 100px;"
                     readonly> ${recuerdo.descripcion}</textarea>
 
-                    <button class="w3-button w3-margin-top w3-small w3-red"
-                            title="Detalles"
-                            onclick="Dropdown('detalles')">Detalles</button>
-                </div>
-
-                <div class="w3-col m6 w3-center">
-                    ${imagenHTML}
-                </div>
-                </div>
-
-                <div class="w3-right">
+                     <div class="w3-margin-top">
                 
-                <div style="margin-top: -50px;
-                text-align: center;">
+                <div style="display: flex; 
+                 padding-right: 10px;">
 
                  <p> <b>   Estado: </b> <p>
                 
@@ -120,6 +110,20 @@ function mostrarDetallesRecuerdo(recuerdo) {
                 readonly>
             </div>
             </div>
+
+                   
+                </div>
+
+                <div class="w3-col m6 w3-center">
+                    ${imagenHTML}
+</div>
+                     <button class="w3-button w3-right w3-margin-top w3-small w3-red"
+                            title="Detalles"
+                            onclick="Dropdown('detalles')">Detalles</button>
+                
+                </div>
+
+               
 
                 <div id="detalles" class="w3-container" 
                 style="display: none;">

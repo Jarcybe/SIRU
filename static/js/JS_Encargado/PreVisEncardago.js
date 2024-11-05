@@ -1,7 +1,7 @@
 function PreVisualizacion (record){
 
     const carta = document.createElement("div");
-    carta.className = "w3-card w3-margin w3-border w3-white";
+    carta.className = "w3-card w3-margin w3-border w3-animate-zoom w3-white";
 
     let imagenHTML;
 
@@ -15,8 +15,6 @@ function PreVisualizacion (record){
           `<img src="${ImagenPorDefecto}" class="w3-image">`
           : `<div class = "w3-border w3-light-grey" style="height: 150px;"></div>`;
       }
-
-
       
     let texto = "No visto";
     let Color  = "#ccc";
@@ -46,9 +44,10 @@ function PreVisualizacion (record){
         </header>
 
         <div class= "w3-row">
-            <div class= "w3-col s4"
-            style="padding-left: 20px;">
-                     <br>   
+            <div class= "w3-col l4"
+            style="padding-left: 20px;
+            padding-top: 40px;">
+                     
                 <p><b>Fecha: </b>${record.fecha}</p>
                 
                 <p><b>Usuario: </b>${record.codigo} (${record.nombre_usuario})</p>
@@ -56,16 +55,16 @@ function PreVisualizacion (record){
                 <p><b>Tipo de reporte: </b>${record.estado}</p>
             </div>
                         
-                <div class= "w3-col s4">
+                <div class= "w3-col l4">
                     <p><b>Descripcion: </b><p>
-                    <textarea class= "w3-input w3-border w3-light grey"
-                        style = "height: 85px;
+                    <textarea class= "w3-input w3-border w3-section w3-light grey"
+                        style = "height: 130px;
                         width: 95%;"
                         readonly> ${record.descripcion}
                         </textarea>
                     </div>
 
-                    <div class= "w3-col s4">
+                    <div class= "w3-col l4 w3-section">
                     ${imagenHTML}
                     
                 </div>
@@ -76,7 +75,7 @@ function PreVisualizacion (record){
                 
                 <footer class="w3-container w3-padding w3-border">
 
-                <div class= "w3-col s4  w3-center w3-padding"
+                <div class= "w3-col l4 w3-padding"
                  style="display: flex; 
                  padding-right: 10px;">
                     
@@ -92,14 +91,14 @@ function PreVisualizacion (record){
            readonly>
                     </div>
 
-                <div class= "w3-col s4">
+                <div class= "w3-col l4">
                     <button class="w3-button w3-border w3-block w3-red"
                     title = "Ver detalles" 
                     onclick="ConfiDeRegistro(${record.id})">
                     Ver detalles>></button>
                     </div>
 
-                     <div class= "w3-col s4">
+                     <div class= "w3-col l4">
                     <button class="w3-button w3-border"
                     title = "Notificar alguna informacion" 
                     onclick="">

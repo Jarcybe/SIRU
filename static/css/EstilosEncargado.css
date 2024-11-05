@@ -59,6 +59,8 @@ h3{
 
 
 .w3-image {
+  border-radius: 10px; 
+  overflow: hidden;
   width: 200px;
   height: 150px;
   object-fit: cover; /* Para que la imagen se ajuste al tamaño del contenedor sin deformarse */
