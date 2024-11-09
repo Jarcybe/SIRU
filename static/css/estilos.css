@@ -33,10 +33,10 @@ h1 , h2 {
     border: 1px solid lightgrey;
 }
 
-.w3-button {
-    border-radius: 5px; 
-    overflow: hidden;
-}
+.w3-button{
+    border-radius: 30px; 
+    overflow: hidden; 
+    }
 
 .w3-modal-content{
     border-radius: 30px; 

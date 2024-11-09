@@ -1,7 +1,6 @@
 from flask import Flask, render_template, session, jsonify, redirect, url_for,send_from_directory
 from datetime import timedelta
 from Backend.login import login_bp, login_required, role_required
-from Backend.crear_codigo import crear_codigo_bp
 from Backend.obtener_usuarios import obtener_usuarios
 from Backend.guardar_formulario import guardar_formulario_bp
 from Backend.buscar_reportes import buscar_reportes_bp
@@ -37,7 +36,6 @@ def make_session_permanent():
 
 # Registrar los blueprints en la aplicación Flask
 app.register_blueprint(login_bp)
-app.register_blueprint(crear_codigo_bp)
 app.register_blueprint(guardar_formulario_bp)
 app.register_blueprint(buscar_reportes_bp)
 app.register_blueprint(filtro_bp)

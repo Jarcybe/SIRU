@@ -106,7 +106,7 @@ function ConfiDeRegistro(id) {
                              checked
                              ${recordar.desarrollo === "No visto" ? "checked" : ""}>
                              <label>No visto </label><br>
-                             
+
                             <input class="w3-radio" 
                             type="radio" 
                             title = "En proceso"

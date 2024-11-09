@@ -1,7 +1,7 @@
 function Login(event) {
     event.preventDefault();
 
-    const codigo = document.getElementById("CodigoL").value;
+    const codigo = document.getElementById("CorreoL").value;
     const contraseña = document.getElementById("ContraseñaL").value;
 
     const datos = {

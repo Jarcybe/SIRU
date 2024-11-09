@@ -10,7 +10,7 @@ h1{
 }
 
 
-h3{
+h2{
   font-size: 35px;
   font-weight: bold;
   color: rgb(255, 255, 255);
@@ -22,21 +22,15 @@ h3{
   overflow: hidden; 
   }
 
-  textarea{
+  .textarea{
       border-radius: 10px; 
   overflow: hidden;  
   }
 
-.w3-modal-content{
+.w3-modal-content, .w3-card{
   border-radius: 30px; 
   overflow: hidden; 
 }
-
-.w3-card{
-  border-radius: 30px; 
-  overflow: hidden; 
-}
-
 
 .w3-bar-item{
   text-align: center;

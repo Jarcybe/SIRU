@@ -117,7 +117,7 @@ function mostrarDetallesRecuerdo(recuerdo) {
                 <div class="w3-col m6 w3-center">
                     ${imagenHTML}
 </div>
-                     <button class="w3-button w3-right w3-margin-top w3-small w3-red"
+                     <button class="w3-button w3-right w3-section w3-margin-top w3-small w3-red"
                             title="Detalles"
                             onclick="Dropdown('detalles')">Detalles</button>
                 

@@ -1,13 +1,13 @@
 function Registro(event) {
     event.preventDefault(); // Evitar el envío por defecto
 
-    const codigo = document.getElementById("CodigoR").value;
+    const correo = document.getElementById("CorreoR").value;
     const nombre = document.getElementById("NombreR").value;
-    const contraseña = document.getElementById("ContraseñaR").value;
+    const password = document.getElementById("ContraseñaR").value;
     const confirmar = document.getElementById("ConfirmarR").value;
 
     // Verificación de contraseñas
-    if (!validarContraseña(contraseña, confirmar)) {
+    if (!validarContraseña(password, confirmar)) {
         Swal.fire({
           icon: "warning",
           title: "Las contraseñas no coinciden.",
@@ -15,14 +15,22 @@ function Registro(event) {
         return;
     }
 
+    if(!validarFormato(password)){
+        Swal.fire({
+            icon: "warning",
+            title: "El formato de la contraseña es invalido, deber llevar mayusculas, numero y minimo 8 caracteres.",
+          });
+          return;
+    }
+
     // Crear el objeto de datos a enviar al backend
     const datos = {
-        codigo: codigo,
+        correo: correo,
         nombre: nombre,
-        contraseña: contraseña
+        password: password
     };
 
-  
+  //cambiar esto por el de microservicio o sea /registrar_correo
     fetch('/registro', {
         method: 'POST',
         headers: {
@@ -32,28 +40,42 @@ function Registro(event) {
     })
     .then(response => {
         if (!response.ok) {
+
             throw new Error('No se pudo completar el registro. Verifica tus datos e intenta de nuevo.');
         }
         return response.json();
     })
     .then(data => {
-        console.log('Redirigiendo a /menu_admin.html'); 
         Swal.fire({
-            title: data.mensaje,
-            text:'Ahora puedes iniciar sesion',
-            icon: 'success',
-            confirmButtonText: 'Continuar'
-        }).then(() => {
-            window.location.reload();
+            title: "Confirmación de activación",
+            text:'Revisa tu correo electrónico para activar tu cuenta.',
+            icon: 'info',
+            confirmButtonText: 'Aceptar'
         });
-        
     })
     .catch(error => {
 
         console.error('Error al enviar los datos al backend:', error);
-        Swal.fire({
-            icon: "error",
-            title: "No se pudo completar el registro por codigo erroneo o desactivado",
+
+        if(error.message === 'El correo ya existe o está registrado'){
+
+            Swal.fire({
+                icon: 'warning',
+                title: 'Registro fallido',
+                text: 'Este correo ya fue registrado',
+            });
+        }else if(error.message === 'El correo debe terminar en @gmail.com'){
+
+            Swal.fire({
+                icon:"error",
+                title: "Correo invalido",
+                text: "el correo debe termniar en @correounivalle.edu.co"
+            });
+        }else{
+             Swal.fire({
+             icon: "error",
+             title: "No se pudo completar el registro por correo erroneo o desactivado",
           });
+        }
     });
 }
