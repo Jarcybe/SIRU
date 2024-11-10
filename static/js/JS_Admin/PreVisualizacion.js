@@ -6,7 +6,7 @@ function PreVisualizacion (record){
     carta.innerHTML = `
         <header class="w3-container w3-center"
         style="background-color: #ea504a;">
-            <h2>${record.titulo}</h2>
+            <h3>${record.titulo}</h3>
         </header>
 
         <div class= "w3-row">
@@ -31,8 +31,8 @@ function PreVisualizacion (record){
                 </div>
                         
                 
-                <footer class="w3-container w3-red">
-                    <button class="w3-button w3-block" 
+                <footer class=" w3-red">
+                    <button class="w3-button w3-hover-pink w3-block" 
                     onclick="ConfiDeRegistro(${record.id})">SABER MAS >></button>
                 </footer>
                         

@@ -17,7 +17,7 @@ function VisualizacionUsuario(usuario, index){
                 <span id="codigo-${uniqueId}">
                 ${usuario.codigo}
                 </span>
-            
+               
             <b>Estado:</b>
             <input id="estado-${uniqueId}"
             class="w3-input"
@@ -31,20 +31,21 @@ function VisualizacionUsuario(usuario, index){
 
             <div class="w3-col m2 w3-padding-small">
                 <b>Tipo: </b>
-                <select class="w3-select" id="tipo-${uniqueId}" disabled>
+                <select class="w3-select" 
+                id="tipo-${uniqueId}" disabled>
                     <option value = "" disabled selected> --- </option>
                     <option value="Admin" ${usuario.tipo === 'Admin' ? 'selected' : ''}>Admin</option>  
                     <option value="Usuario" ${usuario.tipo === 'Usuario' ? 'selected' : ''}>Usuario</option>
+                    <option value="EncargadoGeneral" ${usuario.tipo === 'Encargado general' ? 'selected' : ''}>Encargado de general</option>
                     <option value="EncargadoElectrisista" ${usuario.tipo === 'Encargado electricista' ? 'selected' : ''}>Electrisista</option>
-                    <option value="EncargadoBaños" ${usuario.tipo === 'Encargado plomeria' ? 'selected' : ''}>Encargado de plomeria</option>
-                    <option value="EncargadoPatios" ${usuario.tipo === 'Encargado patios' ? 'selected' : ''}>Encargado de patios</option>
+                    <option value="EncargadoBaños" ${usuario.tipo === 'Encargado baños' ? 'selected' : ''}>Encargado de baños</option>
                     <option value="EncargadoSalones" ${usuario.tipo === 'Encargado salones' ? 'selected' : ''}>Encargado de salones</option>
                     <option value="EncargadoInformatico" ${usuario.tipo === 'Encargado informatico' ? 'selected' : ''}>Encargado de informatica</option>
                 </select>
             </div>
 
             <div class="w3-col m3 w3-padding-small">
-                <b>Nombre:</b>
+                <b>Correo:</b>
                 <input class="w3-input" 
                 type="text" 
                 id="nombre-${uniqueId}" 
@@ -53,7 +54,7 @@ function VisualizacionUsuario(usuario, index){
             </div>
 
             <div class="w3-col m3 w3-padding-small">
-                <b>Contraseña:</b>
+                <b>Nombre:</b>
                 <input class="w3-input" 
                 type="text" 
                 id="contraseña-${uniqueId}" 
@@ -62,16 +63,16 @@ function VisualizacionUsuario(usuario, index){
 
             <div class="w3-col m2 w3-padding-small">
                 <button class="w3-button w3-border w3-block"
-                 onclick="EditarUsuario('${uniqueId}')">
+                id="BotonEditar-${uniqueId}"
+                onclick="EditarUsuario('${uniqueId}')">
                  Editar
                  </button>
 
-                <button class="w3-button w3-red w3-border w3-block" 
+                <button class="w3-button w3-border w3-block ${usuario.estado ? 'w3-red' : 'Activar-desactivar'}" 
                 id="BotonEstado-${uniqueId}" 
                 onclick="ConfirmarDesactivacion('${uniqueId}')">
                 ${BoTexto}
                 </button>
-                
             </div>
     `;
 

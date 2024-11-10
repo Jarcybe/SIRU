@@ -19,13 +19,15 @@ if (data.nuevo_estado === 1){
     EstadoInput.value = "Activo";
     EstadoInput.style.color = "green";
     BotonEstado.textContent = "Desactivar";
-
+    BotonEstado.classList.remove('Activar-desactivar');
+    BotonEstado.classList.add('w3-red');
 }else{
-
     EstadoInput.value = "Inactivo";
     EstadoInput.style.color = "darkred";
     BotonEstado.textContent = "Activar";
 
+    BotonEstado.classList.add('Activar-desactivar');
+    BotonEstado.classList.remove('w3-red');
 }
 })
 .catch(error => {

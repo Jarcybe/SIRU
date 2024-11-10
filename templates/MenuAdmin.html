@@ -31,6 +31,7 @@
     <script src="../static/js/JS_Admin/BuscarUsuario.js"></script>
     <script src="../static/js/JS_Admin/PreVisualizacion.js"></script>
     <script src="../static/js/JS_Admin/VisUsuarios.js"></script>
+    <script src="../static/js/JS_Admin/MostrarOcultar.js"></script>
 
     <script src="../static/js/JS_Genericos/EliminarRegistro.js"></script>
     <script src="../static/js/JS_Genericos/Restablecer.js"></script>
@@ -65,45 +66,46 @@
                    <h4><b>Bienvenido -Admin-</b></h4>
                     <p>¿Que opcion quieres hacer?:</p>
                    
-                    <button class="w3-button w3-center w3-red w3-hover-opacity w3-section w3-block"
-                   onclick="Dropdown('opciones')"
+                    <button id="BotonDeOpciones"
+                    class="w3-button w3-center w3-red w3-hover-opacity w3-section w3-block"
+                   onclick="DropdownOpciones('opciones')"
                    title="Opciones">
                 Opciones
             </button>
                    
-                   <div class="w3-container"
+                   <div 
                    id="opciones"
                    style="display: none;">
 
                     <button 
                     onclick="document.getElementById('Filtrar').style.display='block'" 
                     class="w3-button w3-center w3-red w3-hover-pink w3-section w3-block"
-                    title="Filtrar registro">
-                    Filtrar Registro</button>
+                    title="Filtrar registros">
+                    Filtrar Registros</button>
 
                     <button 
                     onclick="AbrirModal()"
                     class="w3-button w3-red w3-hover-pink w3-section w3-block"
                     title="Administrar usuario">
                     Administrar usuarios</button>
-                    
-                    <button 
-                    onclick=""
-                    class="w3-button w3-red w3-hover-pink w3-section w3-block"
-                    title="Datos Estadisticos">
-                    Datos Estadisticos</button>
 
                     <button 
-                    onclick=""
+                    onclick="" 
                     class="w3-button w3-red w3-hover-pink w3-section w3-block"
                     title="Notificaciones">
                     Notificaciones</button>
 
                     <button 
-                    onclick=""
+                    onclick="document.getElementById('LugarItem').style.display='block'"
                     class="w3-button w3-red w3-hover-pink w3-section w3-block"
                     title="Administracion de zonas">
                     Zonas e items</button>
+
+                    <button 
+                    onclick=""
+                    class="w3-button w3-red w3-hover-pink w3-section w3-block"
+                    title="Datos Estadisticos">
+                    Datos Estadisticos</button>
 
                     <button 
                     onclick="CerrarSesion()" 
@@ -121,18 +123,13 @@
             </div>
             <hr>
         </div>
-
     </div>
-    <!-- END Grid -->
 
 
     <!-- Pie de pagina -->
     <footer class="w3-container w3-padding-32 w3-margin-top"
      style="background-color: #841F1C;">
         <p><b>Un buen trabajo para una buena revision </b> 
-        <!-- <a href=""
-             class="estilos" 
-             target="_blank"><b>Cerrar sesion</b></a></p></b> -->
     </footer>
 
 <!--Mostrar modales-->
@@ -153,28 +150,31 @@ id="administrar">
 style="max-width:800px;
 bottom: 10%;">
 
-<header class="w3-container"
+<header class="w3-container w3-center"
 style="background-color: #C20E1A;">
 
-<button onclick="document.getElementById('administrar').style.display='none'"
-class="w3-button w3-display-toprigth"
-title="Cerrar pestaña">&times;
-</button>
+<button 
+onclick = "document.getElementById('administrar').style.display='none'"
+class   = "w3-button w3-xlarge w3-hover-red w3-display-topright"
+title   = "Cerrar pestaña"> &times; </button>
+
 <h3><b>Administracion de usuarios</b></h3>
+
+</button>
 </header>
 
 <div class="w3-container">
 
 <div class="w3-row w3-padding-16">
 <div class="w3-col m8">
-    <input class="w3-inpu"
+    <input class="w3-input"
     type="text"
     id="BarraBuscar"
-    placeholder="Buscar por codigo o nombre">
+    placeholder="Buscar por nombre">
 </div>
 
 <div class="w3-col m4">
-<button class="w3-button w3-gray w3-block" 
+<button class="w3-button w3-red w3-block" 
 onclick="BuscarUsuario()">
 Buscar
 </button>
@@ -182,24 +182,27 @@ Buscar
 </div>
 </div>
 
-
 <div class="w3-bar w3-light-grey">
 
 <button class="w3-bar-item w3-button"
-title="Usuario"
-onclick="CargarUsuarios('Usuario')">
-Usuarios
-</button>
-
-<button class="w3-bar-item w3-button"
 title="Admin"
-onclick="CargarUsuarios('Admin')">
+onclick="CargarUsuarios('Admin');
+Ensombrecer(this)">
 Admin
 </button>
 
 <button class="w3-bar-item w3-button"
+title="Usuario"
+onclick="CargarUsuarios('Usuario');
+Ensombrecer(this)">
+Usuarios
+</button>
+
+<button class="w3-bar-item w3-button"
 title="Todos"
-onclick="CargarUsuarios('todos')">
+id="TodosUsuarios"
+onclick="CargarUsuarios('todos');
+Ensombrecer(this)">
 Todos
 </button>
 </div>
@@ -317,37 +320,6 @@ Cancelar</button>
                     <div class="w3-container w3-border w3-margin-bottom w3-padding-small">
                         <div class="w3-row">
                             <div class="w3-col s9">
-                                <p>Que aparescan seguido por títulos iguales</p>
-                            </div>
-
-                            <div class="w3-col s3">
-                                <label for="desactivado1"
-                                class="w3-right">
-                                    <input id="desactivado1"
-                                    class="w3-radio" 
-                                    type="radio" 
-                                    title="Desactivado"
-                                    name="titulos"
-                                     value="desactivado" 
-                                     checked> Desactivado
-                                </label>
-
-                                <label for="activado1" 
-                                class="w3-right w3-margin-right">
-                                    <input id="activado1" 
-                                    class="w3-radio" 
-                                    type="radio"
-                                    title="Activado" 
-                                    name="titulos" 
-                                    value="activado"> Activar
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="w3-container w3-border w3-margin-bottom w3-padding-small">
-                        <div class="w3-row">
-                            <div class="w3-col s9">
                                 <p>Que no aparezcan los que ya fueron resueltos</p>
                             </div>
                             <div class="w3-col s3">
@@ -421,6 +393,447 @@ Cancelar</button>
     </div>
 </div>
 
+<!--Zonas e items-->
+<div class="w3-container">
+
+    <div class="w3-modal"
+    id="LugarItem">
+
+    <div class="w3-modal-content w3-card-4 w3-white">
+        <header class="w3-container w3-center"
+        style="background-color: #C20E1A;">
+            <h3 id="NombreTitulo"><b>Administrador de lugares e items</b></h3>
+            <button onclick="document.getElementById('LugarItem').style.display='none'" 
+            class="w3-button w3-xlarge w3-hover-red w3-display-topright" 
+            title="Cerrar pestaña">&times;</button>
+        </header>
+
+        <!--Menu principal de seleccion-->
+        <div class="w3-container w3-padding-16 w3-center"
+        id="SeleccionarMenu">
+            <h2><b> Escoge el menú al que necesites ir: </b></h2>
+
+            <button class="w3-button w3-red w3-margin-bottom"
+                    onclick="IrALugar()">
+                Menú de lugares
+            </button>
+
+            <button class="w3-button w3-red w3-margin-bottom"
+                    onclick="IrAItem()">  
+                    Menú de ítems
+            </button>
+        </div>
+
+        <!--Menus de lugares-->
+        <div id="MenuLugares"
+        style="display: none;">
+
+        <!--Opciones menu lugares-->
+        <div class="w3-bar w3-border w3-light-grey w3-bar">
+
+            <button class="w3-bar-item w3-button"
+            id="VisualizarL"
+            onclick="IrVisualizarLugar();
+            Ensombrecer(this)">
+                Visualizar
+             </button>
+
+             <button class="w3-bar-item w3-button"
+             onclick="IrCrearLugar();
+            Ensombrecer(this)">
+                Crear y añadir
+             </button>
+
+             <button class="w3-bar-item w3-button"
+             onclick="IrEditarLugar();
+            Ensombrecer(this)">
+                Editar
+             </button>
+
+             <button class="w3-bar-item w3-padding w3-button"
+            onclick="Volver()">
+               Salir
+            </button>
+        </div>
+
+        <!--Visualizar lugares con sus items-->
+        <div class="w3-container w3-center"
+        style="padding: 20px;"
+        id="VisualizarLugar">
+
+        <h4><b> Escoge la clase de item que quieras para que se visualize </b></h4>
+
+                    <select id="VLVisualizarLugar" 
+                    class="w3-select w3-light-grey"
+                    style = "width: 125px;
+                    margin: 20px auto;">
+                        <option value="" disabled selected>Lugar a buscar</option>
+                        <option value="todos">Todos los lugares</option>
+                        <option value="---">---</option>
+                        <option value="---">---</option>
+                    </select>
+
+                    <select id="VLClaseItemVisualizar" 
+                    class="w3-select w3-light-grey"
+                    style = "width: 155px;">
+                        <option value="" disabled selected>Clase de item a ver</option>
+                        <option value="todos">Todos</option>
+                        <option value="generales">Generales</option>
+                        <option value="electricos">Electricos</option>
+                        <option value="baños">Accesorios de baños</option>
+                        <option value="salones">Salones</option>
+                        <option value="informaticos">Informaticos</option>
+                    </select>
+
+                    <textarea class=" w3-input w3-border w3-light-grey"
+                    style="width: 300px;
+                    height: 190px;
+                    margin: auto;"
+                    placeholder="Los items apareceran aquí"
+                    readonly>
+                    </textarea>
+
+                    <button class="w3-button w3-red w3-center w3-margin-top"
+                    id="VLBotonVisualizar">
+                        Visualizar los items
+                    </button>
+        </div>
+
+         <!--Crear lugares con sus items-->
+         <div class="w3-container w3-padding-16"
+         style="display: none;"
+         id="CrearLugar">
+
+         <div class="w3-third w3-center">
+            <small>Zona de creación de lugares</small>
+            
+            <br>
+            <label style="margin-top: 20px;"><b> Crear lugar:</b></label>
+
+            <input class="w3-input w3-border w3-block w3-light-grey"
+            type="text"
+            id="VLCrearLugar"
+            style="width: 80%;
+            margin: auto;"
+            placeholder="Nombre del nuevo lugar">
+
+            <button class="w3-button w3-margin-top w3-red w3-margin-bottom"
+            id="VLBotonCrearLugar">
+                Crear lugar
+            </button>
+         </div>
+
+         <div class="w3-third w3-center">
+            <small> Añadir items a los lugares</small>
+
+            <br>
+            <label style="margin-top: 10px;"><b> Lugares disponibles:</b></label>
+
+            <select id="VLlugarSinItems"
+            class="w3-select w3-margin-bottom w3-light-grey"
+            style="width: 80%;">
+                <option value="" disabled selected>Seleccionar lugar</option>
+                <option value="---">---</option>
+                <option value="---">---</option>
+                <option value="---">---</option>
+            </select>
+
+            <label><b>Items disponibles: </b></label>
+            <select id="VLItemAñadir"
+            class="w3-select w3-margin-bottom w3-light-grey"
+            style="width: 80%;">
+                <option value="" disabled selected>Seleccionar item</option>
+                <option value="---">---</option>
+                <option value="---">---</option>
+                <option value="---">---</option>
+            </select>
+
+            <button class="w3-button w3-red w3-margin-bottom"
+            id="VLBotonAñadirItem">
+                Añadir item
+            </button>
+         </div>
+         
+        <div class="w3-third w3-center">
+            <small>Copiar items de otros lugares</small>
+            <br>
+            <label style="margin-top: 10px;"><b> Lugares disponibles:</b></label>
+
+            <select class="w3-select w3-margin-bottom w3-light-grey"
+            id="VLLugarCopiaraitems"
+            style="width: 80%;">
+                <option value="" disabled selected>Seleccionar lugar</option>
+                <option value="---">---</option>
+                <option value="---">---</option>
+                <option value="---">---</option>
+            </select>
+
+            <label><b>Lugar con elementos a copiar:</b></label>
+            <select class="w3-select w3-margin-bottom w3-light-grey"
+            id="VLlugarAcopiar"
+            style="width: 80%;">
+                <option value="" disabled selected>Seleccionar item</option>
+                <option value="---">---</option>
+                <option value="---">---</option>
+                <option value="---">---</option>
+            </select>
+
+            <button class="w3-button w3-red w3-margin-bottom"
+            id="VLCopiarElementos">
+                Copiar elementos
+            </button>
+
+        </div>
+        </div>
+
+          <!--Editar lugares con sus items-->
+          <div class="w3-container w3-padding-16 w3-center"
+          style="display: none;"
+          id="EditarLugar">
+
+          <div class="w3-third w3-center">
+            <small>Zona para editar nombres de lugares</small>
+            
+            <br>
+            <label style="margin-top: 10px;"><b> Lugares disponibles:</b></label>
+
+            <select class="w3-select w3-margin-bottom w3-light-grey"
+            id="VLlugarAcambiarnombre"
+            style="width: 80%;">
+                <option value="" disabled selected>Seleccionar lugar</option>
+                <option value="---">---</option>
+                <option value="---">---</option>
+                <option value="---">---</option>
+            </select>
+
+            <label><b> Nombre a cambiar:</b></label>
+
+            <input class="w3-input w3-border w3-block w3-light-grey"
+            type="text"
+            id="VLnombreACambiar"
+            style="width: 80%;
+            margin: auto;"
+            placeholder="Nuevo nombre">
+
+            <button class="w3-button w3-margin-top w3-red w3-margin-bottom"
+            id="VLGuardarNombreEditado">
+                Guardar nombre
+            </button>
+         </div>
+
+         <div class="w3-third w3-center">
+            <small> Eliminar item de algun lugar</small>
+
+            <br>
+            <label style="margin-top: 10px;"><b> Lugares disponibles:</b></label>
+
+            <select class="w3-select w3-margin-bottom w3-light-grey"
+            style="width: 80%;"
+            id="VLlugarConElItem">
+                <option value="" disabled selected>Seleccionar lugar</option>
+                <option value="---">---</option>
+                <option value="---">---</option>
+                <option value="---">---</option>
+            </select>
+
+            <label><b>Items a eliminar: </b></label>
+            <select class="w3-select w3-margin-bottom w3-light-grey"
+            id="VLitemAEliminar"
+            style="width: 80%;">
+                <option value="" disabled selected>Seleccionar item</option>
+                <option value="---">---</option>
+                <option value="---">---</option>
+                <option value="---">---</option>
+            </select>
+
+            <button class="w3-button w3-red w3-margin-bottom"
+            id="VLeliminarItemDelLugar">
+                Eliminar item
+            </button>
+         </div>
+         
+        <div class="w3-third w3-center">
+            <small>Zona para eliminar lugares</small>
+            <br>
+            <label style="margin-top: 20px;"><b> Lugar a eliminar:</b></label>
+            <select id="VLlugarAeliminar" 
+            class="w3-select w3-margin-bottom w3-light-grey"
+            style="width: 80%;">
+                <option value="" disabled selected>Seleccionar lugar</option>
+                <option value="---">---</option>
+                <option value="---">---</option>
+                <option value="---">---</option>
+            </select>
+
+            <button class="w3-button w3-red w3-margin-bottom"
+            id="VLbotonDeEleiminarLugar">
+                Eliminar lugar
+            </button>
+        </div>    
+          </div>
+         </div>
+
+        <!--Menus de items-->
+        <div id="MenuItems"
+        style="display: none;">
+
+        <!--Opciones de item-->
+        <div class="w3-bar w3-light-grey w3-block"> 
+
+            <button class="w3-bar-item w3-button"
+            id="VisualizarI"
+            onclick="IrVisualizarItem()
+            Ensombrecer(this)">
+                Visualizar
+             </button>
+
+             <button class="w3-bar-item w3-button"
+             onclick="IrCrearItem()
+             Ensombrecer(this)">
+                Crear y añadir
+             </button>
+
+             <button class="w3-bar-item w3-button"
+             onclick="IrEditarItem()
+             Ensombrecer(this)">
+                Editar
+             </button>
+
+             <button class="w3-bar-item w3-button"
+             onclick="Volver()">
+              Salir
+             </button>
+        </div>
+
+        <!--Visualizar items con su clase-->
+        <div class="w3-container w3-center"
+        style="padding: 20px;"
+        id="VisualizarItems">
+
+        <h4><b> Escoge el lugar para visualizar todos sus items correspondientes tambien escogiendo la clase items que se desea </b></h4>
+
+
+                    <select id="VIclaseDeItem" 
+                    class="w3-select w3-light-grey"
+                    style = "width: 205px;
+                    margin: 20px;">
+                        <option value="" disabled selected>Clase de item a ver</option>
+                        <option value="todos">Todos</option>
+                        <option value="generales">Generales</option>
+                        <option value="electricos">Electricos</option>
+                        <option value="baños">Accesorios de baños</option>
+                        <option value="salones">Salones</option>
+                        <option value="informaticos">Informaticos</option>
+                    </select>
+
+                    <textarea class=" w3-input w3-border w3-light-grey"
+                    style="width: 250px;
+                    height: 190px;
+                    margin: auto;"
+                    placeholder="Los items apareceran aquí"
+                    readonly>
+                    </textarea>
+
+                    <button class="w3-button w3-red w3-center w3-margin-top"
+                    id="VIvisualizarItem">
+                        Visualizar los items
+                    </button>
+        </div>
+                
+
+         <!--Crear Items y añadir clase-->
+         <div class="w3-container w3-padding-16 w3-center"
+         style="display: none;"
+         id="CrearItems">
+
+         
+         <div class="w3-col l3 w3-center">
+            <small>Zona de creación de items</small>
+            
+            <br>
+            <label style="margin-top: 20px;"><b> Crear item:</b></label>
+
+            <input class="w3-input w3-border w3-block w3-light-grey"
+            type="text"
+            id="VIcreacionItem"
+            style="width: 80%;
+            margin: auto;"
+            placeholder="Nombre del nuevo item">
+
+            <button class="w3-button w3-margin-top w3-red w3-margin-bottom"
+            id="VIbotonCrearItem">
+                Crear item
+            </button>
+         </div>
+        
+         <div class="w3-col l9"></div>
+                 
+         </div>
+
+          <!--Editar items-->
+          <div class="w3-container w3-padding-16 w3-center"
+          style="display: none;"
+          id="EditarItems">
+
+          
+          <div class="w3-half w3-center">
+            <small>Zona para editar nombres de lugares</small>
+            
+            <br>
+            <label style="margin-top: 10px;"><b>Items disponibles:</b></label>
+
+            <select class="w3-select w3-margin-bottom w3-light-grey"
+            id="VIitemsDisponibles"
+            style="width: 80%;">
+                <option value="" disabled selected>Seleccionar item</option>
+                <option value="---">---</option>
+                <option value="---">---</option>
+                <option value="---">---</option>
+            </select>
+
+            <label><b>Cambiar nombre del item:</b></label>
+
+            <input class="w3-input w3-border w3-block w3-light-grey"
+            id="VInuevoNombre"
+            type="text"
+            style="width: 80%;
+            margin: auto"
+            placeholder="Nuevo nombre">
+
+            <button class="w3-button w3-margin-top w3-red w3-margin-bottom"
+            id="VIBotonguardarNuevoNombre">
+                Guardar nombre
+            </button>
+         </div>
+         
+        <div class="w3-half w3-center">
+            <small>Zona para eliminar items</small>
+            <br>
+            <label style="margin-top: 20px;"><b> Item a eliminar:</b></label>
+            <select class="w3-select w3-margin-bottom w3-light-grey"
+            id="VIitemAeliminar"
+            style="width: 80%;">
+                <option value="" disabled selected>Seleccionar item</option>
+                <option value="---">---</option>
+                <option value="---">---</option>
+                <option value="---">---</option>
+            </select>
+
+            <button class="w3-button w3-red w3-margin-bottom"
+            id="VIConfirmarElimnacion">
+                Eliminar item
+            </button>
+        </div>    
+          
+                  
+          </div>
+        
+    </div>
+
+
+    </div>
+    </div>
+</div>
 
 </body>
 </html>
