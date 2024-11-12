@@ -11,16 +11,29 @@ function PreVisualizacion (record){
 
         <div class= "w3-row">
             <div class= "w3-col s6"
-            style="padding-left: 20px;">
-                     <br>   
+            style="padding-left: 20px;
+            margin-top:25px;
+            margin-bottom:10px;">
+                       
                 <p><b>Fecha: </b>${record.fecha}</p>
                 
-                <p><b>Usuario: </b>${record.codigo} (${record.nombre_usuario})</p>
+                 <p style="display: flex;
+                            align-items: center;">
+                        <b> Usuario: </b> 
+                            <input class="w3-input"
+                            type=text;
+                            style="width: 70%;
+                             height: 25px;"
+                            value=${record.nombre_usuario || "Desconocido"}
+                            readonly>
                 
-                <p><b>Estado: </b>${record.estado}</p>
+                <p><b>Tipo: </b>${record.estado}</p>
             </div>
                         
-                <div class= "w3-col s6">
+                <div class= "w3-col s6"
+                style="padding-left: 20px;
+            margin-top:10px;
+            margin-bottom:5px;">
                     <p><b>Descripcion: </b><p>
                     <textarea class= "w3-input w3-border w3-light grey"
                         style = "height: 85px;

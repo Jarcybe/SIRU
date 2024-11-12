@@ -12,6 +12,9 @@
     <link rel="stylesheet" 
     href="https://www.w3schools.com/w3css/4/w3.css">
     
+    <link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.css">
+
     <link rel="stylesheet"
     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     
@@ -32,7 +35,11 @@
     <script src="../static/js/JS_Admin/PreVisualizacion.js"></script>
     <script src="../static/js/JS_Admin/VisUsuarios.js"></script>
     <script src="../static/js/JS_Admin/MostrarOcultar.js"></script>
-
+    <script src="../static/js/JS_Admin/LugaresCrearAñadirCopiar.js"></script>
+    <script src="../static/js/JS_Admin/ItemCrearAñadirCopiar.js"></script>
+    <script src="../static/js/JS_Admin/ItemEditarEliminar.js"></script>
+    <script src="../static/js/JS_Admin/LugarEditarEliminar.js"></script>
+    
     <script src="../static/js/JS_Genericos/EliminarRegistro.js"></script>
     <script src="../static/js/JS_Genericos/Restablecer.js"></script>
     <script src="../static/js/JS_Genericos/ImagenesDefecto.js"></script>
@@ -40,6 +47,8 @@
     <script src="../static/js/JS_Genericos/cerrarsesion.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.js"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", CargarRegistros); // Cargar registros al cargar la página
         </script>
@@ -383,7 +392,8 @@ Cancelar</button>
 
                 <!-- Botones de acción -->
                 <button title="Buscar"
-                class="w3-button w3-red w3-margin-top w3-block" type="submit">Buscar</button>
+                class="w3-button w3-red w3-margin-top w3-block"
+                type="submit">Buscar</button>
 
                 <button title="Restablecer"
                 class="w3-button w3-gray w3-margin-top w3-small w3-right" type="button" 
@@ -508,7 +518,8 @@ Cancelar</button>
             <small>Zona de creación de lugares</small>
             
             <br>
-            <label style="margin-top: 20px;"><b> Crear lugar:</b></label>
+            <p style="margin-top: 20px;">
+                <b> Crear lugar:</b></p>
 
             <input class="w3-input w3-border w3-block w3-light-grey"
             type="text"
@@ -518,7 +529,8 @@ Cancelar</button>
             placeholder="Nombre del nuevo lugar">
 
             <button class="w3-button w3-margin-top w3-red w3-margin-bottom"
-            id="VLBotonCrearLugar">
+            id="VLBotonCrearLugar"
+            onclick="CrearLugar()">
                 Crear lugar
             </button>
          </div>
@@ -527,7 +539,8 @@ Cancelar</button>
             <small> Añadir items a los lugares</small>
 
             <br>
-            <label style="margin-top: 10px;"><b> Lugares disponibles:</b></label>
+            <p style="margin-top: 10px;">
+                <b> Lugares disponibles:</b></p>
 
             <select id="VLlugarSinItems"
             class="w3-select w3-margin-bottom w3-light-grey"
@@ -538,7 +551,9 @@ Cancelar</button>
                 <option value="---">---</option>
             </select>
 
-            <label><b>Items disponibles: </b></label>
+            <p><b>Items disponibles: 
+
+            </b></p>
             <select id="VLItemAñadir"
             class="w3-select w3-margin-bottom w3-light-grey"
             style="width: 80%;">
@@ -549,6 +564,7 @@ Cancelar</button>
             </select>
 
             <button class="w3-button w3-red w3-margin-bottom"
+            onclick="agregarItemALugar()"
             id="VLBotonAñadirItem">
                 Añadir item
             </button>
@@ -557,7 +573,8 @@ Cancelar</button>
         <div class="w3-third w3-center">
             <small>Copiar items de otros lugares</small>
             <br>
-            <label style="margin-top: 10px;"><b> Lugares disponibles:</b></label>
+            <p style="margin-top: 10px;">
+                <b> Lugares disponibles:</b></p>
 
             <select class="w3-select w3-margin-bottom w3-light-grey"
             id="VLLugarCopiaraitems"
@@ -568,7 +585,7 @@ Cancelar</button>
                 <option value="---">---</option>
             </select>
 
-            <label><b>Lugar con elementos a copiar:</b></label>
+            <p><b>Lugar con elementos a copiar:</b></p>
             <select class="w3-select w3-margin-bottom w3-light-grey"
             id="VLlugarAcopiar"
             style="width: 80%;">
@@ -579,6 +596,7 @@ Cancelar</button>
             </select>
 
             <button class="w3-button w3-red w3-margin-bottom"
+            onclick="copiarItemsDeLugar() "
             id="VLCopiarElementos">
                 Copiar elementos
             </button>
@@ -595,7 +613,8 @@ Cancelar</button>
             <small>Zona para editar nombres de lugares</small>
             
             <br>
-            <label style="margin-top: 10px;"><b> Lugares disponibles:</b></label>
+            <p style="margin-top: 10px;"><b> 
+                Lugares disponibles:</b></p>
 
             <select class="w3-select w3-margin-bottom w3-light-grey"
             id="VLlugarAcambiarnombre"
@@ -606,7 +625,7 @@ Cancelar</button>
                 <option value="---">---</option>
             </select>
 
-            <label><b> Nombre a cambiar:</b></label>
+            <p><b> Nombre a cambiar:</b></p>
 
             <input class="w3-input w3-border w3-block w3-light-grey"
             type="text"
@@ -625,7 +644,8 @@ Cancelar</button>
             <small> Eliminar item de algun lugar</small>
 
             <br>
-            <label style="margin-top: 10px;"><b> Lugares disponibles:</b></label>
+            <p style="margin-top: 10px;"><b> 
+                Lugares disponibles:</b></p>
 
             <select class="w3-select w3-margin-bottom w3-light-grey"
             style="width: 80%;"
@@ -636,7 +656,7 @@ Cancelar</button>
                 <option value="---">---</option>
             </select>
 
-            <label><b>Items a eliminar: </b></label>
+            <p><b>Items a eliminar: </b></p>
             <select class="w3-select w3-margin-bottom w3-light-grey"
             id="VLitemAEliminar"
             style="width: 80%;">
@@ -655,7 +675,8 @@ Cancelar</button>
         <div class="w3-third w3-center">
             <small>Zona para eliminar lugares</small>
             <br>
-            <label style="margin-top: 20px;"><b> Lugar a eliminar:</b></label>
+            <p style="margin-top: 20px;"><b> 
+                Lugar a eliminar:</b></p>
             <select id="VLlugarAeliminar" 
             class="w3-select w3-margin-bottom w3-light-grey"
             style="width: 80%;">
@@ -716,9 +737,11 @@ Cancelar</button>
                     <select id="VIclaseDeItem" 
                     class="w3-select w3-light-grey"
                     style = "width: 205px;
-                    margin: 20px;">
+                    margin: 20px;"
+                    onchange="cargarItems()">
                         <option value="" disabled selected>Clase de item a ver</option>
                         <option value="todos">Todos</option>
+                        <option value="sinclase">Sin clase</option>
                         <option value="generales">Generales</option>
                         <option value="electricos">Electricos</option>
                         <option value="baños">Accesorios de baños</option>
@@ -730,17 +753,12 @@ Cancelar</button>
                     style="width: 250px;
                     height: 190px;
                     margin: auto;"
+                    id="VIvisualizaritem"
                     placeholder="Los items apareceran aquí"
                     readonly>
                     </textarea>
-
-                    <button class="w3-button w3-red w3-center w3-margin-top"
-                    id="VIvisualizarItem">
-                        Visualizar los items
-                    </button>
         </div>
                 
-
          <!--Crear Items y añadir clase-->
          <div class="w3-container w3-padding-16 w3-center"
          style="display: none;"
@@ -751,7 +769,8 @@ Cancelar</button>
             <small>Zona de creación de items</small>
             
             <br>
-            <label style="margin-top: 20px;"><b> Crear item:</b></label>
+            <p style="margin-top: 20px;"><b> 
+                Crear item:</b></p>
 
             <input class="w3-input w3-border w3-block w3-light-grey"
             type="text"
@@ -761,14 +780,74 @@ Cancelar</button>
             placeholder="Nombre del nuevo item">
 
             <button class="w3-button w3-margin-top w3-red w3-margin-bottom"
-            id="VIbotonCrearItem">
+            id="VIbotonCrearItem"
+            onclick="CrearItem()">
                 Crear item
             </button>
          </div>
         
-         <div class="w3-col l9"></div>
-                 
-         </div>
+         <!--Zona de opciones-->
+         <div class="w3-col l9">
+
+            <small>Zona para añadir la de los items</small>
+            <br>
+
+                 <div class="zona"
+                 id="sinclase"
+                 ondrop="drop(event)"
+                 ondragover="mover(event)"> 
+         <h4>Sin clase</h4>
+                </div>
+
+         <div class="zona"
+         id="generales"
+         ondrop="drop(event)"
+         ondragover="mover(event)"> 
+        <h4>Generales</h4>
+ </div>
+
+ <div class="zona"
+ id="electricos"
+ ondrop="drop(event)"
+ ondragover="mover(event)"> 
+<h4>Electricos</h4>
+</div>
+
+<div class="zona"
+id="baños"
+ondrop="drop(event)"
+ondragover="mover(event)"> 
+<h4>Baños</h4>
+</div>
+
+<div class="zona"
+id="salones"
+ondrop="drop(event)"
+ondragover="mover(event)"> 
+<h4>Salones</h4>
+</div>
+
+<div class="zona"
+id="informaticos"
+ondrop="drop(event)"
+ondragover="mover(event)"> 
+<h4>Informaticos</h4>
+</div>
+
+<button class="w3-button w3-margin-top w3-border w3-red w3-margin-bottom"
+            id="VIguardarClaseItem"
+            onclick="actualizarClase()">
+                Guardar clases
+            </button>
+
+            <button class="w3-button w3-border w3-margin-top w3-margin-bottom"
+            id="VICancelarCambios"
+            onclick="cancelarCambios()">
+                Cancelar cambios
+            </button>
+
+</div>
+</div>
 
           <!--Editar items-->
           <div class="w3-container w3-padding-16 w3-center"
@@ -780,7 +859,8 @@ Cancelar</button>
             <small>Zona para editar nombres de lugares</small>
             
             <br>
-            <label style="margin-top: 10px;"><b>Items disponibles:</b></label>
+            <p style="margin-top: 10px;"><b>
+                Items disponibles:</b></p>
 
             <select class="w3-select w3-margin-bottom w3-light-grey"
             id="VIitemsDisponibles"
@@ -791,7 +871,7 @@ Cancelar</button>
                 <option value="---">---</option>
             </select>
 
-            <label><b>Cambiar nombre del item:</b></label>
+            <p><b>Cambiar nombre del item:</b></pS>
 
             <input class="w3-input w3-border w3-block w3-light-grey"
             id="VInuevoNombre"
@@ -809,7 +889,8 @@ Cancelar</button>
         <div class="w3-half w3-center">
             <small>Zona para eliminar items</small>
             <br>
-            <label style="margin-top: 20px;"><b> Item a eliminar:</b></label>
+            <p style="margin-top: 20px;"><b>
+                 Item a eliminar:</b></p>
             <select class="w3-select w3-margin-bottom w3-light-grey"
             id="VIitemAeliminar"
             style="width: 80%;">

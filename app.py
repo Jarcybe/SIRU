@@ -14,6 +14,8 @@ from Backend.obtener_registro import registros_bp
 from Backend.actualizar_reporte import actualizar_reporte_bp
 from Backend.guardar_cambios_usuarios import usuarios_bp
 from Backend.eliminarusuario import eliminareusuario
+from Backend.CrearLugares import crearlugares_bp
+from Backend.CrearItems import crearitems_bp
 
 import os
 
@@ -48,6 +50,8 @@ app.register_blueprint(registros_bp)
 app.register_blueprint(actualizar_reporte_bp)
 app.register_blueprint(usuarios_bp)
 app.register_blueprint(eliminareusuario)
+app.register_blueprint(crearlugares_bp)
+app.register_blueprint(crearitems_bp)
 
 
 

@@ -68,3 +68,11 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("VisualizarI").classList.add("Boton-escogido");
     
 });
+
+
+function inicializar() {
+    cargarItems();
+    cargarLugares();
+}
+
+window.onload = inicializar;

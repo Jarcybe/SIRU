@@ -31,19 +31,27 @@ function ConfiDeRegistro(id) {
                      title="Cerrar pestaña">
                      &times;</span>
                      
-                    <h2>${recordar.titulo}</h2>
+                    <h2><b>${recordar.titulo}</b></h2>
                 </header>
                 <div class="w3-container" style="padding: 20px;">
                     <div class="w3-row">
-                        <div class="w3-col s6">
+                        <div class="w3-col l6">
                             <p><b> Fecha: </b> ${recordar.fecha}</p>
-                            <p><b> Estado: </b> ${recordar.estado}</p>
-                            <p><b> Usuario: </b> ${recordar.codigo} -  (${recordar.nombre_usuario || "Desconocido"})</p>
+                            <p><b> Tipo: </b> ${recordar.estado}</p>
+                            <p style="display: flex;
+                            align-items: center;"><b> Usuario: </b> 
+                            <input class="w3-input"
+                            type=text;
+                            style="width: 80%;
+                            height: 25px;"
+                            value=${recordar.nombre_usuario || "Desconocido"}
+                            readonly>
+                            </p>
                             <textarea class= "w3-input w3-border w3-light gret"
                             style = "height: 100px;"
                             readonly> ${recordar.descripcion}</textarea>
                         </div>
-                        <div class="w3-col m6" 
+                        <div class="w3-col l6" 
                         style="position: relative; display: flex; justify-content: center; align-items: center; height: 100%;">
                             <div style= "top: 20px;">
                             ${imagenHTML}</div>
@@ -51,7 +59,7 @@ function ConfiDeRegistro(id) {
                     </div>
                     <div class="w3-row" style="margin-top: 20px">
                         <div class="w3-col s6 w3-center">
-                            <h5> Encargado </h5>
+                            <h5> <b>Encargado </b></h5>
                             <input class="w3-input w3-border" 
                             type="text"
                             id="Encargado" 
@@ -59,7 +67,7 @@ function ConfiDeRegistro(id) {
                             placeholder="Nombre del encargado" 
                             maxlength="500" value="${recordar.encargado || ''}">
                             
-                            <h5> Comentarios </h5>
+                            <h5> <b>Comentarios </b></h5>
                             <textarea 
                             class="w3-input w3-border" 
                             id="Comentario" 
@@ -68,7 +76,9 @@ function ConfiDeRegistro(id) {
                             <p> </p>
                         </div>
                         <div class="w3-col s6 w3-center w3-section">
-                            <h5> Desarrollo </h5>
+                            <h5> <b>Desarrollo </b></h5>
+
+                            <p style="align-items: center;">
                             <input class="w3-radio" 
                             type="radio" 
                             name="desarrollo" 
@@ -76,23 +86,25 @@ function ConfiDeRegistro(id) {
                              title="Desarrollo" 
                              disabled
                              ${recordar.desarrollo === "No verificado" ? "checked" : ""}>
-                            
-                             <label>No verificado </label><br>
+                             No verificado </p>
+
+                              <p style="align-items: center;">
                             <input class="w3-radio" 
                             type="radio" 
                             title = "En proceso"
                             name="desarrollo"
                             disabled
                             id="EnProceso" ${recordar.desarrollo === "En proceso" ? "checked" : ""}>
-                            
-                            <label> En proceso</label><br>
+                            En proceso</p>
+
+                             <p style="align-items: center;">
                             <input class="w3-radio" 
                             type="radio"
                              name="desarrollo"
                              disabled
                              id="Terminado" ${recordar.desarrollo === "Terminado" ? "checked" : ""}>
-                            <label>Terminado</label>
-<br>
+                            Terminado</p>
+
                              <button class="w3-button w3-small w3-red w3-right w3-margin-top"
                             title="Eliminar-Registro"
                             onclick="eliminarRegistro(${recordar.id})">Eliminar registro</button>
