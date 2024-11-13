@@ -39,7 +39,8 @@
     <script src="../static/js/JS_Admin/ItemCrearAñadirCopiar.js"></script>
     <script src="../static/js/JS_Admin/ItemEditarEliminar.js"></script>
     <script src="../static/js/JS_Admin/LugarEditarEliminar.js"></script>
-    
+    <script src="../static/js/JS_Admin/lugaritemvisualizar.js"></script>
+
     <script src="../static/js/JS_Genericos/EliminarRegistro.js"></script>
     <script src="../static/js/JS_Genericos/Restablecer.js"></script>
     <script src="../static/js/JS_Genericos/ImagenesDefecto.js"></script>
@@ -476,16 +477,17 @@ Cancelar</button>
                     <select id="VLVisualizarLugar" 
                     class="w3-select w3-light-grey"
                     style = "width: 125px;
-                    margin: 20px auto;">
+                    margin: 20px auto;"
+                    onchange="cargarItemsPorLugar_yclase()">
                         <option value="" disabled selected>Lugar a buscar</option>
                         <option value="todos">Todos los lugares</option>
-                        <option value="---">---</option>
-                        <option value="---">---</option>
+                       
                     </select>
 
                     <select id="VLClaseItemVisualizar" 
                     class="w3-select w3-light-grey"
-                    style = "width: 155px;">
+                    style = "width: 155px;"
+                    onchange="cargarItemsPorLugar_yclase()">
                         <option value="" disabled selected>Clase de item a ver</option>
                         <option value="todos">Todos</option>
                         <option value="generales">Generales</option>
@@ -493,20 +495,17 @@ Cancelar</button>
                         <option value="baños">Accesorios de baños</option>
                         <option value="salones">Salones</option>
                         <option value="informaticos">Informaticos</option>
+                        <option value="patio">Elementos del patio</option>
                     </select>
 
                     <textarea class=" w3-input w3-border w3-light-grey"
                     style="width: 300px;
                     height: 190px;
                     margin: auto;"
+                    id="VLItemsVisualizados"
                     placeholder="Los items apareceran aquí"
                     readonly>
                     </textarea>
-
-                    <button class="w3-button w3-red w3-center w3-margin-top"
-                    id="VLBotonVisualizar">
-                        Visualizar los items
-                    </button>
         </div>
 
          <!--Crear lugares con sus items-->
@@ -546,9 +545,6 @@ Cancelar</button>
             class="w3-select w3-margin-bottom w3-light-grey"
             style="width: 80%;">
                 <option value="" disabled selected>Seleccionar lugar</option>
-                <option value="---">---</option>
-                <option value="---">---</option>
-                <option value="---">---</option>
             </select>
 
             <p><b>Items disponibles: 
@@ -558,9 +554,7 @@ Cancelar</button>
             class="w3-select w3-margin-bottom w3-light-grey"
             style="width: 80%;">
                 <option value="" disabled selected>Seleccionar item</option>
-                <option value="---">---</option>
-                <option value="---">---</option>
-                <option value="---">---</option>
+                
             </select>
 
             <button class="w3-button w3-red w3-margin-bottom"
@@ -580,9 +574,6 @@ Cancelar</button>
             id="VLLugarCopiaraitems"
             style="width: 80%;">
                 <option value="" disabled selected>Seleccionar lugar</option>
-                <option value="---">---</option>
-                <option value="---">---</option>
-                <option value="---">---</option>
             </select>
 
             <p><b>Lugar con elementos a copiar:</b></p>
@@ -590,9 +581,6 @@ Cancelar</button>
             id="VLlugarAcopiar"
             style="width: 80%;">
                 <option value="" disabled selected>Seleccionar item</option>
-                <option value="---">---</option>
-                <option value="---">---</option>
-                <option value="---">---</option>
             </select>
 
             <button class="w3-button w3-red w3-margin-bottom"
@@ -614,15 +602,12 @@ Cancelar</button>
             
             <br>
             <p style="margin-top: 10px;"><b> 
-                Lugares disponibles:</b></p>
+                Lugares a cambiar nombre:</b></p>
 
             <select class="w3-select w3-margin-bottom w3-light-grey"
             id="VLlugarAcambiarnombre"
             style="width: 80%;">
                 <option value="" disabled selected>Seleccionar lugar</option>
-                <option value="---">---</option>
-                <option value="---">---</option>
-                <option value="---">---</option>
             </select>
 
             <p><b> Nombre a cambiar:</b></p>
@@ -635,7 +620,8 @@ Cancelar</button>
             placeholder="Nuevo nombre">
 
             <button class="w3-button w3-margin-top w3-red w3-margin-bottom"
-            id="VLGuardarNombreEditado">
+            id="VLGuardarNombreEditado"
+            onclick="editarlugar()">
                 Guardar nombre
             </button>
          </div>
@@ -645,29 +631,24 @@ Cancelar</button>
 
             <br>
             <p style="margin-top: 10px;"><b> 
-                Lugares disponibles:</b></p>
+                Lugar con el item:</b></p>
 
             <select class="w3-select w3-margin-bottom w3-light-grey"
             style="width: 80%;"
             id="VLlugarConElItem">
                 <option value="" disabled selected>Seleccionar lugar</option>
-                <option value="---">---</option>
-                <option value="---">---</option>
-                <option value="---">---</option>
             </select>
 
-            <p><b>Items a eliminar: </b></p>
+            <p><b>Item a eliminar: </b></p>
             <select class="w3-select w3-margin-bottom w3-light-grey"
             id="VLitemAEliminar"
             style="width: 80%;">
                 <option value="" disabled selected>Seleccionar item</option>
-                <option value="---">---</option>
-                <option value="---">---</option>
-                <option value="---">---</option>
             </select>
 
             <button class="w3-button w3-red w3-margin-bottom"
-            id="VLeliminarItemDelLugar">
+            id="VLeliminarItemDelLugar"
+            onclick="eliminarelitem()">
                 Eliminar item
             </button>
          </div>
@@ -681,13 +662,10 @@ Cancelar</button>
             class="w3-select w3-margin-bottom w3-light-grey"
             style="width: 80%;">
                 <option value="" disabled selected>Seleccionar lugar</option>
-                <option value="---">---</option>
-                <option value="---">---</option>
-                <option value="---">---</option>
             </select>
 
             <button class="w3-button w3-red w3-margin-bottom"
-            id="VLbotonDeEleiminarLugar">
+            onclick="eliminarlugarcompleto()">
                 Eliminar lugar
             </button>
         </div>    
@@ -866,9 +844,6 @@ ondragover="mover(event)">
             id="VIitemsDisponibles"
             style="width: 80%;">
                 <option value="" disabled selected>Seleccionar item</option>
-                <option value="---">---</option>
-                <option value="---">---</option>
-                <option value="---">---</option>
             </select>
 
             <p><b>Cambiar nombre del item:</b></pS>
@@ -881,7 +856,7 @@ ondragover="mover(event)">
             placeholder="Nuevo nombre">
 
             <button class="w3-button w3-margin-top w3-red w3-margin-bottom"
-            id="VIBotonguardarNuevoNombre">
+            onclick="editaritem()">
                 Guardar nombre
             </button>
          </div>
@@ -895,13 +870,10 @@ ondragover="mover(event)">
             id="VIitemAeliminar"
             style="width: 80%;">
                 <option value="" disabled selected>Seleccionar item</option>
-                <option value="---">---</option>
-                <option value="---">---</option>
-                <option value="---">---</option>
             </select>
 
             <button class="w3-button w3-red w3-margin-bottom"
-            id="VIConfirmarElimnacion">
+            onclick="eliminaritemcompleto()">
                 Eliminar item
             </button>
         </div>    

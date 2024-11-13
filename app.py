@@ -16,6 +16,9 @@ from Backend.guardar_cambios_usuarios import usuarios_bp
 from Backend.eliminarusuario import eliminareusuario
 from Backend.CrearLugares import crearlugares_bp
 from Backend.CrearItems import crearitems_bp
+from Backend.EditarLugar import editar_lugar_bp
+from Backend.EditarItem import editar_items_bp
+from Backend.visulizar_luegareitem import visulizar_lugar_e_item_bp
 
 import os
 
@@ -52,9 +55,9 @@ app.register_blueprint(usuarios_bp)
 app.register_blueprint(eliminareusuario)
 app.register_blueprint(crearlugares_bp)
 app.register_blueprint(crearitems_bp)
-
-
-
+app.register_blueprint(editar_lugar_bp)
+app.register_blueprint(editar_items_bp)
+app.register_blueprint(visulizar_lugar_e_item_bp)
 
 
 # Página de menú de registro (MenuRegistro.html)

@@ -40,8 +40,7 @@ function CrearItem(){
         reverseButtons: true
     }).then((result)=>{
     
-        document.getElementById("sinclase").appendChild(itemMostrado);
-        document.getElementById("VIcreacionItem").value = "";
+       
         if(result.isConfirmed){
     
             fetch('/crear_items',{
@@ -58,12 +57,17 @@ function CrearItem(){
                         text: "Item Creado con exito",
                         icon: 'success'
                     });
+
+                    document.getElementById("sinclase").appendChild(itemMostrado);
+                    document.getElementById("VIcreacionItem").value = "";
+                    CargarlosItemsenlistas();
                 }else{
                     Swal.fire({
                         title: "Error",
                         text: data.message,
                         icon: 'error'
                     });
+                    document.getElementById("VIcreacionItem").value = "";
                 }
             })
             .catch(error =>{
@@ -74,15 +78,18 @@ function CrearItem(){
                 })
             });
         }
+       
     });
     }
 
+    //carga los items en las zonas movibles
 function cargarItems(){
 
         fetch('/obtener_items')
         .then(response => response.json())
         .then(data => {
 
+      
             data.items.forEach(item => {
                 
                 const itemMostrado = document.createElement("div");
@@ -93,13 +100,17 @@ function cargarItems(){
                 itemMostrado.innerHTML = item.nombreitem;
 
                 const Destino = document.getElementById(item.claseitem || 'sinclase');
-                Destino.appendChild(itemMostrado);
-            });
+                if (Destino) {
+                    Destino.appendChild(itemMostrado);
+                } else {
+                    console.warn(`No se encontró el destino para el item con clase ${item.claseitem}`);
+                }
+             });
         })
         .catch(error => console.error("Error al cargar los items:", error));
     }
     
-
+    //deja mover las cositas
     function mover(event){
 event.preventDefault();
     }

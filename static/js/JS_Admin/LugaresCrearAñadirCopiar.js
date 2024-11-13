@@ -9,6 +9,12 @@ if (!nombre){
     return
 }
 
+const lugar={
+
+    nombrelugar: nombre,
+};
+
+
 const botones = Swal.mixin({
     customClass: {
         confirmButton: "btn btn-success",
@@ -17,10 +23,6 @@ const botones = Swal.mixin({
     buttonsStyling: false
 });
 
-const lugar={
-
-    nombrelugar: nombre,
-};
 
 botones.fire({
     title: `¿Seguro que quiere crear el lugar "${nombre}"?`,
@@ -28,7 +30,7 @@ botones.fire({
     showCancelButton: true,
 
     showCancelButton: true,
-    confirmButtonText: "Aceptar",
+    confirmButtonText: "Crear",
 
     cancelButtonText: "No, Cancelar",
     reverseButtons: true
@@ -78,6 +80,7 @@ botones.fire({
             })
         });
     }
+    document.getElementById("VLCrearLugar").value = "";
 });
 }
 
@@ -92,7 +95,7 @@ function cargarLugares(){
               // Cargar lugares en el select de lugares disponibles
 
         const lugares = data.lugares; 
-        cargarOpcionesEnSelectsLugares(lugares, ["VLlugarSinItems", "VLLugarCopiaraitems", "VLlugarAcopiar", "VLlugarAcambiarnombre", "VLlugarConElItem", "VLlugarAeliminar" ]);
+        cargarOpcionesEnSelectsLugares(lugares, ["VLlugarSinItems", "VLVisualizarLugar", "VLLugarCopiaraitems", "VLlugarAcopiar", "VLlugarAcambiarnombre", "VLlugarConElItem", "VLlugarAeliminar" ]);
 
         }
     })
@@ -139,6 +142,30 @@ function agregarItemALugar() {
         fklugar: idLugar, 
         fkitem: idItem };
 
+        const botones = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success",
+                cancelButton: "btn btn-danger"
+            },
+            buttonsStyling: false
+        });
+
+        botones.fire({
+            title: `¿Seguro que quiere añadir el item?`,
+            icon: "warning",
+            showCancelButton: true,
+        
+            showCancelButton: true,
+            confirmButtonText: "Aceptar",
+        
+            cancelButtonText: "No, Cancelar",
+            reverseButtons: true
+        }).then((result)=>{
+        
+            if(result.isConfirmed){
+                document.getElementById("VLlugarSinItems").value = "";
+                document.getElementById("VLItemAñadir").value = "";
+
     fetch('/asociar_item', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -167,6 +194,10 @@ function agregarItemALugar() {
             icon: 'error'
         });
     });
+} 
+document.getElementById("VLlugarSinItems").value = "";
+                document.getElementById("VLItemAñadir").value = "";
+});
 }
 
 function copiarItemsDeLugar() {
@@ -196,6 +227,30 @@ function copiarItemsDeLugar() {
         fklugar_origen: lugarOrigen 
     };
 
+    const botones = Swal.mixin({
+        customClass: {
+            confirmButton: "btn btn-success",
+            cancelButton: "btn btn-danger"
+        },
+        buttonsStyling: false
+    });
+
+    botones.fire({
+        title: `¿Seguro que quiere copiar los items del lugar?`,
+        icon: "warning",
+        showCancelButton: true,
+    
+        showCancelButton: true,
+        confirmButtonText: "Aceptar",
+    
+        cancelButtonText: "No, Cancelar",
+        reverseButtons: true
+    }).then((result)=>{
+    
+        if(result.isConfirmed){
+            document.getElementById("VLLugarCopiaraitems").value = "";
+            document.getElementById("VLlugarAcopiar").value = "";
+
     fetch('/copiar_items', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -224,5 +279,8 @@ function copiarItemsDeLugar() {
             icon: 'error'
         });
     });
+} 
+document.getElementById("VLLugarCopiaraitems").value = "";
+document.getElementById("VLlugarAcopiar").value = "";
+});
 }
-

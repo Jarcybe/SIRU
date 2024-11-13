@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 function inicializar() {
-    cargarItems();
+    CargarlosItemsenlistas();
     cargarLugares();
 }
 
