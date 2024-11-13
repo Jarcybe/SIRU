@@ -597,36 +597,8 @@ Cancelar</button>
           style="display: none;"
           id="EditarLugar">
 
-          <div class="w3-third w3-center">
-            <small>Zona para editar nombres de lugares</small>
-            
-            <br>
-            <p style="margin-top: 10px;"><b> 
-                Lugares a cambiar nombre:</b></p>
 
-            <select class="w3-select w3-margin-bottom w3-light-grey"
-            id="VLlugarAcambiarnombre"
-            style="width: 80%;">
-                <option value="" disabled selected>Seleccionar lugar</option>
-            </select>
-
-            <p><b> Nombre a cambiar:</b></p>
-
-            <input class="w3-input w3-border w3-block w3-light-grey"
-            type="text"
-            id="VLnombreACambiar"
-            style="width: 80%;
-            margin: auto;"
-            placeholder="Nuevo nombre">
-
-            <button class="w3-button w3-margin-top w3-red w3-margin-bottom"
-            id="VLGuardarNombreEditado"
-            onclick="editarlugar()">
-                Guardar nombre
-            </button>
-         </div>
-
-         <div class="w3-third w3-center">
+         <div class="w3-half w3-center">
             <small> Eliminar item de algun lugar</small>
 
             <br>
@@ -653,7 +625,7 @@ Cancelar</button>
             </button>
          </div>
          
-        <div class="w3-third w3-center">
+        <div class="w3-half w3-center">
             <small>Zona para eliminar lugares</small>
             <br>
             <p style="margin-top: 20px;"><b> 
@@ -695,7 +667,7 @@ Cancelar</button>
              <button class="w3-bar-item w3-button"
              onclick="IrEditarItem()
              Ensombrecer(this)">
-                Editar
+                Eliminar
              </button>
 
              <button class="w3-bar-item w3-button"
@@ -827,63 +799,26 @@ ondragover="mover(event)">
 </div>
 </div>
 
-          <!--Editar items-->
+          <!--Eliminar items-->
           <div class="w3-container w3-padding-16 w3-center"
           style="display: none;"
           id="EditarItems">
-
-          
-          <div class="w3-half w3-center">
-            <small>Zona para editar nombres de lugares</small>
-            
-            <br>
-            <p style="margin-top: 10px;"><b>
-                Items disponibles:</b></p>
-
-            <select class="w3-select w3-margin-bottom w3-light-grey"
-            id="VIitemsDisponibles"
-            style="width: 80%;">
-                <option value="" disabled selected>Seleccionar item</option>
-            </select>
-
-            <p><b>Cambiar nombre del item:</b></pS>
-
-            <input class="w3-input w3-border w3-block w3-light-grey"
-            id="VInuevoNombre"
-            type="text"
-            style="width: 80%;
-            margin: auto"
-            placeholder="Nuevo nombre">
-
-            <button class="w3-button w3-margin-top w3-red w3-margin-bottom"
-            onclick="editaritem()">
-                Guardar nombre
-            </button>
-         </div>
-         
-        <div class="w3-half w3-center">
             <small>Zona para eliminar items</small>
             <br>
             <p style="margin-top: 20px;"><b>
                  Item a eliminar:</b></p>
             <select class="w3-select w3-margin-bottom w3-light-grey"
             id="VIitemAeliminar"
-            style="width: 80%;">
+            style="width: 50%;">
                 <option value="" disabled selected>Seleccionar item</option>
-            </select>
+            </select><br>
 
             <button class="w3-button w3-red w3-margin-bottom"
             onclick="eliminaritemcompleto()">
                 Eliminar item
-            </button>
-        </div>    
-          
-                  
+            </button>  
           </div>
-        
     </div>
-
-
     </div>
     </div>
 </div>

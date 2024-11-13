@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 import mysql.connector
 
-guardar_formulario_bp = Blueprint('guardar_formulario', __name__)
+guardar_reporte_bp = Blueprint('guardar_reporte', __name__)
 
 
 def conectar_bd():
@@ -12,7 +12,7 @@ def conectar_bd():
         database="siru"
     )
 
-@guardar_formulario_bp.route('/guardar_formulario', methods=['POST'])
+@guardar_reporte_bp.route('/guardar_reporte', methods=['POST'])
 def guardar_formulario_route():
     conexion = None
     try:

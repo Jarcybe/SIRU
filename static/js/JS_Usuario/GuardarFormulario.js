@@ -81,7 +81,7 @@ function enviarFormulario(cod, fecha, lugar, item, estado, titulo, descripcion, 
         formData.imagen = filepath.replace('\\', '/');
     }
 
-    fetch('/guardar_formulario', {
+    fetch('/guardar_reporte', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

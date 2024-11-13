@@ -30,8 +30,7 @@ function Registro(event) {
         password: password
     };
 
-  //cambiar esto por el de microservicio o sea /registrar_correo
-    fetch('/registro', {
+    fetch('/registrar_correo', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -74,7 +73,7 @@ function Registro(event) {
         }else{
              Swal.fire({
              icon: "error",
-             title: "No se pudo completar el registro por correo erroneo o desactivado",
+             title: "No se pudo completar el registro por correo erroneo",
           });
         }
     });

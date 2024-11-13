@@ -95,7 +95,7 @@ function cargarLugares(){
               // Cargar lugares en el select de lugares disponibles
 
         const lugares = data.lugares; 
-        cargarOpcionesEnSelectsLugares(lugares, ["VLlugarSinItems", "VLVisualizarLugar", "VLLugarCopiaraitems", "VLlugarAcopiar", "VLlugarAcambiarnombre", "VLlugarConElItem", "VLlugarAeliminar" ]);
+        cargarOpcionesEnSelectsLugares(lugares, ["VLlugarSinItems", "VLVisualizarLugar", "VLLugarCopiaraitems", "VLlugarAcopiar", "VLlugarConElItem", "VLlugarAeliminar" ]);
 
         }
     })

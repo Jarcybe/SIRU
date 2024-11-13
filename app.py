@@ -1,24 +1,34 @@
 from flask import Flask, render_template, session, jsonify, redirect, url_for,send_from_directory
 from datetime import timedelta
+
+#Todos los py de inicio de seion
 from Backend.login import login_bp, login_required, role_required
-from Backend.obtener_usuarios import obtener_usuarios
-from Backend.guardar_formulario import guardar_formulario_bp
+from Backend.RegistroCorreoNuevoUsuario import registrar_correo_bp 
+
+#Todos los py relacionados con los reportes
+from Backend.guardar_reporte import guardar_reporte_bp
 from Backend.buscar_reportes import buscar_reportes_bp
 from Backend.filtro import filtro_bp
-from Backend.editar_usuario import editar_usuario_bp
-from Backend.estados import estados_bp
-from Backend.registro import registro_bp  
+from Backend.actualizar_reporte import actualizar_reporte_bp
 from Backend.subir_imagen import subir_imagen_bp
 from Backend.eliminar_registro import eliminar_registro_bp
 from Backend.obtener_registro import registros_bp
-from Backend.actualizar_reporte import actualizar_reporte_bp
+
+
+#Todos los py relacioanodos con los usuarios
+
 from Backend.guardar_cambios_usuarios import usuarios_bp
 from Backend.eliminarusuario import eliminareusuario
+from Backend.obtener_usuarios import obtener_usuarios
+from Backend.editar_usuario import editar_usuario_bp
+from Backend.estados import estados_bp
+
+#Todos los py relacionados con los lugares e items
 from Backend.CrearLugares import crearlugares_bp
 from Backend.CrearItems import crearitems_bp
 from Backend.EditarLugar import editar_lugar_bp
 from Backend.EditarItem import editar_items_bp
-from Backend.visulizar_luegareitem import visulizar_lugar_e_item_bp
+from Backend.visulizar_luegareitem import visulizar_lugar_e_item_bp 
 
 import os
 
@@ -40,13 +50,15 @@ def make_session_permanent():
     session.permanent = True
 
 # Registrar los blueprints en la aplicación Flask
+
+#inicio de sesion 
+app.register_blueprint(registrar_correo_bp)  
 app.register_blueprint(login_bp)
-app.register_blueprint(guardar_formulario_bp)
+app.register_blueprint(guardar_reporte_bp)
 app.register_blueprint(buscar_reportes_bp)
 app.register_blueprint(filtro_bp)
 app.register_blueprint(editar_usuario_bp)
 app.register_blueprint(estados_bp)
-app.register_blueprint(registro_bp)  
 app.register_blueprint(subir_imagen_bp)
 app.register_blueprint(eliminar_registro_bp)
 app.register_blueprint(registros_bp)
@@ -97,4 +109,4 @@ def servir_imagen(filename):
         return "Imagen no encontrada", 404
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000)

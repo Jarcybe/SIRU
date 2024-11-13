@@ -37,8 +37,8 @@ function VisualizacionUsuario(usuario, index){
                     <option value="Admin" ${usuario.tipo === 'Admin' ? 'selected' : ''}>Admin</option>  
                     <option value="Usuario" ${usuario.tipo === 'Usuario' ? 'selected' : ''}>Usuario</option>
                     <option value="EncargadoGeneral" ${usuario.tipo === 'Encargado general' ? 'selected' : ''}>Encargado de general</option>
-                    <option value="EncargadoElectrisista" ${usuario.tipo === 'Encargado electricista' ? 'selected' : ''}>Electrisista</option>
-                    <option value="EncargadoBaños" ${usuario.tipo === 'Encargado baños' ? 'selected' : ''}>Encargado de baños</option>
+                    <option value="EncargadoElectrico" ${usuario.tipo === 'Encargado electricista' ? 'selected' : ''}>Electricista</option>
+                    <option value="EncargadoFontaneria" ${usuario.tipo === 'Encargado fontanero' ? 'selected' : ''}>Fontaneria</option>
                     <option value="EncargadoSalones" ${usuario.tipo === 'Encargado salones' ? 'selected' : ''}>Encargado de salones</option>
                     <option value="EncargadoInformatico" ${usuario.tipo === 'Encargado informatico' ? 'selected' : ''}>Encargado de informatica</option>
                 </select>
