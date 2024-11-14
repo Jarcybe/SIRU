@@ -24,7 +24,7 @@ function GuardarFormulario(event) {
         Swal.fire({
             icon: 'warning',
             title: 'Error en los datos',
-            text: 'Los campos Lugar, Item y Descripción son obligatorios.'
+            text: 'Los campos Lugar, ítem y Descripción son obligatorios.'
           });
         return;
     }

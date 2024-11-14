@@ -27,7 +27,7 @@ function BuscarReportes(event) {
                 contenedores.innerHTML = "";
 
                 if (registros.length === 0) {
-                    contenedores.innerHTML = "<p>Ningún reporte encontrado con estos criterios de búsqueda</p>";
+                    contenedores.innerHTML = "<p>No se encontraron reportes con estos criterios de búsqueda.</p>";
                 } else {
                     registros.forEach((rec, index) => {
 

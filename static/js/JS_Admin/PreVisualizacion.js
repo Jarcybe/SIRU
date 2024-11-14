@@ -34,7 +34,7 @@ function PreVisualizacion (record){
                 style="padding-left: 20px;
             margin-top:10px;
             margin-bottom:5px;">
-                    <p><b>Descripcion: </b><p>
+                    <p><b>Descripción: </b><p>
                     <textarea class= "w3-input w3-border w3-light grey"
                         style = "height: 85px;
                         width: 95%;"

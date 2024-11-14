@@ -77,7 +77,7 @@ function cancelar() {
         if (result.isConfirmed) {
         botones.fire({
             title: "Cancelado!",
-            text: "Ningun dato fue afectado",
+            text: "Ningún dato fue afectado",
             icon: "success"
           }).then(() => {
             document.getElementById('administrar').style.display = 'none';

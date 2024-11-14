@@ -46,7 +46,7 @@ function FiltrarRegistro(event) {
                     contenedor.appendChild(carta);
                 });
             } else {
-                contenedor.innerHTML = "<p>Ningún reporte encontrado con estos criterios de búsqueda</p>";
+                contenedor.innerHTML = "<p>No se encontraron reportes con estos criterios de búsqueda.</p>";
             }
         })
         .catch(error => {

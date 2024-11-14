@@ -57,7 +57,7 @@ function eliminaritemcompleto(){
     });
 
     botones.fire({
-        title: `¿Seguro que quiere eliminar totalmente el item? No podras recuperarlo despues`,
+        title: `¿Seguro que quiere eliminar totalmente el ítem? No podrás recuperarlo después`,
         icon: "warning",
         showCancelButton: true,
     
