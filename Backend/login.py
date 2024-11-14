@@ -7,7 +7,7 @@ from datetime import timedelta
 login_bp = Blueprint('login_bp', __name__)
 
 # Función para verificar las credenciales del usuario en la base de datos
-def verificar_credenciales(codigo, contraseña):
+def verificar_credenciales(correo, password):
     connection = mysql.connector.connect(
         host="localhost",
         user="root",
@@ -17,14 +17,15 @@ def verificar_credenciales(codigo, contraseña):
     cursor = connection.cursor()
 
     # Asegurarse de seleccionar el campo 'tipo' en la consulta
-    cursor.execute("SELECT codigo, tipo, nombre, estado FROM Usuario WHERE codigo = %s AND contraseña = %s", (codigo, contraseña))
-    usuario = cursor.fetchone()
+    cursor.execute("SELECT correo, tipo, nombre, estado FROM usuarios WHERE correo = %s AND password = %s", 
+                   (correo, password))
+    usuarios = cursor.fetchone()
     cursor.close()
     connection.close()
 
-    if usuario:
-        if usuario[3] == 1: 
-            return usuario
+    if usuarios:
+        if usuarios[3] == 1: 
+            return usuarios
         else: 
             return None
     else:
@@ -34,22 +35,22 @@ def verificar_credenciales(codigo, contraseña):
 @login_bp.route('/login', methods=['POST'])
 def login():
     datos = request.json
-    codigo = datos.get('codigo')
-    contraseña = datos.get('contraseña')
-    usuario = verificar_credenciales(codigo, contraseña)
+    correo = datos.get('correo')
+    password = datos.get('password')
+    usuarios = verificar_credenciales(correo, password)
     
-    if usuario:
+    if usuarios:
         # Almacenar la información del usuario en la sesión
         session['user'] = {
-            'codigo': usuario[0],
-            'tipo': usuario[1],
-            'nombre': usuario[2]
+            'correo': usuarios[0],
+            'tipo': usuarios[1],
+            'nombre': usuarios[2]
         }
         # Hacer la sesión permanente
         session.permanent = True
         return jsonify({'success': True, 'usuario': session['user']})
     else:
-        return jsonify({'success': False, 'message': 'Código o contraseña incorrectos o cuenta deshabilitada'})
+        return jsonify({'success': False, 'message': 'Correo o contraseña incorrectos o cuenta deshabilitada'})
 
 # Ruta para manejar el cierre de sesión
 @login_bp.route('/logout')

@@ -22,6 +22,7 @@ from Backend.eliminarusuario import eliminareusuario
 from Backend.obtener_usuarios import obtener_usuarios
 from Backend.editar_usuario import editar_usuario_bp
 from Backend.estados import estados_bp
+from Backend.actualizar_usuarios import usuarios_actualizar_bp
 
 #Todos los py relacionados con los lugares e items
 from Backend.CrearLugares import crearlugares_bp
@@ -70,7 +71,6 @@ app.register_blueprint(crearitems_bp)
 app.register_blueprint(editar_lugar_bp)
 app.register_blueprint(editar_items_bp)
 app.register_blueprint(visulizar_lugar_e_item_bp)
-
 
 # Página de menú de registro (MenuRegistro.html)
 @app.route('/')

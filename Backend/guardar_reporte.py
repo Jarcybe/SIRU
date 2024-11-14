@@ -17,11 +17,11 @@ def guardar_formulario_route():
     conexion = None
     try:
         datos = request.json
-        codigo = datos.get('codigo')
+        correo = datos.get('correo')
         fecha = datos.get('fecha')
         lugar = datos.get('lugar')
         item = datos.get('item')
-        estado = datos.get('estado')
+        tipo = datos.get('tipo')
         titulo = datos.get('titulo')
         descripcion = datos.get('descripcion')
         imagen_path = datos.get('imagen', None)
@@ -34,14 +34,14 @@ def guardar_formulario_route():
         cursor = conexion.cursor()
 
         if imagen_path:
-            cursor.execute("INSERT INTO FormularioRegistro (codigo, fecha, lugar, item, estado, titulo, descripcion, imagen) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
-                           (codigo, fecha, lugar, item, estado, titulo, descripcion, imagen_path))
+            cursor.execute("INSERT INTO reportes (fkcorreousuario, fecha, lugar, item, tipo, titulo, descripcion, imagen) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+                           (correo, fecha, lugar, item, tipo, titulo, descripcion, imagen_path))
         else:
-            cursor.execute("INSERT INTO FormularioRegistro (codigo, fecha, lugar, item, estado, titulo, descripcion) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-                           (codigo, fecha, lugar, item, estado, titulo, descripcion))
+            cursor.execute("INSERT INTO reportes (fkcorreousuario, fecha, lugar, item, tipo, titulo, descripcion) VALUES (%s, %s, %s, %s, %s, %s, %s)",
+                           (correo, fecha, lugar, item, tipo, titulo, descripcion))
 
         conexion.commit()
-        return jsonify({'success': True, 'message': 'Formulario guardado exitosamente'}), 200
+        return jsonify({'success': True, 'message': 'Reporte guardado exitosamente'}), 200
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
     finally:

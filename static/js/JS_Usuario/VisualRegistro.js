@@ -1,4 +1,4 @@
-function VisualRegistro(index, Filtro= false) {
+function VisualRegistro(index, Filtro= true) {
     const LogUsuario = JSON.parse(localStorage.getItem('LogUsuario'));
     
     if (!LogUsuario) {
@@ -11,7 +11,7 @@ function VisualRegistro(index, Filtro= false) {
         mostrarDetallesRecuerdo(recuerdo);
     } else {
         // Si no estamos en modo filtrado, obtenemos los registros completos
-        fetch(`/obtener_registros/${LogUsuario.codigo}`)
+        fetch(`/obtener_registros/${LogUsuario.correo}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -49,9 +49,9 @@ function mostrarDetallesRecuerdo(recuerdo) {
     let texto = "No visto";
     let Color  = "#ccc";
 
-    if(recuerdo.desarrollo){
+    if(recuerdo.estado){
 
-        switch (recuerdo.desarrollo.toLowerCase()){
+        switch (recuerdo.estado.toLowerCase()){
             case "no verificado":
                 texto = "No verificado";
                 Color = "#F44336";
@@ -84,7 +84,7 @@ function mostrarDetallesRecuerdo(recuerdo) {
                 <div class="w3-col m6"
                 style = "padding-right: 15px;">
 
-                    <p><b>Tipo de reporte:</b> ${recuerdo.estado}</p>
+                    <p><b>Tipo de reporte:</b> ${recuerdo.tipo}</p>
                     
                     <h4><b>Descripcion</b></h4>
                     <textarea class="w3-input w3-borde w3-light-grey"
@@ -132,7 +132,7 @@ function mostrarDetallesRecuerdo(recuerdo) {
                     <textarea class="w3-input w3-border" 
                     type="text" 
                     style="height: 100px;" 
-                    placeholder="No hay comentarios aun" readonly>${recuerdo.comentario || ''}
+                    placeholder="No hay comentarios aun" readonly>
                     </textarea>
                     
                     <h4>Encargado</h4>
@@ -140,16 +140,19 @@ function mostrarDetallesRecuerdo(recuerdo) {
                     type="text" 
                     title="Nombre del encargado" 
                     placeholder="No hay encargado por el momento" 
-                    value="${recuerdo.encargado || ''}" readonly/>
+                    value="" readonly/>
 
                     <button class="w3-button w3-small w3-red w3-right w3-margin-top"
                             title="Eliminar-Registro"
-                            onclick="eliminarRegistro(${recuerdo.id})">Eliminar registro</button>
+                            onclick="eliminarRegistro(${recuerdo.idreporte})">Eliminar registro</button>
                 </div>
          
         </div>
     `;
 
+  
+  //  textarea${recuerdo.comentario || ''}
+  // place holder ${recuerdo.encargado || ''}-->
     modal.style.display = "block";
 }
 

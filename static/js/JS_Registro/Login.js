@@ -1,12 +1,12 @@
 function Login(event) {
     event.preventDefault();
 
-    const codigo = document.getElementById("CorreoL").value;
-    const contraseña = document.getElementById("ContraseñaL").value;
+    const correo = document.getElementById("CorreoL").value;
+    const password = document.getElementById("ContraseñaL").value;
 
     const datos = {
-        codigo: codigo,
-        contraseña: contraseña
+        correo: correo,
+        password: password
     };
 
     fetch('/login', {

@@ -24,9 +24,9 @@ def obtener_registros():
 
     cursor = conexion.cursor(dictionary=True)
     cursor.execute("""
-        SELECT fr.*, u.nombre AS nombre_usuario
-        FROM formularioregistro fr
-        LEFT JOIN usuario u ON fr.codigo = u.codigo
+        SELECT r.*, u.nombre AS nombre_usuario
+        FROM reportes r
+        LEFT JOIN usuarios u ON r.fkcorreousuario = u.correo
     """)
     registros = cursor.fetchall()
     cursor.close()
@@ -46,10 +46,10 @@ def obtener_registro(id):
 
     cursor = conexion.cursor(dictionary=True)
     cursor.execute("""
-        SELECT fr.*, u.nombre AS nombre_usuario
-        FROM formularioregistro fr
-        LEFT JOIN usuario u ON fr.codigo = u.codigo
-        WHERE fr.id = %s
+        SELECT r.*, u.nombre AS nombre_usuario
+        FROM reportes r
+        LEFT JOIN usuarios u ON r.fkcorreousuario = u.correo
+        WHERE r.idreporte = %s
     """, (id,))
     registro = cursor.fetchone()
     cursor.close()
@@ -60,6 +60,7 @@ def obtener_registro(id):
     else:
         return jsonify({"error": "Registro no encontrado"}), 404
 
+##cambiar a un futuro
 @registros_bp.route('/actualizar_registro/<int:id>', methods=['PUT'])
 def actualizar_registro(id):
     datos = request.json
@@ -98,7 +99,8 @@ def eliminar_registro(id):
 
     cursor = conexion.cursor()
     try:
-        cursor.execute("DELETE FROM formularioregistro WHERE id = %s", (id,))
+        cursor.execute("DELETE FROM reportes WHERE idreporte = %s", 
+                       (id,))
         conexion.commit()
     except mysql.connector.Error as error:
         print("Error al eliminar el registro:", error)

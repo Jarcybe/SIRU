@@ -27,11 +27,11 @@ def obtener_usuarios(filtro):
 
     cursor = conexion.cursor(dictionary=True)
     if filtro == 'todos':
-        cursor.execute("SELECT * FROM usuario")
+        cursor.execute("SELECT * FROM usuarios")
     elif filtro in ['Admin', 'Usuario']:
-        cursor.execute("SELECT * FROM usuario WHERE tipo = %s", (filtro,))
+        cursor.execute("SELECT * FROM usuarios WHERE tipo = %s", (filtro,))
     else:
-        cursor.execute("SELECT * FROM usuario WHERE codigo = %s", (filtro,))
+        cursor.execute("SELECT * FROM usuarios WHERE correo = %s", (filtro,))
     
     usuarios = cursor.fetchall()
     cursor.close()
@@ -58,17 +58,16 @@ def guardar_cambios_usuarios():
         cursor = conexion.cursor()
         try:
             for usuario in usuarios_actualizados:
-                codigo = usuario.get('codigo')
+                correo = usuario.get('correo')
                 tipo = usuario.get('tipo')
                 nombre = usuario.get('nombre')
-                contraseña = usuario.get('contraseña')
 
                 # Actualizar el usuario en la base de datos
                 cursor.execute("""
-                    UPDATE usuario
-                    SET tipo = %s, nombre = %s, contraseña = %s
-                    WHERE codigo = %s
-                """, (tipo, nombre, contraseña, codigo))
+                    UPDATE usuarios
+                    SET tipo = %s, nombre = %s
+                    WHERE correo = %s
+                """, (tipo, nombre, correo))
 
             conexion.commit()
             cursor.close()

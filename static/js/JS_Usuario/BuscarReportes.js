@@ -6,15 +6,15 @@ function BuscarReportes(event) {
     const lugar = document.getElementById("buscarLugar").value.toLowerCase();
     const item = document.getElementById("buscarItem").value.toLowerCase();
     const AntiguoReciente = document.getElementById("ordenarRecienteAntiguo").value;
-    const estado = document.getElementById("Estado").value;
-    const desarrollo = document.getElementById("Desarrollo").value;
-    const reciente = document.getElementById("Reciente").value;
+    const Tipo = document.getElementById("Tipo").value;
+    const Estado = document.getElementById("Estado").value;
+    //const Retroalimentacion = document.getElementById("Retroalimentacion").value;
 
   
     const LogUsuario = JSON.parse(localStorage.getItem("LogUsuario"));
-    const codigo_usuario = LogUsuario.codigo;
-
-    let url = `/buscar_reportes?codigo_usuario=${codigo_usuario}&lugar=${lugar}&item=${item}&estado=${estado}&desarrollo=${desarrollo}&reciente=${reciente}&orden=${AntiguoReciente}`;
+    const correo_usuario = LogUsuario.correo;
+                                                                                                           //&retroalimentacion=${Retroalimentacion}                            
+    let url = `/buscar_reportes?correo_usuario=${correo_usuario}&lugar=${lugar}&item=${item}&tipo=${Tipo}&estado=${Estado}&orden=${AntiguoReciente}`;
 
     fetch(url)
         .then(response => response.json())

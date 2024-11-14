@@ -11,9 +11,9 @@ def obtener_usuarios(filtro):
 
     cursor = conexion.cursor(dictionary=True)
     if filtro == 'todos':
-        cursor.execute("SELECT * FROM Usuario")
+        cursor.execute("SELECT * FROM usuarios")
     else:
-        cursor.execute("SELECT * FROM Usuario WHERE tipo = %s", (filtro,))
+        cursor.execute("SELECT * FROM usuarios WHERE tipo = %s", (filtro,))
     usuarios = cursor.fetchall()
 
     # Cerrar la conexión a la base de datos

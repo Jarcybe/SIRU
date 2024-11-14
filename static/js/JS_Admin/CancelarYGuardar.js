@@ -7,17 +7,16 @@ function GuardarCambios() {
         const uniqueId = elemento.id;
 
         // Obtener los valores actualizados del usuario
-        const codigo = document.getElementById(`codigo-${uniqueId}`).innerText;
+        const correo = document.getElementById(`correo-${uniqueId}`).value;
         const tipo = document.getElementById(`tipo-${uniqueId}`).value;
         const nombre = document.getElementById(`nombre-${uniqueId}`).value;
-        const contraseña = document.getElementById(`contraseña-${uniqueId}`).value;
 
         // Crear objeto con los datos del usuario actualizado
         const usuarioActualizado = {
-            codigo: codigo,
+
+            correo: correo,
             tipo: tipo,
-            nombre: nombre,
-            contraseña: contraseña
+            nombre: nombre
         };
 
         // Agregar usuario actualizado al array

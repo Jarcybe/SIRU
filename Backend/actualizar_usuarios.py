@@ -1,9 +1,7 @@
-from flask import Flask, Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify
 import mysql.connector
 
-app = Flask(__name__)
-
-usuarios_bp = Blueprint('usuarios_bp', __name__)
+usuarios_actualizar_bp = Blueprint('usuarios_bp', __name__)
 
 def conectar_bd():
     return mysql.connector.connect(
@@ -13,7 +11,7 @@ def conectar_bd():
         database="siru"
     )
 
-@usuarios_bp.route('/actualizar_usuarios', methods=['POST'])
+@usuarios_actualizar_bp.route('/actualizar_usuarios', methods=['POST'])
 def actualizar_usuarios():
     try:
         datos = request.get_json()
@@ -24,7 +22,7 @@ def actualizar_usuarios():
 
         # Validar que cada usuario tenga los campos necesarios
         for usuario in usuarios:
-            if not all(k in usuario for k in ('codigo', 'tipo', 'nombre', 'contraseña')):
+            if not all(k in usuario for k in ('correo', 'tipo', 'nombre')):
                 print(f"Datos de usuario incompletos: {usuario}")
                 return jsonify({'success': False, 'error': 'Datos de usuario incompletos'}), 400
 
@@ -32,19 +30,18 @@ def actualizar_usuarios():
         cursor = conexion.cursor()
 
         for usuario in usuarios:
-            codigo = usuario.get('codigo')
+            correo = usuario.get('correo')
             tipo = usuario.get('tipo')
             nombre = usuario.get('nombre')
-            contraseña = usuario.get('contraseña')
 
-            print(f"Actualizando usuario {codigo}: tipo={tipo}, nombre={nombre}, contraseña={contraseña}")  # Imprimir detalles de cada usuario
+            print(f"Actualizando usuario {correo}: tipo={tipo}, nombre={nombre}")  # Imprimir detalles de cada usuario
 
             # Actualizar los datos del usuario en la base de datos
             cursor.execute("""
-                UPDATE usuario
-                SET tipo = %s, nombre = %s, contraseña = %s
-                WHERE codigo = %s
-            """, (tipo, nombre, contraseña, codigo))
+                UPDATE usuarios
+                SET tipo = %s, nombre = %s
+                WHERE correo = %s
+            """, (tipo, nombre, correo))
 
         conexion.commit()
         print("Actualización de usuarios completada.")  # Confirmar que se completó la actualización
@@ -55,8 +52,3 @@ def actualizar_usuarios():
     finally:
         if 'conexion' in locals() and conexion:
             conexion.close()
-
-app.register_blueprint(usuarios_bp)
-
-if __name__ == '__main__':
-    app.run(debug=True)

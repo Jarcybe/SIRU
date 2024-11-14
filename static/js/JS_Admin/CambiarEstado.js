@@ -1,7 +1,7 @@
 function CambiarEstado(Id){
-const codigo = document.getElementById(`codigo-${Id}`).innerText;
+const correo = document.getElementById(`correo-${Id}`).value;
 
-fetch(`/cambiar_estado/${codigo}`, {
+fetch(`/cambiar_estado/${correo}`, {
  method: 'POST',
 })
 .then(response => {

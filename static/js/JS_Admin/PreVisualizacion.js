@@ -27,7 +27,7 @@ function PreVisualizacion (record){
                             value=${record.nombre_usuario || "Desconocido"}
                             readonly>
                 
-                <p><b>Tipo: </b>${record.estado}</p>
+                <p><b>Tipo: </b>${record.tipo}</p>
             </div>
                         
                 <div class= "w3-col s6"
@@ -46,7 +46,7 @@ function PreVisualizacion (record){
                 
                 <footer class=" w3-red">
                     <button class="w3-button w3-hover-pink w3-block" 
-                    onclick="ConfiDeRegistro(${record.id})">SABER MAS >></button>
+                    onclick="ConfiDeRegistro(${record.idreporte})">SABER MAS >></button>
                 </footer>
                         
     `;

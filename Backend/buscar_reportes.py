@@ -22,17 +22,17 @@ def conectar_bd():
 def buscar_reportes():
     try:
         # Obtener los parámetros de búsqueda del cuerpo de la solicitud
-        codigo_usuario = request.args.get('codigo_usuario')
+        correo_usuario = request.args.get('correo_usuario')
         lugar = request.args.get('lugar', '').lower()
         item = request.args.get('item', '').lower()
+        tipo = request.args.get('tipo', '')
         estado = request.args.get('estado', '')
-        desarrollo = request.args.get('desarrollo', '')
-        reciente = request.args.get('reciente', '')
+       # retroalimentacion = request.args.get('retroalimentacion', '')
         orden = request.args.get('orden', '')
 
-        # Validar que el código de usuario esté presente
-        if not codigo_usuario:
-            return jsonify({'success': False, 'error': 'Código de usuario requerido'}), 400
+        # Validar que el correo de usuario esté presente
+        if not correo_usuario:
+            return jsonify({'success': False, 'error': 'correo de usuario requerido'}), 400
 
         conexion = conectar_bd()
         if conexion is None:
@@ -43,10 +43,10 @@ def buscar_reportes():
         # Construir la consulta SQL basada en los parámetros de búsqueda
         consulta = """
             SELECT *
-            FROM FormularioRegistro
-            WHERE codigo = %s
+            FROM reportes
+            WHERE fkcorreousuario = %s
         """
-        parametros = [codigo_usuario]
+        parametros = [correo_usuario]
 
         if lugar:
             consulta += " AND LOWER(lugar) LIKE %s"
@@ -54,21 +54,21 @@ def buscar_reportes():
         if item:
             consulta += " AND LOWER(item) LIKE %s"
             parametros.append(f"%{item}%")
+        if tipo:
+            consulta += " AND tipo = %s"
+            parametros.append(tipo)
         if estado:
-            consulta += " AND estado = %s"
-            parametros.append(estado)
-        if desarrollo:
-            consulta += " AND LOWER(desarrollo) = %s"
-            parametros.append(desarrollo.lower())
-        if reciente:
-            if reciente == "Ninguna":
-                consulta += " AND (comentario IS NULL OR encargado IS NULL)"
-            elif reciente == "Comentario":
-                consulta += " AND comentario IS NOT NULL"
-            elif reciente == "Encargado":
-                consulta += " AND encargado IS NOT NULL"
-            elif reciente == "Ambas":
-                consulta += " AND comentario IS NOT NULL AND encargado IS NOT NULL"
+           consulta += " AND LOWER(estado) = %s"
+           parametros.append(estado.lower())
+       # if retroalimentacion:
+        #    if reciente == "Ninguna":
+         #       consulta += " AND (comentario IS NULL OR encargado IS NULL)"
+          #  elif reciente == "Comentario":
+           #     consulta += " AND comentario IS NOT NULL"
+            #elif reciente == "Encargado":
+             #   consulta += " AND encargado IS NOT NULL"
+           # elif reciente == "Ambas":
+            #    consulta += " AND comentario IS NOT NULL AND encargado IS NOT NULL"
 
         if orden == "Reciente":
             consulta += " ORDER BY fecha DESC"
@@ -78,6 +78,72 @@ def buscar_reportes():
         # Ejecutar la consulta SQL en la base de datos
         cursor.execute(consulta, tuple(parametros))
         registros = cursor.fetchall()
+        cursor.close()
+        conexion.close()
+
+        return jsonify({'success': True, 'registros': registros})
+
+    except mysql.connector.Error as error:
+        return jsonify({'success': False, 'error': str(error)}), 500
+
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+
+@buscar_reportes_bp.route('/filtrar_registros', methods=['GET'])
+def filtrar_registros():
+    try:
+        # Obtener los parámetros de búsqueda de la solicitud
+        nombre = request.args.get('nombre_usuario', '').lower()
+        lugar = request.args.get('lugar', '').lower()
+        item = request.args.get('item', '').lower()
+        tipo = request.args.get('tipo', '')
+        estado = request.args.get('estado', '').lower()
+        sin_imagen = request.args.get('sinImagen', 'false') == 'true'
+        orden = request.args.get('orden', '')
+
+        # Validar que al menos un criterio de búsqueda esté presente
+        if not any([nombre, lugar, item, tipo, estado]):
+            return jsonify({'success': False, 'error': 'Debe especificar al menos un criterio de búsqueda'}), 400
+
+        conexion = conectar_bd()
+        if conexion is None:
+            return jsonify({"error": "No se pudo conectar a la base de datos"}), 500
+
+        cursor = conexion.cursor(dictionary=True)
+
+        # Construir la consulta SQL basada en los parámetros de búsqueda
+        consulta = "SELECT * FROM reportes WHERE 1=1"
+        parametros = []
+
+        if nombre:
+            consulta += " AND LOWER(nombre) LIKE %s"
+            parametros.append(f"%{nombre}%")
+        if lugar:
+            consulta += " AND LOWER(lugar) LIKE %s"
+            parametros.append(f"%{lugar}%")
+        if item:
+            consulta += " AND LOWER(item) LIKE %s"
+            parametros.append(f"%{item}%")
+        if tipo:
+            consulta += " AND tipo = %s"
+            parametros.append(tipo)
+        if estado:
+            consulta += " AND LOWER(estado) = %s"
+            parametros.append(estado)
+        if sin_imagen:
+            consulta += " AND (imagen IS NULL OR imagen = '')"
+
+        # Ordenar por fecha
+        if orden == "Reciente":
+            consulta += " ORDER BY fecha DESC"
+        elif orden == "Antiguo":
+            consulta += " ORDER BY fecha ASC"
+
+        # Ejecutar la consulta
+        cursor.execute(consulta, tuple(parametros))
+        registros = cursor.fetchall()
+
         cursor.close()
         conexion.close()
 

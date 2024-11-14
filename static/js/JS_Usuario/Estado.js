@@ -7,15 +7,15 @@ function Estado() {
         return;
     }
 
-    const codigo = LogUsuario.codigo;
-
-    fetch(`/obtener_registros/${codigo}`)
+    const correo = LogUsuario.correo;
+    
+    fetch(`/obtener_registros/${correo}`)
         .then(response => response.json())
         .then(data => {
             const contenedores = document.getElementById("Contenedores");
 
             if (data.length === 0) {
-                contenedores.innerHTML = "<p> Sin registros hechos por ahora</p>";
+                contenedores.innerHTML = "<p> Sin reportes hechos por ahora</p>";
             } else {
                 contenedores.innerHTML = "";
 

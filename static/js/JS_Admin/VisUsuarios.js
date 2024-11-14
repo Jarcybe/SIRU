@@ -13,10 +13,6 @@ function VisualizacionUsuario(usuario, index){
     carta.innerHTML += `
        
             <div class="w3-col m2 w3-padding-small">
-                <b>Código: </b> 
-                <span id="codigo-${uniqueId}">
-                ${usuario.codigo}
-                </span>
                
             <b>Estado:</b>
             <input id="estado-${uniqueId}"
@@ -48,8 +44,8 @@ function VisualizacionUsuario(usuario, index){
                 <b>Correo:</b>
                 <input class="w3-input" 
                 type="text" 
-                id="nombre-${uniqueId}" 
-                value="${usuario.nombre}" 
+                id="correo-${uniqueId}" 
+                value="${usuario.correo}" 
                 readonly>
             </div>
 
@@ -57,8 +53,10 @@ function VisualizacionUsuario(usuario, index){
                 <b>Nombre:</b>
                 <input class="w3-input" 
                 type="text" 
-                id="contraseña-${uniqueId}" 
-                value="${usuario.contraseña}" readonly>
+                id="nombre-${uniqueId}" 
+                value="${usuario.nombre}"
+                readonly
+                >
             </div>
 
             <div class="w3-col m2 w3-padding-small">

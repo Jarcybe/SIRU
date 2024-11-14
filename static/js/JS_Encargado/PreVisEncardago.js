@@ -50,7 +50,7 @@ function PreVisualizacion (record){
                      
                 <p><b>Fecha: </b>${record.fecha}</p>
                 
-                <p><b>Usuario: </b>${record.codigo} (${record.nombre_usuario})</p>
+                <p><b>Usuario: </b>${record.nombre_usuario}</p>
                 
                 <p><b>Tipo de reporte: </b>${record.estado}</p>
             </div>
@@ -94,7 +94,7 @@ function PreVisualizacion (record){
                 <div class= "w3-col l4">
                     <button class="w3-button w3-border w3-block w3-red"
                     title = "Ver detalles" 
-                    onclick="ConfiDeRegistro(${record.id})">
+                    onclick="ConfiDeRegistro(${record.idreporte})">
                     Ver detalles>></button>
                     </div>
 

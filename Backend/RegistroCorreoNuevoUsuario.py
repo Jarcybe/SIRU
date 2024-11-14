@@ -62,9 +62,7 @@ def registrar_correo():
     # Verificar si el correo ya existe en la base de datos
     cursor = conexion.cursor()
 
-
-### CAMBIAR ESTO TAMBIEN!!! LA PARTE DE CODIGO
-    cursor.execute("SELECT * FROM usuario WHERE codigo = %s", (correo,))
+    cursor.execute("SELECT * FROM usuarios WHERE correo = %s", (correo,))
     usuario_existente = cursor.fetchone()
     if usuario_existente:
         return jsonify({'success': False, 'message': 'El correo ya existe'})
@@ -114,7 +112,7 @@ def activar_cuenta(token):
     cursor = conexion.cursor()
     cursor.execute(
         ##CAMBIAR LO DE CODIGO Y CONTRASEÑA 
-    "INSERT INTO usuario (codigo, tipo, nombre, contraseña, estado) VALUES (%s, %s, %s, %s, %s)",
+    "INSERT INTO usuario (correo, tipo, nombre, password, estado) VALUES (%s, %s, %s, %s, %s)",
      (correo, InfoUsuario['tipo'], InfoUsuario['nombre'], InfoUsuario['password'], InfoUsuario['estado'])
     )
     conexion.commit()

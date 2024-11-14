@@ -23,10 +23,10 @@ def eliminar_registro(id):
         cursor = conexion.cursor()
 
         # Consulta para eliminar el registro por su ID
-        cursor.execute("DELETE FROM FormularioRegistro WHERE id = %s", (id,))
+        cursor.execute("DELETE FROM reportes WHERE idreporte = %s", (id,))
         conexion.commit()
 
-        return jsonify({'success': True, 'message': 'Registro eliminado correctamente'}), 200
+        return jsonify({'success': True, 'message': 'Reporte eliminado correctamente'}), 200
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
     finally:

@@ -9,13 +9,13 @@ function GuardarFormulario(event) {
         return;
     }
 
-    const cod = logUsuario.codigo;
+    const correoUsuario = logUsuario.correo;
     const fecha = obtenerFechaActual(); // Obtener la fecha actual formateada
     const lugar = document.getElementById("Lugar").value.trim();
     const item = document.getElementById("Item").value.trim();
-    const estado = document.querySelector('input[name="Estado"]:checked');
+    const tipo = document.querySelector('input[name="Tipo"]:checked');
     
-    const estadoValue = estado.value;
+    const ClaseTipo = tipo.value;
     const titulo = document.getElementById("Titulo").value.trim();
     const descripcion = document.getElementById("Descripcion").value.trim();
 
@@ -43,7 +43,7 @@ function GuardarFormulario(event) {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                enviarFormulario(cod, fecha, lugar, item, estadoValue, titulo, descripcion, data.filepath);
+                enviarFormulario(correoUsuario, fecha, lugar, item, ClaseTipo, titulo, descripcion, data.filepath);
             } else {
                 Swal.fire({
                     icon: 'warning',
@@ -61,17 +61,17 @@ function GuardarFormulario(event) {
               });
         });
     } else {
-        enviarFormulario(cod, fecha, lugar, item, estadoValue, titulo, descripcion, null);
+        enviarFormulario(correoUsuario, fecha, lugar, item, ClaseTipo, titulo, descripcion, null);
     }
 }
 
-function enviarFormulario(cod, fecha, lugar, item, estado, titulo, descripcion, filepath) {
+function enviarFormulario(correoUsuario, fecha, lugar, item, tipo, titulo, descripcion, filepath) {
     const formData = {
-        codigo: cod,
+        correo: correoUsuario,
         fecha: fecha,
         lugar: lugar,
         item: item,
-        estado: estado,
+        tipo: tipo,
         titulo: titulo,
         descripcion: descripcion
     };

@@ -12,19 +12,20 @@ conexion = mysql.connector.connect(
 )
 
 # Manejar las solicitudes GET en la ruta "/filtrar_registros"
-@filtro_bp.route('/filtrar_registros', methods=['GET'])
+@filtro_bp.route('/f', methods=['GET'])
 def filtrar_registros():
     try:
         # Obtener los parámetros de filtrado de la consulta GET
         lugar = request.args.get('lugar', '').lower()
         item = request.args.get('item', '').lower()
-        estado = request.args.get('estado', '')
-        desarrollo = request.args.get('desarrollo', '')
-        reciente = request.args.get('reciente', '')
+        tipo = request.args.get('tipo', '')
+
+        #desarrollo = request.args.get('desarrollo', '')
+       # reciente = request.args.get('reciente', '')
         orden = request.args.get('orden', '')
 
         # Construir la consulta SQL basada en los parámetros de filtrado
-        consulta = "SELECT * FROM FormularioRegistro WHERE 1=1"
+        consulta = "SELECT * FROM reportes WHERE 1=1"
         parametros = []
 
         if lugar:
@@ -33,21 +34,21 @@ def filtrar_registros():
         if item:
             consulta += " AND LOWER(item) LIKE %s"
             parametros.append(f"%{item}%")
-        if estado:
-            consulta += " AND estado = %s"
-            parametros.append(estado)
-        if desarrollo:
-            consulta += " AND LOWER(desarrollo) = %s"
-            parametros.append(desarrollo.lower())
-        if reciente:
-            if reciente == "Ninguna":
-                consulta += " AND (comentario IS NULL OR encargado IS NULL)"
-            elif reciente == "Comentario":
-                consulta += " AND comentario IS NOT NULL"
-            elif reciente == "Encargado":
-                consulta += " AND encargado IS NOT NULL"
-            elif reciente == "Ambas":
-                consulta += " AND comentario IS NOT NULL AND encargado IS NOT NULL"
+        if tipo:
+            consulta += " AND tipo = %s"
+            parametros.append(tipo)
+      ##  if desarrollo:
+        ##    consulta += " AND LOWER(desarrollo) = %s"
+          ##  parametros.append(desarrollo.lower())
+    ##    if reciente:
+      ##      if reciente == "Ninguna":
+        ##        consulta += " AND (comentario IS NULL OR encargado IS NULL)"
+          ##  elif reciente == "Comentario":
+            ###    consulta += " AND comentario IS NOT NULL"
+            #elif reciente == "Encargado":
+             #   consulta += " AND encargado IS NOT NULL"
+            #elif reciente == "Ambas":
+             #   consulta += " AND comentario IS NOT NULL AND encargado IS NOT NULL"
 
         if orden == "Reciente":
             consulta += " ORDER BY fecha DESC"

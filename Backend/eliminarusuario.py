@@ -11,16 +11,16 @@ def obtener_conexion():
         database="siru"
     )
 
-@eliminareusuario.route('/eliminar_usuario/<codigo>', methods=['DELETE'])
-def eliminar_usuario(codigo):
+@eliminareusuario.route('/eliminar_usuario/<correo>', methods=['DELETE'])
+def eliminar_usuario(correo):
     connection = obtener_conexion()
     cursor = connection.cursor()
 
     try:
-        cursor.execute("SELECT * FROM usuario WHERE codigo = %s", (codigo,))
+        cursor.execute("SELECT * FROM usuarios WHERE correo = %s", (correo,))
         usuario = cursor.fetchone()
         if usuario:
-            cursor.execute("UPDATE usuario SET estado = 0 WHERE codigo = %s", (codigo,))
+            cursor.execute("UPDATE usuarios SET estado = 0 WHERE correo = %s", (correo,))
             connection.commit()
             return jsonify({"message": "Usuario deshabilitdado"}), 200
         else:
@@ -38,9 +38,9 @@ def obtener_usuarios(filtro):
 
     try:
         if filtro == 'todos':
-            cursor.execute("SELECT * FROM usuario")
+            cursor.execute("SELECT * FROM usuarios")
         else:
-            cursor.execute("SELECT * FROM usuario WHERE tipo = %s", (filtro,))
+            cursor.execute("SELECT * FROM usuarios WHERE tipo = %s", (filtro,))
         
         usuarios = cursor.fetchall()
         return jsonify(usuarios)
@@ -50,18 +50,18 @@ def obtener_usuarios(filtro):
         cursor.close()
         connection.close()
 
-@eliminareusuario.route('/cambiar_estado/<codigo>', methods=['POST'])
-def cambiar_estado(codigo):
+@eliminareusuario.route('/cambiar_estado/<correo>', methods=['POST'])
+def cambiar_estado(correo):
     connection = obtener_conexion()
     cursor = connection.cursor()
 
     try: 
-        cursor.execute("SELECT estado FROM usuario WHERE codigo = %s", (codigo,))
+        cursor.execute("SELECT estado FROM usuarios WHERE correo = %s", (correo,))
         usuario = cursor.fetchone()
 
         if usuario:
             nuevo_estado = 0 if usuario[0] == 1 else 1
-            cursor.execute("UPDATE usuario SET estado = %s WHERE codigo = %s", (nuevo_estado, codigo))
+            cursor.execute("UPDATE usuarios SET estado = %s WHERE correo = %s", (nuevo_estado, correo))
             connection.commit()
 
             estado_texto = "activo" if nuevo_estado == 1 else "inactivo"
@@ -83,7 +83,7 @@ def buscar_usuario(filtro):
 
     try:
         # Consulta que busque por código o nombre (ignorando mayúsculas y minúsculas)
-        query = "SELECT * FROM usuario WHERE LOWER(codigo) LIKE %s OR LOWER(nombre) LIKE %s"
+        query = "SELECT * FROM usuarios WHERE LOWER(correo) LIKE %s OR LOWER(nombre) LIKE %s"
         like_filter = f"%{filtro.lower()}%"
         cursor.execute(query, (like_filter, like_filter))
         usuarios = cursor.fetchall()
