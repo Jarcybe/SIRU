@@ -38,13 +38,19 @@ function ConfiDeRegistro(id) {
         <div class="w3-container" 
         style="padding: 20px;">
 
-            <div class="w3-row">
+            <div class="w3-row w3-container">
                 <div class="w3-col m6"
                 style = "padding-right: 15px;">
 
                     <p><b> Fecha: </b> ${recordar.fecha}</p>
                     <p><b>Tipo de reporte:</b> ${recordar.estado}</p>
-                    <p><b> Usuario: </b> ${recordar.codigo} -  (${recordar.nombre_usuario || "Desconocido"})</p>
+                    <p><b> Usuario: </b>
+                    <input class="w3-input"
+                            type=text;
+                            style="width: 70%;
+                             height: 25px;"
+                            value=${recordar.nombre_usuario || "Desconocido"}
+                            readonly>
                     
                     <h4><b>Descripcion</b></h4>
                     <textarea class="w3-input w3-borde w3-light-grey"
@@ -63,7 +69,7 @@ function ConfiDeRegistro(id) {
                 </div>
 
                 <div id="detalles" 
-                class="w3-container" 
+                class="" 
                 style="display: none;
                 margin-top: 20px;">
                 

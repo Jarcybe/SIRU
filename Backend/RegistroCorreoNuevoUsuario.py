@@ -112,7 +112,7 @@ def activar_cuenta(token):
     cursor = conexion.cursor()
     cursor.execute(
         ##CAMBIAR LO DE CODIGO Y CONTRASEÑA 
-    "INSERT INTO usuario (correo, tipo, nombre, password, estado) VALUES (%s, %s, %s, %s, %s)",
+    "INSERT INTO usuarios (correo, tipo, nombre, password, estado) VALUES (%s, %s, %s, %s, %s)",
      (correo, InfoUsuario['tipo'], InfoUsuario['nombre'], InfoUsuario['password'], InfoUsuario['estado'])
     )
     conexion.commit()

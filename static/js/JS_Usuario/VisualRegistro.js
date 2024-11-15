@@ -80,13 +80,13 @@ function mostrarDetallesRecuerdo(recuerdo) {
         <div class="w3-container" 
         style="padding: 20px;">
 
-            <div class="w3-row">
+            <div class="w3-row w3-container">
                 <div class="w3-col m6"
                 style = "padding-right: 15px;">
 
                     <p><b>Tipo de reporte:</b> ${recuerdo.tipo}</p>
                     
-                    <h4><b>Descripcion</b></h4>
+                    <h4><b>Descripción</b></h4>
                     <textarea class="w3-input w3-borde w3-light-grey"
                     style = "height: 100px;"
                     readonly> ${recuerdo.descripcion}</textarea>
@@ -119,6 +119,7 @@ function mostrarDetallesRecuerdo(recuerdo) {
 </div>
                      <button class="w3-button w3-right w3-section w3-margin-top w3-small w3-red"
                             title="Detalles"
+                            id="Detalles_boton_usuario"
                             onclick="Dropdown('detalles')">Detalles</button>
                 
                 </div>

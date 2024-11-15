@@ -38,40 +38,47 @@ function PreVisualizacion (record){
     }
 
     carta.innerHTML = `
-        <header class="w3-container w3-center"
+        <header class="w3-container"
         style="background-color: #ea504a;">
             <h2>${record.titulo}</h2>
         </header>
 
-        <div class= "w3-row">
-            <div class= "w3-col l4"
-            style="padding-left: 20px;
-            padding-top: 40px;">
-                     
-                <p><b>Fecha: </b>${record.fecha}</p>
-                
-                <p><b>Usuario: </b>${record.nombre_usuario}</p>
-                
-                <p><b>Tipo de reporte: </b>${record.estado}</p>
-            </div>
-                        
-                <div class= "w3-col l4">
-                    <p><b>Descripcion: </b><p>
-                    <textarea class= "w3-input w3-border w3-section w3-light grey"
-                        style = "height: 130px;
-                        width: 95%;"
-                        readonly> ${record.descripcion}
-                        </textarea>
-                    </div>
+        <div class="w3-row">
+        
+        <div class="w3-col l4" 
+        style="margin-top: 50px;
+        padding-left: 20px; 
+        text-align: left;
+        margin-bottom:10px;">
 
-                    <div class= "w3-col l4 w3-section">
-                    ${imagenHTML}
-                    
-                </div>
-                        
-                </div>
+        <p><b>Fecha: </b>${record.fecha}</p>
+        <p style="display: flex; align-items: center;">
+            <b>Usuario: </b>
+            <input class="w3-input" 
+            type="text" s
+            tyle="width: 70%; height: 25px; margin-left: 10px;"
+                   value="${record.nombre_usuario || "Desconocido"}" readonly>
+        </p>
+        <p><b>Tipo de reporte: </b>${record.estado}</p>
+    </div>
+    
+    <div class="w3-col l4" 
+    style="margin-top: 10px;
+    margin-bottom: 10px;">
+        <p><b>Descripción: </b></p>
+        <textarea class="w3-input w3-border w3-light-grey"
+                  style="height: 130px; 
+                  width: 95%;
+                  margin: auto;"
+                  readonly>${record.descripcion}</textarea>
+    </div>
 
-                
+    <div class="w3-col l4 w3-section" 
+    style="margin-top: 10px;
+    margin-bottom: 10px;">
+        ${imagenHTML}
+    </div>
+</div>
                 
                 <footer class="w3-container w3-padding w3-border">
 
@@ -87,7 +94,8 @@ function PreVisualizacion (record){
                   style="color: ${Color};
                   text-align: center;
                   height: 25px;
-                  width: 150px;"
+                  width: 150px;
+                  margin: auto;"
            readonly>
                     </div>
 
@@ -106,8 +114,7 @@ function PreVisualizacion (record){
                     </div>
 
 
-                </footer>
-                        
+                </footer>         
     `;
 
     return carta;

@@ -12,8 +12,10 @@ h1 , h2 {
 }
 
 .w3-image {
-    width: 200px;
-    height: 150px;
+    border-radius: 10px; 
+  overflow: hidden;
+    width: 300px;
+    height: 200px;
     object-fit: cover; /* Para que la imagen se ajuste al tamaño del contenedor sin deformarse */
 }
 
@@ -30,7 +32,6 @@ h1 , h2 {
     margin: 10px;
     border-radius: 15px; 
     overflow: hidden; 
-    border: 1px solid lightgrey;
 }
 
 .w3-button{
@@ -57,6 +58,13 @@ overflow: hidden;
     z-index: -10;
 
 }
+
+.Boton-en-uso{
+
+    background-color: rgb(255, 140, 140) !important;
+    color:white;
+}
+
 .red-margin-left {
     left: 0; /* Fija el margen izquierdo */
   }
