@@ -19,7 +19,7 @@ function Login(event) {
     })
     .then(response => response.json())
     .then(data => {
-        const hashedPassword = data.hashed_password; 
+         hashedPassword = data.hashed_password; 
     })
     .catch(error => {
         console.error('Error al encriptar la contraseña:', error);
