@@ -6,8 +6,27 @@ function Login(event) {
 
     const datos = {
         correo: correo,
-        password: password
+        password: hashedPassword
     };
+
+
+    fetch('/encriptar', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password: password }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        const hashedPassword = data.hashed_password; 
+    })
+    .catch(error => {
+        console.error('Error al encriptar la contraseña:', error);
+    });
+
+
+
 
     fetch('/login', {
         method: 'POST',

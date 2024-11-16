@@ -38,6 +38,7 @@ def login():
     correo = datos.get('correo')
     password = datos.get('password')
     usuarios = verificar_credenciales(correo, password)
+
     
     if usuarios:
         # Almacenar la información del usuario en la sesión
