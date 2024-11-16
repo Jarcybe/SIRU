@@ -5,7 +5,9 @@ function Registro(event) {
     const nombre = document.getElementById("NombreR").value;
     const password = document.getElementById("ContraseñaR").value;
     const confirmar = document.getElementById("ConfirmarR").value;
+    const Botoncito = event.target.querySelector('button[type="submit"]');
 
+    
     // Verificación de contraseñas
     if (!validarContraseña(password, confirmar)) {
         Swal.fire({
@@ -51,6 +53,8 @@ function Registro(event) {
             icon: 'info',
             confirmButtonText: 'Aceptar'
         });
+
+        
     })
     .catch(error => {
 

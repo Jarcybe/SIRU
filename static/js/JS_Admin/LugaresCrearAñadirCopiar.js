@@ -37,8 +37,7 @@ botones.fire({
 }).then((result)=>{
 
     if(result.isConfirmed){
-        document.getElementById("VLCrearLugar").value = "";
-
+        
         fetch('/crear_lugar',{
             method: 'POST',
             headers: {'Content-Type': 'application/json',
@@ -64,6 +63,9 @@ botones.fire({
                     selectLista.appendChild(nuevoLugarOption);
                 });
 
+                document.getElementById("VLCrearLugar").value = "";
+
+
             }else{
                 Swal.fire({
                     title: "Error",
@@ -75,7 +77,7 @@ botones.fire({
         .catch(error =>{
             Swal.fire({
                 title: "Error",
-                text: "Hubo un problema con el servidor",
+                text: data.message,
                 icon: 'error'
             })
         });

@@ -34,10 +34,10 @@ h2{
 
 .w3-bar-item{
   text-align: center;
-  padding: 10px;
-  width: 40%;
+  padding: auto;
+  width: auto;
   margin: 20px auto;
-  font-size: 25px;
+  font-size: auto;
   color: #000;
 }
 

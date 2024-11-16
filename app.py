@@ -8,7 +8,6 @@ from Backend.RegistroCorreoNuevoUsuario import registrar_correo_bp
 #Todos los py relacionados con los reportes
 from Backend.guardar_reporte import guardar_reporte_bp
 from Backend.buscar_reportes import buscar_reportes_bp
-from Backend.filtro import filtro_bp
 from Backend.actualizar_reporte import actualizar_reporte_bp
 from Backend.subir_imagen import subir_imagen_bp
 from Backend.eliminar_registro import eliminar_registro_bp
@@ -57,7 +56,6 @@ app.register_blueprint(registrar_correo_bp)
 app.register_blueprint(login_bp)
 app.register_blueprint(guardar_reporte_bp)
 app.register_blueprint(buscar_reportes_bp)
-app.register_blueprint(filtro_bp)
 app.register_blueprint(editar_usuario_bp)
 app.register_blueprint(estados_bp)
 app.register_blueprint(subir_imagen_bp)
