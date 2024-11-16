@@ -4,6 +4,7 @@ from datetime import timedelta
 #Todos los py de inicio de seion
 from Backend.login import login_bp, login_required, role_required
 from Backend.RegistroCorreoNuevoUsuario import registrar_correo_bp 
+from Backend.encrypt import encriptar
 
 #Todos los py relacionados con los reportes
 from Backend.guardar_reporte import guardar_reporte_bp
@@ -69,6 +70,7 @@ app.register_blueprint(crearitems_bp)
 app.register_blueprint(editar_lugar_bp)
 app.register_blueprint(editar_items_bp)
 app.register_blueprint(visulizar_lugar_e_item_bp)
+app.register_blueprint(encriptar)
 
 # Página de menú de registro (MenuRegistro.html)
 @app.route('/')

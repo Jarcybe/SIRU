@@ -25,11 +25,27 @@ function Registro(event) {
           return;
     }
 
-    // Crear el objeto de datos a enviar al backend
+
+    fetch('/encriptar', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password: password }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        const hashedPassword = data.hashed_password; 
+    })
+    .catch(error => {
+        console.error('Error al encriptar la contraseña:', error);
+    });
+
+
     const datos = {
         correo: correo,
         nombre: nombre,
-        password: password
+        password: hashedPassword
     };
 
     fetch('/registrar_correo', {
