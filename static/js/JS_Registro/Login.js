@@ -4,12 +4,7 @@ function Login(event) {
     const correo = document.getElementById("CorreoL").value;
     const password = document.getElementById("ContraseñaL").value;
 
-    const datos = {
-        correo: correo,
-        password: hashedPassword
-    };
-
-
+    // Enviar la contraseña al backend para encriptarla
     fetch('/encriptar', {
         method: 'POST',
         headers: {
@@ -19,21 +14,22 @@ function Login(event) {
     })
     .then(response => response.json())
     .then(data => {
-         hashedPassword = data.hashed_password; 
-    })
-    .catch(error => {
-        console.error('Error al encriptar la contraseña:', error);
-    });
+        const hashedPassword = data.hashed_password; // Contraseña encriptada
 
+        // Ahora que la contraseña está encriptada, enviamos los datos de login
+        const datos = {
+            correo: correo,
+            password: hashedPassword
+        };
 
-
-
-    fetch('/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(datos),
+        // Enviar los datos de inicio de sesión
+        return fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(datos),
+        });
     })
     .then(response => response.json())
     .then(data => {
@@ -61,19 +57,19 @@ function Login(event) {
                 }).then(() => {
                     window.location.href = "menu_principal";
                 });
-            }
-            else if (data.usuario.tipo === "Encargado") {
-            console.log('Redirigiendo a /menu_encargado.html'); 
-            Swal.fire({
-                title: 'Login exitoso',
-                text: 'Bienvenido, usuario',
-                icon: 'success',
-                confirmButtonText: 'Continuar'
-            }).then(() => {
-                window.location.href = "menu_encargado";
-            });
-        }  
-            
+            } else if (data.usuario.tipo === "Encargado") {
+                console.log('Redirigiendo a /menu_encargado.html'); 
+                Swal.fire({
+                    title: 'Login exitoso',
+                    text: 'Bienvenido, usuario',
+                    icon: 'success',
+                    confirmButtonText: 'Continuar'
+                }).then(() => {
+                    window.location.href = "menu_encargado";
+                });
+
+                
+            }  
         } else {
             Swal.fire({
                 title: 'Error',
@@ -90,6 +86,6 @@ function Login(event) {
             text: 'No se pudo conectar con el servidor. Por favor, inténtelo más tarde.',
             icon: 'error',
             confirmButtonText: 'Aceptar'
-        });
-    });
+        });
+    });
 }

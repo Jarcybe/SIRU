@@ -50,6 +50,7 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=10)
 def make_session_permanent():
     session.permanent = True
 
+
 # Registrar los blueprints en la aplicación Flask
 
 #inicio de sesion 

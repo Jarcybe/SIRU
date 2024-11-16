@@ -34,6 +34,7 @@ def verificar_credenciales(correo, password):
 # Ruta para manejar el inicio de sesión
 @login_bp.route('/login', methods=['POST'])
 def login():
+    
     datos = request.json
     correo = datos.get('correo')
     password = datos.get('password')
@@ -67,6 +68,7 @@ def login_required(f):
             return redirect(url_for('login_bp.login', next=request.url))
         return f(*args, **kwargs)
     return decorated_function
+
 
 # Decorador para verificar el rol del usuario
 def role_required(role):
