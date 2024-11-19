@@ -16,6 +16,8 @@ fetch(`/buscar_usuario/${filtro}`)
 
     data.forEach((usuario, index) => {
 
+        document.getElementById("BarraBuscar").value = "";
+
         const Carta = VisualizacionUsuario(usuario, index);
         
         tabla.appendChild(Carta);

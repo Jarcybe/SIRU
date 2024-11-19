@@ -8,6 +8,8 @@ function ConfiDeRegistro(id) {
         })
         .then(data => {
             const recordar = data.registro;
+            const historial = data.historial || [];
+
             const modal = document.getElementById("Modal");
             const contenido = modal.querySelector(".w3-modal-content");
 
@@ -23,6 +25,17 @@ function ConfiDeRegistro(id) {
         `<img src="${ImagenPorDefecto}" class="w3-image">`
         : `<div class = "w3-border w3-light-grey" style="height: 150px;"></div>`;
     }
+
+    const encargadosUnicos = [
+        ...new Set(historial.map(h => h.nombreencargado))].join(" - ")||"Ningun encargado a respondido por ahora";
+
+    const comentariosHTML = historial.length > 0
+    ? historial.map(h => `
+${h.fecha}
+Encargado responsable: ${h.nombreencargado} 
+Comentario: ${h.comentario}
+_____________________`).join(""):
+"Aun no hay comentarios";
 
             contenido.innerHTML = `
                     
@@ -41,16 +54,16 @@ function ConfiDeRegistro(id) {
             <div class="w3-row w3-container">
                 <div class="w3-col m6"
                 style = "padding-right: 15px;">
-
-                    <p><b> Fecha: </b> ${recordar.fecha}</p>
                     <p><b>Tipo de reporte:</b> ${recordar.estado}</p>
-                    <p><b> Usuario: </b>
-                    <input class="w3-input"
-                            type=text;
-                            style="width: 70%;
-                             height: 25px;"
-                            value=${recordar.nombre_usuario || "Desconocido"}
-                            readonly>
+
+                    <p style="display: flex; align-items: center;">
+            <b>Usuario: </b>
+            <input class="w3-input" 
+            type="text" s
+            tyle="width: 70%; height: 25px; 
+            margin-left: 10px;"
+                   value="${recordar.nombre_usuario || "Desconocido"}" 
+                   readonly>
                     
                     <h4><b>Descripcion</b></h4>
                     <textarea class="w3-input w3-borde w3-light-grey"
@@ -58,12 +71,17 @@ function ConfiDeRegistro(id) {
                     readonly> ${recordar.descripcion}</textarea>
                 </div>
 
-                <div class="w3-col m6 w3-center w3-section">
+                <div class="w3-col m6">
+                <p><b> Fecha: </b> ${recordar.fecha}</p>
+
+                <div class="w3-center w3-section">
                     ${imagenHTML}
+                    </div>
                     </div>
 
                      <button class="w3-button w3-right w3-margin-top w3-small w3-red"
-                            title="Detalles"
+                            title="Zona de desarrollo"
+                             id="Detalles_boton_usuario"
                             onclick="Dropdown('detalles')">Detalles</button>
                 
                 </div>
@@ -81,18 +99,19 @@ function ConfiDeRegistro(id) {
                     <input class="w3-input w3-border" 
                     type="text"
                     id="Encargado" 
-                    placeholder="Nombre del encargado"
+                    placeholder="Aun nadie a respondido este comentario"
                     maxlength="500" 
-                    value="${recordar.encargado || ''}"
+                    value="${encargadosUnicos}"
                     readonly/>
 
                     <h4>Comentarios</h4>
                     <textarea class="w3-input w3-border" 
+                    id="ComentarioEncargado"
                     type="text" 
                     style="height: 150px;" 
                     placeholder="No hay comentarios aun" 
                     readonly>
-                     ${recordar.comentario || ''}
+                    ${comentariosHTML}
                     </textarea>
 
                     </div>
@@ -109,8 +128,8 @@ function ConfiDeRegistro(id) {
                              value="No visto" 
                              id="Novisto"
                              title="Desarrollo" 
-                             checked
-                             ${recordar.desarrollo === "No visto" ? "checked" : ""}>
+                             ${recordar.estado === "No visto" ? "checked" : ""}
+                             disabled>
                              <label>No visto </label><br>
 
                             <input class="w3-radio" 
@@ -118,24 +137,26 @@ function ConfiDeRegistro(id) {
                             title = "En proceso"
                             name="desarrollo" 
                             value="En proceso" 
-                            id="EnProceso" ${recordar.desarrollo === "En proceso" ? "checked" : ""}>
+                            id="EnProceso" ${recordar.estado === "En proceso" ? "checked" : ""}>
                             
                             <label> En proceso</label><br>
                             <input class="w3-radio" 
                             type="radio"
                              name="desarrollo" 
                              value="Terminado" 
-                             id="Terminado" ${recordar.desarrollo === "Terminado" ? "checked" : ""}>
+                             id="Terminado" ${recordar.estado === "Terminado" ? "checked" : ""}>
                             <label>Terminado</label>
 
                             <button class="w3-button w3-block w3-border w3-section" 
-                                title="Añadir nuevo comentario">
-                                Añadir nuevo comentario
-                        </button>
+                                title="Añadir nuevo comentario"
+                                id="AñadirNuevoComentario"
+                                onclick=ActivarComentario(${recordar.idreporte})>Añadir nuevo comentario</button>
 
                             <button class="w3-button w3-block w3-red w3-section" 
                                 title="Guardar datos" 
-                                onclick="ActualizarReporte(${recordar.id})">
+                                id="guardarDesarrollo"
+                                onclick="DesarrolloDelReportr(${recordar.idreporte})"
+                                disabled>
                                 Guardar datos
                         </button>
 

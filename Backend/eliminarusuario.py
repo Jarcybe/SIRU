@@ -83,9 +83,9 @@ def buscar_usuario(filtro):
 
     try:
         # Consulta que busque por código o nombre (ignorando mayúsculas y minúsculas)
-        query = "SELECT * FROM usuarios WHERE LOWER(correo) LIKE %s OR LOWER(nombre) LIKE %s"
+        query = "SELECT * FROM usuarios WHERE LOWER(nombre) LIKE %s"
         like_filter = f"%{filtro.lower()}%"
-        cursor.execute(query, (like_filter, like_filter))
+        cursor.execute(query, (like_filter,))
         usuarios = cursor.fetchall()
 
         if usuarios:

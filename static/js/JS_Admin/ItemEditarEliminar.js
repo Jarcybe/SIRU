@@ -7,10 +7,8 @@ function CargarlosItemsenlistas() {
                 // Cargar ítems en los selectores
         const items = data.items;
         cargarOpcionesEnSelectsItems(items, ["VLItemAñadir", "VIitemAeliminar"]);
-   
             
         }
-
      })
     .catch(error => {
         Swal.fire({
@@ -79,10 +77,15 @@ function eliminaritemcompleto(){
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    Swal.fire("Eliminado", data.message, "success"); 
-
-                    CargarlosItemsenlistas(); // Actualiza la lista de items después de eliminar
-                } else {
+                    Swal.fire({
+                        title: "Eliminado", 
+                        text: data.message, 
+                        icon: "success"})
+                        .then(() => {
+                            location.reload();
+                            CargarlosItemsenlistas(); 
+                        });
+                    } else {
                     Swal.fire("Error", data.message, "error");
                 }
             })

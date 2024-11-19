@@ -21,13 +21,16 @@
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-  <script src="../static/js/JS_Encargado/CargarRegistro.js"></script>
+  <script src="../static/js/JS_Encargado/ReportesCargarEncargado.js"></script>
   <script src="../static/js/JS_Encargado/PreVisEncardago.js"></script>
   <script src="../static/js/JS_Encargado/VisualizarRegistro.js"></script>
-
+  <script src="../static/js/JS_Encargado/ActivarComentario.js"></script>
+  <script src="../static/js/JS_Encargado/RepDesarrollo.js"></script>
+  
   <script src="../static/js/JS_Genericos/cerrarsesion.js"></script>
   <script src="../static/js/JS_Genericos/ImagenesDefecto.js"></script>
   <script src="../static/js/JS_Genericos/Dropdown.js"></script>
+  <script src="../static/js/JS_Genericos/FechaActual.js"></script>
 
 </head>
 
@@ -41,7 +44,8 @@
  <h1><b>Panel de Encargado</b></h1>
 
 </header>
-  
+
+<!--Contenido-->
 <div class="w3-row">
 
   <!-- Barra lateral fija -->
@@ -54,43 +58,48 @@
   class="w3-bar-item w3-center w3-border-bottom w3-hover-red with w3-hover-opacity">
   <img src="../static/images/IconoBuscar.png"
   alt = "Buscar"
-  style="width: 40px;
-  height:40px;"> 
-  <br>Buscar
+  id="BuscarReporteEncargado"
+  style="width: 70%;
+  height:100%;"
+  title="Buscar"> 
+
   </a> 
   
   <a onclick="document.getElementById('noticar').style.display='block'"
   class="w3-bar-item w3-center w3-border-bottom w3-hover-red with w3-hover-opacity">
   <img src="../static/images/IconoNotificacion.png"
   alt = "Notificaciones"
-  style="width: 40px;
-  height: 40px;"> 
-  <br>Notificaciones
+  style="width: 70%;
+  height: 100%"
+  id="NotificaionesEncargado"
+  title="Notificaciones">
   </a> 
  
   
   <a onclick="Mostrar()"
-  class="w3-bar-item w3-center w3-border-bottom w3-hover-red with w3-hover-opacity">
+  class="w3-bar-item w3-center w3-border-bottom w3-hover-red with w3-hover-opacity"
+  id="BotoncitoCambiante">
   <img src="../static/images/IconoTareas.png"
   alt = "Tareas"
-  style="width: 40px;
-  height:40px;"> 
-  <br>Tareas
+  style="width: 70%;
+  height:100%;"
+  id="iconocambiante"
+  title="Ver reportes"> 
   </a>
   
   <a onclick="CerrarSesion()" 
   class="w3-bar-item w3-center w3-border-bottom w3-hover-red with w3-hover-opacity">
   <img src="../static/images/IconoCerrarSesion.png"
   alt = "Cerrar sesión"
-  style="width: 40px;
-  height: 40px;"> 
-  <br>
-  Cerrar <br>Sesión
+  style="width: 70%;
+  height: 100%;"
+  title="Cerrar sesion"> 
+
   </a>
   
 </div>
 
-
+<!--Espacio de la zona izquierda-->
   <div class="w3-col w3-container"
   style="width: 9%;">
 
@@ -100,7 +109,7 @@
 <div class="w3-col w3-container"
 style="width: 88%;">
 
-
+<!--Zona de tareas-->
 <div class="w3-container w3-padding w3-margin-top " 
 id="Datos">
     <h2 class="w3-center">Panel de Tareas</h2>
@@ -144,12 +153,15 @@ style="width: 2%">
 
   <!-- Filtro -->
   <div class="w3-container w3-center">
-    <div class="w3-modal" id="Filtrar">
+           <div class="w3-modal" id="Filtrarrepoetencargado">
+
         <div class="w3-modal-content w3-card-4 w3-white">
             <header class="w3-container w3-center"
             style="background-color: #C20E1A;">
-                <h3><b>Filtrar reportes en específico</b></h3>
-                <button onclick="document.getElementById('Filtrar').style.display='none'" 
+
+                <h2><b>Filtrar reportes en específico</b></h2>
+            
+                <button onclick="document.getElementById('Filtrarrepoetencargado').style.display='none'" 
                 class="w3-button w3-xlarge w3-hover-red w3-display-topright" 
                 title="Cerrar pestaña">&times;</button>
             </header>

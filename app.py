@@ -9,10 +9,10 @@ from Backend.encrypt import encriptar_bp
 #Todos los py relacionados con los reportes
 from Backend.guardar_reporte import guardar_reporte_bp
 from Backend.buscar_reportes import buscar_reportes_bp
-from Backend.actualizar_reporte import actualizar_reporte_bp
 from Backend.subir_imagen import subir_imagen_bp
 from Backend.eliminar_registro import eliminar_registro_bp
 from Backend.obtener_registro import registros_bp
+from Backend.RepDesarrollo import Desarrollo_de_los_reportes_bp
 
 
 #Todos los py relacioanodos con los usuarios
@@ -63,7 +63,6 @@ app.register_blueprint(estados_bp)
 app.register_blueprint(subir_imagen_bp)
 app.register_blueprint(eliminar_registro_bp)
 app.register_blueprint(registros_bp)
-app.register_blueprint(actualizar_reporte_bp)
 app.register_blueprint(usuarios_bp)
 app.register_blueprint(eliminareusuario)
 app.register_blueprint(crearlugares_bp)
@@ -72,6 +71,7 @@ app.register_blueprint(editar_lugar_bp)
 app.register_blueprint(editar_items_bp)
 app.register_blueprint(visulizar_lugar_e_item_bp)
 app.register_blueprint(encriptar_bp)
+app.register_blueprint(Desarrollo_de_los_reportes_bp)
 
 # Página de menú de registro (MenuRegistro.html)
 @app.route('/')
@@ -92,7 +92,7 @@ def menu_admin():
     return render_template('MenuAdmin.html')
 
 @app.route('/menu_encargado')
-@role_required('Encargado')
+@role_required(['EncargadoGeneral', 'EncargadoElectrico', 'EncargadoFontaneria', 'EncargadoSalones', 'EncargadoInformatico'])
 @login_required
 def menu_encargado():
     return render_template('MenuEncargado.html')

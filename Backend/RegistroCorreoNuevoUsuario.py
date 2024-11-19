@@ -56,8 +56,8 @@ def registrar_correo():
     estado = data.get('estado', True)
 
     if not correo.endswith('@correounivalle.edu.co'):
-        return jsonify({'sucess': False,
-                        'message': 'El correo debe ser un correo univalle'})
+        return jsonify({'success': False, 'error': 'CorreoInvalido',
+                        'message': 'El correo debe terminar en @correounivalle.edu.co'}), 400
 
     # Verificar si el correo ya existe en la base de datos
     cursor = conexion.cursor()
@@ -65,7 +65,8 @@ def registrar_correo():
     cursor.execute("SELECT * FROM usuarios WHERE correo = %s", (correo,))
     usuario_existente = cursor.fetchone()
     if usuario_existente:
-        return jsonify({'success': False, 'message': 'El correo ya existe'})
+        return jsonify({'success': False, 'error': 'CorreoExistente',
+                        'message': 'El correo ya existe'}), 400
 
 
     DatosTemporales[correo]={
@@ -97,7 +98,7 @@ def activar_cuenta(token):
         # Verificar el token y obtener el correo asociado
         correo = s.loads(token, 
                          salt="token-activacion", 
-                         max_age=3000)  # El token expira en 5 minutos
+                         max_age=300)  # El token expira en 5 minutos
     except:
         return jsonify({'success': False, 
                         'message': 'Token inválido o expirado'})

@@ -53,18 +53,9 @@ botones.fire({
                     icon: 'success'
                 });
 
-                SelectsLugares= ["VLlugarSinItems", "VLLugarCopiaraitems", "VLlugarAcopiar", "VLlugarAcambiarnombre", "VLlugarConElItem", "VLlugarAeliminar" ];
-
-                SelectsLugares.forEach(id => {
-                    const selectLista = document.getElementById(id);
-                    const nuevoLugarOption = document.createElement("option");
-                    nuevoLugarOption.value = nombre;  // Usa el nombre como valor
-                    nuevoLugarOption.textContent = nombre;  // Muestra el nombre en la lista
-                    selectLista.appendChild(nuevoLugarOption);
-                });
-
+                
                 document.getElementById("VLCrearLugar").value = "";
-
+                cargarLugares();
 
             }else{
                 Swal.fire({

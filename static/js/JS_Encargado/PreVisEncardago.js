@@ -52,14 +52,15 @@ function PreVisualizacion (record){
         margin-bottom:10px;">
 
         <p><b>Fecha: </b>${record.fecha}</p>
+        
         <p style="display: flex; align-items: center;">
             <b>Usuario: </b>
             <input class="w3-input" 
             type="text" s
             tyle="width: 70%; height: 25px; margin-left: 10px;"
-                   value="${record.nombre_usuario || "Desconocido"}" readonly>
+                   value="${record.nombre || "Desconocido"}" readonly>
         </p>
-        <p><b>Tipo de reporte: </b>${record.estado}</p>
+        <p><b>Tipo de reporte: </b>${record.tipo}</p>
     </div>
     
     <div class="w3-col l4" 

@@ -23,6 +23,7 @@ def guardar_formulario_route():
         item = datos.get('item')
         tipo = datos.get('tipo')
         titulo = datos.get('titulo')
+        estado = datos.get('estado', 'No visto')
         descripcion = datos.get('descripcion')
         imagen_path = datos.get('imagen', None)
 
@@ -34,11 +35,11 @@ def guardar_formulario_route():
         cursor = conexion.cursor()
 
         if imagen_path:
-            cursor.execute("INSERT INTO reportes (fkcorreousuario, fecha, lugar, item, tipo, titulo, descripcion, imagen) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
-                           (correo, fecha, lugar, item, tipo, titulo, descripcion, imagen_path))
+            cursor.execute("INSERT INTO reportes (fkcorreousuario, fecha, lugar, item, tipo, titulo, descripcion, imagen, estado) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)",
+                           (correo, fecha, lugar, item, tipo, titulo, descripcion, imagen_path, estado))
         else:
-            cursor.execute("INSERT INTO reportes (fkcorreousuario, fecha, lugar, item, tipo, titulo, descripcion) VALUES (%s, %s, %s, %s, %s, %s, %s)",
-                           (correo, fecha, lugar, item, tipo, titulo, descripcion))
+            cursor.execute("INSERT INTO reportes (fkcorreousuario, fecha, lugar, item, tipo, titulo, descripcion, estado) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)",
+                           (correo, fecha, lugar, item, tipo, titulo, descripcion, estado))
 
         conexion.commit()
         return jsonify({'success': True, 'message': 'Reporte guardado exitosamente'}), 200

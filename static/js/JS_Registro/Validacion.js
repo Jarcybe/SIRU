@@ -6,7 +6,7 @@ return contraseña === confirmar;
 
 function validarFormato(contraseña){
 
-const validacion = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+const validacion = /^(?=.*[A-Z-Ñ])(?=.*\d).{5,}$/;
     return validacion.test(contraseña);
 
 }

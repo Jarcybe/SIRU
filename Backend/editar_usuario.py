@@ -18,7 +18,7 @@ def conectar_bd():
         print("Error al conectar a la base de datos:", error)
         return None
 
-# Ruta para editar un usuario por código
+# Ruta para editar un usuario por correo
 @editar_usuario_bp.route('/editar_usuario/<string:correo>', methods=['GET', 'POST'])
 def editar_usuario(correo):
     if request.method == 'GET':

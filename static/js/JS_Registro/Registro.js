@@ -5,21 +5,28 @@ function Registro(event) {
     const nombre = document.getElementById("NombreR").value;
     const password = document.getElementById("ContraseñaR").value;
     const confirmar = document.getElementById("ConfirmarR").value;
+    const BotonRegistrar = document.getElementById("botonregistrarse");
     
+    BotonRegistrar.disabled = true;
+
     // Verificación de contraseñas
     if (!validarContraseña(password, confirmar)) {
         Swal.fire({
           icon: "warning",
           title: "Las contraseñas no coinciden.",
         });
+        BotonRegistrar = false;
         return;
     }
 
+    // Se valida si el formato de la contraseña es el adecuado
     if (!validarFormato(password)) {
         Swal.fire({
             icon: "warning",
-            title: "El formato de la contraseña es invalido, debe llevar mayúsculas, números y mínimo 8 caracteres.",
+            title: "Avsio",
+            text: "El formato de la contraseña es invalido, debe llevar mayúsculas, números y mínimo 5 caracteres.",
         });
+        BotonRegistrar = false;
         return;
     }
 
@@ -50,9 +57,10 @@ function Registro(event) {
             body: JSON.stringify(datos),
         });
     })
-    .then(response => {
+    .then(async response => {
         if (!response.ok) {
-            throw new Error('No se pudo completar el registro. Verifica tus datos e intenta de nuevo.');
+            const data = await response.json();
+            throw new Error(data.error);
         }
         return response.json();
     })
@@ -63,17 +71,27 @@ function Registro(event) {
             icon: 'info',
             confirmButtonText: 'Aceptar'
         });
+
+        BotonRegistrar.textContent = "Espere 3 minutos...";
+        BotonRegistrar.title = "Debes esperar 3 minutos antes de intentarlo de nuevo"
+
+        setTimeout(() => {
+            BotonRegistrar.disabled = false;
+            BotonRegistrar.textContent = "Registrarse";
+            BotonRegistrar.title = "Registrarme";
+        }, 3*60*1000);
     })
     .catch(error => {
         console.error('Error al procesar la solicitud:', error);
-
-        if (error.message === 'El correo ya existe o está registrado') {
+        BotonRegistrar.disabled = false;
+        
+        if (error.message === 'CorreoExistente') {
             Swal.fire({
                 icon: 'warning',
                 title: 'Registro fallido',
                 text: 'Este correo ya fue registrado',
             });
-        } else if (error.message === 'El correo debe terminar en @gmail.com') {
+        } else if (error.message === 'CorreoInvalido') {
             Swal.fire({
                 icon: "error",
                 title: "Correo invalido",

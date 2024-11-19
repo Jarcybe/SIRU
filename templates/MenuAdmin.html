@@ -208,6 +208,53 @@ Ensombrecer(this)">
 Usuarios
 </button>
 
+<div class="w3-dropdown-hover">
+<button id="encargadoSeleccionado"
+class="w3-button">
+Encargados
+</button>
+
+<div class="w3-dropdown-content w3-bar-block w3-card-4">
+
+<button class = "w3-bar-item w3-button"
+onclick = "SeleccionarEncargado('todos')
+Ensombrecer(this)">
+Todos los encargados
+</button>
+
+<button class = "w3-bar-item w3-button"
+onclick = "SeleccionarEncargado('EncargadoGeneral')
+Ensombrecer(this)">
+Encargados generales
+</button>
+
+<button class = "w3-bar-item w3-button"
+onclick = "SeleccionarEncargado('EncargadoElectrico')
+Ensombrecer(this)">
+Electricistas
+</button>
+
+<button class = "w3-bar-item w3-button"
+onclick = "SeleccionarEncargado('EncargadoFontaneria')
+Ensombrecer(this)">
+Fontaneros
+</button>
+
+<button class = "w3-bar-item w3-button"
+onclick = "SeleccionarEncargado('EncargadoSalones')
+Ensombrecer(this)">
+Encargados de salones
+</button>
+
+<button class = "w3-bar-item w3-button"
+onclick = "SeleccionarEncargado('EncargadoInformatico')
+Ensombrecer(this)">
+Encargados de informatica
+</button>
+
+</div>
+</div>
+
 <button class="w3-bar-item w3-button"
 title="Todos"
 id="TodosUsuarios"
@@ -413,10 +460,20 @@ Cancelar</button>
     id="LugarItem">
 
     <div class="w3-modal-content w3-card-4 w3-white">
+        
         <header class="w3-container w3-center"
         style="background-color: #C20E1A;">
-            <h3 id="NombreTitulo"><b>Administrador de lugares e items</b></h3>
-            <button onclick="document.getElementById('LugarItem').style.display='none'" 
+        
+        <button class="w3-button w3-gray w3-left w3-margin-top" 
+        style ="display: none;"
+        id="Botonparavolver"
+        title="Volver al menu de selección"
+        onclick="Volver()"> ← Volver</button>
+
+            <h3 id="NombreTitulo">
+                <b>Administrador de lugares e items</b></h3>
+                
+                <button onclick="document.getElementById('LugarItem').style.display='none'; Volver()" 
             class="w3-button w3-xlarge w3-hover-red w3-display-topright" 
             title="Cerrar pestaña">&times;</button>
         </header>
@@ -462,11 +519,6 @@ Cancelar</button>
             Ensombrecer(this)">
                 Editar
              </button>
-
-             <button class="w3-bar-item w3-padding w3-button"
-            onclick="Volver()">
-               Salir
-            </button>
         </div>
 
         <!--Visualizar lugares con sus items-->
@@ -670,11 +722,6 @@ Cancelar</button>
              onclick="IrEditarItem()
              Ensombrecer(this)">
                 Eliminar
-             </button>
-
-             <button class="w3-bar-item w3-button"
-             onclick="Volver()">
-              Salir
              </button>
         </div>
 

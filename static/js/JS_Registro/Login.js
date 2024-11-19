@@ -57,11 +57,11 @@ function Login(event) {
                 }).then(() => {
                     window.location.href = "menu_principal";
                 });
-            } else if (data.usuario.tipo === "Encargado") {
+            } else if (['EncargadoGeneral', 'EncargadoElectrico', 'EncargadoFontaneria', 'EncargadoSalones', 'EncargadoInformatico'].includes(data.usuario.tipo)) {
                 console.log('Redirigiendo a /menu_encargado.html'); 
                 Swal.fire({
                     title: 'Login exitoso',
-                    text: 'Bienvenido, usuario',
+                    text:   `Bienvenido, ${data.usuario.tipo}`,
                     icon: 'success',
                     confirmButtonText: 'Continuar'
                 }).then(() => {

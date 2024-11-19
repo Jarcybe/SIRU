@@ -32,11 +32,11 @@ function VisualizacionUsuario(usuario, index){
                     <option value = "" disabled selected> --- </option>
                     <option value="Admin" ${usuario.tipo === 'Admin' ? 'selected' : ''}>Admin</option>  
                     <option value="Usuario" ${usuario.tipo === 'Usuario' ? 'selected' : ''}>Usuario</option>
-                    <option value="EncargadoGeneral" ${usuario.tipo === 'Encargado general' ? 'selected' : ''}>Encargado general</option>
-                    <option value="EncargadoElectrico" ${usuario.tipo === 'Encargado electricista' ? 'selected' : ''}>Electricista</option>
-                    <option value="EncargadoFontaneria" ${usuario.tipo === 'Encargado fontanero' ? 'selected' : ''}>Fontanero</option>
-                    <option value="EncargadoSalones" ${usuario.tipo === 'Encargado salones' ? 'selected' : ''}>Encargado de salones</option>
-                    <option value="EncargadoInformatico" ${usuario.tipo === 'Encargado informatico' ? 'selected' : ''}>Encargado de informática</option>
+                    <option value="EncargadoGeneral" ${usuario.tipo === 'EncargadoGeneral' ? 'selected' : ''}>Encargado general</option>
+                    <option value="EncargadoElectrico" ${usuario.tipo === 'EncargadoElectrico' ? 'selected' : ''}>Electricista</option>
+                    <option value="EncargadoFontaneria" ${usuario.tipo === 'EncargadoFontaneria' ? 'selected' : ''}>Fontanero</option>
+                    <option value="EncargadoSalones" ${usuario.tipo === 'EncargadoSalones' ? 'selected' : ''}>Encargado de salones</option>
+                    <option value="EncargadoInformatico" ${usuario.tipo === 'EncargadoInformatico' ? 'selected' : ''}>Encargado de informática</option>
                 </select>
             </div>
 

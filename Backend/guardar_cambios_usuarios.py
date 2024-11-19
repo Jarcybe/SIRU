@@ -26,9 +26,17 @@ def obtener_usuarios(filtro):
         return jsonify({"error": "No se pudo conectar a la base de datos"}), 500
 
     cursor = conexion.cursor(dictionary=True)
+
     if filtro == 'todos':
         cursor.execute("SELECT * FROM usuarios")
-    elif filtro in ['Admin', 'Usuario']:
+    elif filtro == 'Todoslosencargados':
+        cursor.execute("SELECT * FROM usuarios WHERE tipo LIKE 'Encargado%'")
+    elif filtro in ['Admin', 
+                    'Usuario', 
+                    'EncargadoGeneral', 'EncargadoElectrico', 
+                    'EncargadoFontaneria', 'EncargadoSalones', 
+                    'EncargadoInformatico']:
+        
         cursor.execute("SELECT * FROM usuarios WHERE tipo = %s", (filtro,))
     else:
         cursor.execute("SELECT * FROM usuarios WHERE correo = %s", (filtro,))

@@ -38,6 +38,61 @@ def obtener_registros():
 
     return jsonify({"registros": registros})
 
+## FILTRACION PARA LOS REPORTES ESPECIFICOS A ENCARGADOS
+@registros_bp.route('/obtener_reportes_por_claseitem/<tipo>', methods=['GET'])
+def obtener_reportes_por_claseitem(tipo):
+    conexion = conectar_bd()
+    if conexion is None:
+        return jsonify({"error", "No se pudo conectar a la base de datos"}), 500
+    
+    cursor = conexion.cursor(dictionary=True)
+    try:
+        cursor.execute("SELECT tipo FROM usuarios WHERE correo = %s",
+                       (tipo,))
+        usuario = cursor.fetchone()
+
+        if not usuario:
+            return jsonify({"error": "Tipo de usuario no encontrado"}), 404
+        
+        tipo_usuario = usuario['tipo']
+
+        clases_por_tipo = {
+            "EncargadoGeneral": "generales",
+            "EncargadoElectrico": "electricos",
+            "EncargadoFontaneria": "baños",
+            "EncargadoSalones": "salones",
+            "EncargadoInformatico": "informaticos"
+        }
+
+        clase_correspondiente = clases_por_tipo.get(tipo_usuario)
+        if not clase_correspondiente:
+            return jsonify({"error": "Tipo de usuario no válido"}), 403
+        
+        query = """
+              SELECT r.*, i.claseitem, u.nombre AS nombre
+              FROM reportes r
+              INNER JOIN items i ON r.item = i.nombreitem
+              INNER JOIN usuarios u ON r.fkcorreousuario = u.correo
+              WHERE i.claseitem = %s
+              """
+        
+        cursor.execute(query, (clase_correspondiente,))
+        reportes = cursor.fetchall()
+
+        
+        for registro in reportes:
+            if registro['imagen']:
+                  registro['imagen'] = f"/uploads/{registro['imagen']}"  
+
+        return jsonify(reportes)
+    except Exception as e:
+        print("Error:", e)
+        return jsonify({"error": "Ocurrió un error en el servidor"}), 500
+    finally:
+        cursor.close()
+        conexion.close()
+
+## CONSIGUE LOS DATOS DEL REPORTE EN CUESTION POR MEDIO DE SU ID PARA MOSTRAR SUS DATOS
 @registros_bp.route('/obtener_registro/<int:id>', methods=['GET'])
 def obtener_registro(id):
     conexion = conectar_bd()
@@ -45,6 +100,8 @@ def obtener_registro(id):
         return jsonify({"error": "No se pudo conectar a la base de datos"}), 500
 
     cursor = conexion.cursor(dictionary=True)
+    
+    ## Consigo los datos correspondientes de los rpeortes
     cursor.execute("""
         SELECT r.*, u.nombre AS nombre_usuario
         FROM reportes r
@@ -52,45 +109,25 @@ def obtener_registro(id):
         WHERE r.idreporte = %s
     """, (id,))
     registro = cursor.fetchone()
+    
+    cursor.execute("""
+        SELECT fecha, nombreencargado, comentario
+        FROM desarrollo
+        WHERE fkreporte = %s
+        ORDER BY fecha
+    """, (id,))
+    historial = cursor.fetchall()
+    
+    
     cursor.close()
     conexion.close()
 
     if registro:
-        return jsonify({"registro": registro})
+        return jsonify({"registro": registro, "historial": historial})
     else:
         return jsonify({"error": "Registro no encontrado"}), 404
 
-##cambiar a un futuro
-@registros_bp.route('/actualizar_registro/<int:id>', methods=['PUT'])
-def actualizar_registro(id):
-    datos = request.json
-    encargado = datos.get("encargado")
-    comentario = datos.get("comentario")
-    desarrollo = datos.get("desarrollo")
-
-    conexion = conectar_bd()
-    if conexion is None:
-        return jsonify({"error": "No se pudo conectar a la base de datos"}), 500
-
-    cursor = conexion.cursor()
-    try:
-        cursor.execute("""
-            UPDATE formularioregistro
-            SET encargado = %s, comentario = %s, desarrollo = %s
-            WHERE id = %s
-        """, (encargado, comentario, desarrollo, id))
-        conexion.commit()
-    except mysql.connector.Error as error:
-        print("Error al actualizar el registro:", error)
-        conexion.rollback()
-        cursor.close()
-        conexion.close()
-        return jsonify({"error": "Error al actualizar el registro"}), 500
-
-    cursor.close()
-    conexion.close()
-    return jsonify({"mensaje": "Registro actualizado correctamente"})
-
+# ELIMINAR REGISTRO TOTALMENTE
 @registros_bp.route('/eliminar_registro/<int:id>', methods=['DELETE'])
 def eliminar_registro(id):
     conexion = conectar_bd()

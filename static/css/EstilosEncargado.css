@@ -40,6 +40,12 @@ h2{
   font-size: auto;
   color: #000;
 }
+.Boton-en-uso{
+
+  background-color: rgb(255, 140, 140) !important;
+  color:white;
+}
+
 
 .red-margin-right {
   position: fixed;

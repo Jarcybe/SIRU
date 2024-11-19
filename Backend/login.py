@@ -71,11 +71,13 @@ def login_required(f):
 
 
 # Decorador para verificar el rol del usuario
-def role_required(role):
+def role_required(roles):
     def decorator(f):
         @wraps(f)
         def decorated_function(*args, **kwargs):
-            if 'user' not in session or session['user'].get('tipo') != role:
+
+            rol_usuario = session.get('user', {}).get('tipo')
+            if 'user' not in session or rol_usuario not in roles:
                 return redirect(url_for('login_bp.login', next=request.url))
             return f(*args, **kwargs)
         return decorated_function

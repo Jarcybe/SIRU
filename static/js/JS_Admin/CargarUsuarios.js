@@ -32,3 +32,17 @@ function CargarUsuarios(filtro) {
         })
         .catch(error => console.error('Error al cargar usuarios desde la base de datos:', error));
 }
+
+function SeleccionarEncargado(tipo){
+
+    const BotonEncargado = document.getElementById('encargadoSeleccionado');
+
+    if(tipo === 'todos'){
+        BotonEncargado.textContent = "Encargados";
+    }else{
+        BotonEncargado.textContent = tipo;
+    }
+
+    const filtro = tipo === 'todos' ? 'Todoslosencargados' : tipo
+    CargarUsuarios(filtro);
+}

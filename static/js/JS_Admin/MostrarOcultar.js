@@ -2,6 +2,7 @@ function  Volver(){
     document.getElementById('MenuLugares').style.display='none';
     document.getElementById('SeleccionarMenu').style.display='block';
     document.getElementById('MenuItems').style.display='none';
+    document.getElementById('Botonparavolver').style.display='none';
     document.getElementById('NombreTitulo').innerText = 'Administrador de lugares e items';
 }
 
@@ -9,6 +10,7 @@ function IrALugar(){
     document.getElementById('MenuLugares').style.display='block';
     document.getElementById('SeleccionarMenu').style.display='none';
     document.getElementById('NombreTitulo').innerText = 'Administración de lugares';
+    document.getElementById('Botonparavolver').style.display='block';
 }
 
 function IrCrearLugar(){
@@ -33,6 +35,7 @@ function IrAItem(){
     document.getElementById('SeleccionarMenu').style.display='none';
     document.getElementById('MenuItems').style.display='block';
     document.getElementById('NombreTitulo').innerText = 'Administración de items';
+    document.getElementById('Botonparavolver').style.display='block';
 }
 
 function IrCrearItem(){
