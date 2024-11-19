@@ -1,12 +1,12 @@
-from flask import Flask, render_template, session, jsonify, redirect, url_for,send_from_directory
+from flask import Flask, render_template, session, jsonify, redirect, url_for, send_from_directory
 from datetime import timedelta
 
-#Todos los py de inicio de seion
+# Todos los py de inicio de sesión
 from Backend.login import login_bp, login_required, role_required
 from Backend.RegistroCorreoNuevoUsuario import registrar_correo_bp 
 from Backend.encrypt import encriptar_bp
 
-#Todos los py relacionados con los reportes
+# Todos los py relacionados con los reportes
 from Backend.guardar_reporte import guardar_reporte_bp
 from Backend.buscar_reportes import buscar_reportes_bp
 from Backend.subir_imagen import subir_imagen_bp
@@ -14,9 +14,7 @@ from Backend.eliminar_registro import eliminar_registro_bp
 from Backend.obtener_registro import registros_bp
 from Backend.RepDesarrollo import Desarrollo_de_los_reportes_bp
 
-
-#Todos los py relacioanodos con los usuarios
-
+# Todos los py relacionados con los usuarios
 from Backend.guardar_cambios_usuarios import usuarios_bp
 from Backend.eliminarusuario import eliminareusuario
 from Backend.obtener_usuarios import obtener_usuarios
@@ -24,12 +22,15 @@ from Backend.editar_usuario import editar_usuario_bp
 from Backend.estados import estados_bp
 from Backend.actualizar_usuarios import usuarios_actualizar_bp
 
-#Todos los py relacionados con los lugares e items
+# Todos los py relacionados con los lugares e items
 from Backend.CrearLugares import crearlugares_bp
 from Backend.CrearItems import crearitems_bp
 from Backend.EditarLugar import editar_lugar_bp
 from Backend.EditarItem import editar_items_bp
 from Backend.visulizar_luegareitem import visulizar_lugar_e_item_bp 
+
+# Importar el nuevo blueprint para estadísticas
+from Backend.estadisticas import estadisticas_bp 
 
 import os
 
@@ -50,10 +51,7 @@ app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=10)
 def make_session_permanent():
     session.permanent = True
 
-
 # Registrar los blueprints en la aplicación Flask
-
-#inicio de sesion 
 app.register_blueprint(registrar_correo_bp)  
 app.register_blueprint(login_bp)
 app.register_blueprint(guardar_reporte_bp)
@@ -72,6 +70,7 @@ app.register_blueprint(editar_items_bp)
 app.register_blueprint(visulizar_lugar_e_item_bp)
 app.register_blueprint(encriptar_bp)
 app.register_blueprint(Desarrollo_de_los_reportes_bp)
+app.register_blueprint(estadisticas_bp)  # Registrar el nuevo blueprint de estadísticas
 
 # Página de menú de registro (MenuRegistro.html)
 @app.route('/')

@@ -40,6 +40,7 @@
     <script src="../static/js/JS_Admin/ItemEditarEliminar.js"></script>
     <script src="../static/js/JS_Admin/LugarEditarEliminar.js"></script>
     <script src="../static/js/JS_Admin/lugaritemvisualizar.js"></script>
+    <script src="../static/js/JS_Admin/estadisticas.js" defer></script>
 
     <script src="../static/js/JS_Genericos/EliminarRegistro.js"></script>
     <script src="../static/js/JS_Genericos/Restablecer.js"></script>
@@ -49,6 +50,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", CargarRegistros); // Cargar registros al cargar la página
@@ -112,10 +114,10 @@
                     Zonas e items</button>
 
                     <button 
-                    onclick=""
+                    onclick="abrirVentanaEstadisticas()"
                     class="w3-button w3-red w3-hover-pink w3-section w3-block"
-                    title="Datos Estadisticos">
-                    Datos Estadísticos</button>
+                    title="Datos Estadísticos">
+                    Datos Estadísticos
 
                     <button 
                     onclick="CerrarSesion()" 
@@ -871,6 +873,8 @@ ondragover="mover(event)">
     </div>
     </div>
 </div>
+
+
 
 </body>
 </html>
