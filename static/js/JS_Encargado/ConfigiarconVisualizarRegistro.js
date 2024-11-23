@@ -19,7 +19,7 @@ function ConfiDeRegistro(id) {
       imagenHTML = `<img src="${recordar.imagen}" class="w3-image">`;
     }else{
         const lugar = recordar.lugar.toLowerCase();
-        const ImagenPorDefecto = ImagenesDefecto[lugar];
+        const ImagenPorDefecto = obtenerImagenDefecto(lugar);
         
         imagenHTML = ImagenPorDefecto ? 
         `<img src="${ImagenPorDefecto}" class="w3-image">`
@@ -54,7 +54,7 @@ _____________________`).join(""):
             <div class="w3-row w3-container">
                 <div class="w3-col m6"
                 style = "padding-right: 15px;">
-                    <p><b>Tipo de reporte:</b> ${recordar.estado}</p>
+                    <p><b>Tipo de reporte:</b> ${recordar.tipo}</p>
 
                     <p style="display: flex; align-items: center;">
             <b>Usuario: </b>
@@ -66,7 +66,7 @@ _____________________`).join(""):
                    readonly>
                     
                     <h4><b>Descripcion</b></h4>
-                    <textarea class="w3-input w3-borde w3-light-grey"
+                    <textarea class="textarea w3-input w3-borde w3-light-grey"
                     style = "height: 100px;"
                     readonly> ${recordar.descripcion}</textarea>
                 </div>
@@ -105,7 +105,7 @@ _____________________`).join(""):
                     readonly/>
 
                     <h4>Comentarios</h4>
-                    <textarea class="w3-input w3-border" 
+                    <textarea class="w3-input w3-border textarea" 
                     id="ComentarioEncargado"
                     type="text" 
                     style="height: 150px;" 

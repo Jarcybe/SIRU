@@ -1,4 +1,4 @@
-function ConfiDeRegistro(id) {
+function ContenidoDelReporte(id) {
     fetch(`/obtener_registro/${id}`)
         .then(response => {
             if (!response.ok) {
@@ -8,6 +8,8 @@ function ConfiDeRegistro(id) {
         })
         .then(data => {
             const recordar = data.registro;
+            const historial = data.historial || [];
+
             const modal = document.getElementById("Modal");
             const contenido = modal.querySelector(".w3-modal-content");
 
@@ -17,12 +19,25 @@ function ConfiDeRegistro(id) {
       imagenHTML = `<img src="${recordar.imagen}" class="w3-image">`;
     }else{
         const lugar = recordar.lugar.toLowerCase();
-        const ImagenPorDefecto = ImagenesDefecto[lugar];
+        const ImagenPorDefecto = obtenerImagenDefecto(lugar);
         
         imagenHTML = ImagenPorDefecto ? 
         `<img src="${ImagenPorDefecto}" class="w3-image">`
         : `<div class = "w3-border w3-light-grey" style="height: 150px;"></div>`;
     }
+
+    
+    const encargadosUnicos = [
+        ...new Set(historial.map(h => h.nombreencargado))].join(" - ")||"Ningun encargado a respondido por ahora";
+
+    const comentariosHTML = historial.length > 0
+    ? historial.map(h => `
+${h.fecha}
+Encargado responsable: ${h.nombreencargado} 
+Comentario: ${h.comentario}
+_____________________`).join(""):
+"Aun no hay comentarios";
+
 
             contenido.innerHTML = `
                 <header class="w3-container w3-red w3-center">
@@ -47,7 +62,7 @@ function ConfiDeRegistro(id) {
                             value=${recordar.nombre_usuario || "Desconocido"}
                             readonly>
                             </p>
-                            <textarea class= "w3-input w3-border w3-light gret"
+                            <textarea class= "w3-input w3-border textarea"
                             style = "height: 100px;"
                             readonly> ${recordar.descripcion}</textarea>
                         </div>
@@ -64,15 +79,19 @@ function ConfiDeRegistro(id) {
                             type="text"
                             id="Encargado" 
                             readonly
+                            value="${encargadosUnicos}"
                             placeholder="Nombre del encargado" 
                             maxlength="500" value="">
                             
                             <h5> <b>Comentarios </b></h5>
                             <textarea 
-                            class="w3-input w3-border" 
+                            class="w3-input w3-border textarea" 
                             id="Comentario" 
+                            type="text"
                             readonly
-                            style="height: 100px;"></textarea>
+                            style="height: 100px;">
+                            ${comentariosHTML}
+                            </textarea>
                             <p> </p>
                         </div>
                         <div class="w3-col s6 w3-center w3-section">
@@ -114,10 +133,6 @@ function ConfiDeRegistro(id) {
               
                 </div>
             `;
-
-            //${recordar.encargado || ''}
-            //${recordar.comentario || ''}
-
             modal.style.display = "block";
         })
         .catch(error => console.error('Error al obtener registro desde el backend:', error));

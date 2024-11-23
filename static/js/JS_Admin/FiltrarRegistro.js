@@ -28,17 +28,17 @@ function FiltrarRegistro(event) {
             // Filtrar registros localmente (opcional)
             let filtrados = data.registros || [];
 
-            // Filtros locales adicionales (solo si es necesario)
-            if (nombre) filtrados = filtrados.filter(record => record.nombre.toLowerCase().includes(nombre));
+            // Filtros locales adicionales (solo si es necesario)k
+            if (nombre) filtrados = filtrados.filter(record => record.nombre_usuario.toLowerCase().includes(nombre));
             if (lugar) filtrados = filtrados.filter(record => record.lugar.toLowerCase().includes(lugar));
             if (item) filtrados = filtrados.filter(record => record.item.toLowerCase().includes(item));
-            if (tiporeporte) filtrados = filtrados.filter(record => record.tiporeporte.toLowerCase() === tiporeporte);
-            if (estadoreporte) filtrados = filtrados.filter(record => record.estado && record.estado.toLowerCase() === estado);
+            if (tiporeporte) filtrados = filtrados.filter(record => record.tipo.toLowerCase() === tiporeporte);
+            if (estadoreporte) filtrados = filtrados.filter(record => record.estado && record.estado.toLowerCase() === estadoreporte);
             if (sinImagen) filtrados = filtrados.filter(record => record.imagen);
 
             // Ordenar registros por fecha
             filtrados.sort((a, b) => (ordenar === "Reciente" ? new Date(b.fecha) - new Date(a.fecha) : new Date(a.fecha) - new Date(b.fecha)));
-
+            
             // Mostrar los registros filtrados en el contenedor
             if (filtrados.length > 0) {
                 filtrados.forEach(record => {

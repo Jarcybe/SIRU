@@ -46,7 +46,7 @@ function CargarReportesEncargados() {
 
                 registros.forEach(record => {
 
-                    const carta = PreVisualizacion(record);
+                    const carta = PreVisualizacionEncargado(record);
                   
                     contenedor.appendChild(carta);
                 });

@@ -1,6 +1,7 @@
 function Estado() {
 
     const LogUsuario = JSON.parse(localStorage.getItem("LogUsuario"));
+    const contenedores = document.getElementById("Contenedores");
 
     if (!LogUsuario) {
         console.error("No hay usuario iniciado sesión");
@@ -12,16 +13,16 @@ function Estado() {
     fetch(`/obtener_registros/${correo}`)
         .then(response => response.json())
         .then(data => {
-            const contenedores = document.getElementById("Contenedores");
-
-            if (data.length === 0) {
+            const registros = data;
+           
+            if (registros.length === 0) {
                 contenedores.innerHTML = "<p> Sin reportes hechos por ahora</p>";
             } else {
                 contenedores.innerHTML = "";
 
-                data.forEach((recuerdo, index) => {
+                registros.forEach(recuerdo => {
                    
-                    const Carta = PreVisualizacion(recuerdo, index);
+                    const Carta = PreVisualizacion(recuerdo);
 
                     contenedores.appendChild(Carta);
                 });

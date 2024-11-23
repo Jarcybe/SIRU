@@ -77,7 +77,6 @@ botones.fire({
 });
 }
 
-
 function cargarLugares(){
 
     fetch('/conseguir_lugares')

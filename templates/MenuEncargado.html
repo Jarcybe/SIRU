@@ -23,7 +23,7 @@
 
   <script src="../static/js/JS_Encargado/ReportesCargarEncargado.js"></script>
   <script src="../static/js/JS_Encargado/PreVisEncardago.js"></script>
-  <script src="../static/js/JS_Encargado/VisualizarRegistro.js"></script>
+  <script src="../static/js/JS_Encargado/ConfigiarconVisualizarRegistro.js"></script>
   <script src="../static/js/JS_Encargado/ActivarComentario.js"></script>
   <script src="../static/js/JS_Encargado/RepDesarrollo.js"></script>
   
@@ -31,6 +31,7 @@
   <script src="../static/js/JS_Genericos/ImagenesDefecto.js"></script>
   <script src="../static/js/JS_Genericos/Dropdown.js"></script>
   <script src="../static/js/JS_Genericos/FechaActual.js"></script>
+  <script src="../static/js/JS_Genericos/notifcacionesVisualizar.js"></script>
 
 </head>
 
@@ -79,7 +80,7 @@
   <a onclick="Mostrar()"
   class="w3-bar-item w3-center w3-border-bottom w3-hover-red with w3-hover-opacity"
   id="BotoncitoCambiante">
-  <img src="../static/images/IconoTareas.png"
+  <img src="../static/images/IconoCrear.png"
   alt = "Tareas"
   style="width: 70%;
   height:100%;"
@@ -351,7 +352,6 @@ style="width: 2%">
           </form>
       </div>
   </div>
-</div>
 
 <div class="w3-modal"
 id="Modal"
@@ -360,6 +360,66 @@ style="display: none;">
 <div class="w3-modal-content w3-animate-zoom w3-card-4">
 
 </div>
+</div>
+
+
+<!--Notificaiones-->
+<div class="w3-container  w3-center">
+
+    <div class="w3-modal"
+    id="noticar">
+    
+    <div class="w3-modal-content w3-card-4 ">
+        
+        <header class="w3-container w3-center"
+        style="background-color: #C20E1A;">
+            
+            <h2> <b>Notificaciones</b></h2>
+
+            <button 
+onclick = "document.getElementById('noticar').style.display='none'"
+class   = "w3-button w3-xlarge w3-hover-red w3-display-topright"
+title   = "Cerrar pestaña"> &times; </button>
+        </header>
+        
+        <div class="w3-modal-content">
+
+        <div id="notificacion"
+        class="w3-center"
+        style="padding: 20px;">
+        </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!--Zona de notificar-->
+<div id="NotificarAdmin"
+class="w3-col s12"
+style="padding: 20px;
+display: none;">
+
+<h2>Zona de notificar</h2>
+
+<p>Escoge al admin que quieras mandarlo:</p>
+<select id="VerAdmin" 
+                class="w3-select w3-border">
+                    <option value="" selected disabled>Admin que se mandara el mensaje</option>
+                    
+                </select>
+
+<p>Escribe el mensaje que quieres mandar en el siguiente campo:</p>
+
+<textarea class="w3-input w3-border textarea"
+id="MensajeAMandar"></textarea>
+            <button class="w3-button w3-margin-top w3-red"
+            onclick="enviarNotificacion()" >
+            Mandar notificacion</button>
+
+            <button class="w3-button w3-margin-top w3-red"
+             onclick="cancelarMensaje()">
+             Cancelar notificacion</button>
+       
 </div>
 
 

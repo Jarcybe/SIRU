@@ -1,4 +1,4 @@
-function PreVisualizacion (record){
+function PreVisualizacionEncargado (record){
 
     const carta = document.createElement("div");
     carta.className = "w3-card w3-margin w3-border w3-animate-zoom w3-white";
@@ -9,7 +9,7 @@ function PreVisualizacion (record){
         imagenHTML = `<img src="${record.imagen}" class="w3-image">`;
       }else{
           const lugar = record.lugar.toLowerCase();
-          const ImagenPorDefecto = ImagenesDefecto[lugar];
+          const ImagenPorDefecto = obtenerImagenDefecto(lugar);
           
           imagenHTML = ImagenPorDefecto ? 
           `<img src="${ImagenPorDefecto}" class="w3-image">`
@@ -56,8 +56,8 @@ function PreVisualizacion (record){
         <p style="display: flex; align-items: center;">
             <b>Usuario: </b>
             <input class="w3-input" 
-            type="text" s
-            tyle="width: 70%; height: 25px; margin-left: 10px;"
+            type="text" 
+            style="width: 70%; height: 25px; margin-left: 10px;"
                    value="${record.nombre || "Desconocido"}" readonly>
         </p>
         <p><b>Tipo de reporte: </b>${record.tipo}</p>
@@ -67,7 +67,7 @@ function PreVisualizacion (record){
     style="margin-top: 10px;
     margin-bottom: 10px;">
         <p><b>Descripción: </b></p>
-        <textarea class="w3-input w3-border w3-light-grey"
+        <textarea class="textarea w3-input w3-border w3-light-grey"
                   style="height: 130px; 
                   width: 95%;
                   margin: auto;"

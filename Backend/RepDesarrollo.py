@@ -54,8 +54,39 @@ def guardar_desarrollo():
                        SET fkdesarrollo = %s, estado = %s
                        WHERE idreporte = %s 
           """, (iddesarrollo, estado, idreporte))
-    
-    
+        
+        cursor.execute("""
+                       SELECT titulo, fkcorreousuario 
+                       FROM reportes
+                       WHERE idreporte = %s
+        """,(idreporte,))
+
+        data_reporte = cursor.fetchone()
+        titulo =  data_reporte[0]
+        correo = data_reporte[1]
+
+        if estado == "En proceso":
+              enunciado = f"Tu reporte {titulo} ya fue visto y ya empezó un desarrollo"
+        elif estado == "Terminado":
+            enunciado = f"Tu reporte {titulo} ya ha sido revisado y ha terminado su desarrollo"
+        else:
+            enunciado = ""
+
+        cursor.execute("""
+               SELECT * FROM notificaciones
+               WHERE fkcorreousuario = %s AND vistonovisto = 0
+               AND enunciado LIKE %s
+               """, (fkcorreoencargado, enunciado))
+        notificacion_existente = cursor.fetchone()
+
+        if notificacion_existente is None and enunciado:
+            # Insertar notificación si no se ha enviado
+            cursor.execute("""
+                INSERT INTO notificaciones (fkcorreousuario, nombreautor, fecha, enunciado, vistonovisto, remitente)
+                VALUES (%s, %s, %s, %s, 0, %s)
+            """, (fkcorreoencargado, nombre_encargado, fecha, enunciado, correo))
+
+        cursor.fetchall()
         conexion.commit()
         return jsonify({"message": "Desarrollo guardado con exito"})
     

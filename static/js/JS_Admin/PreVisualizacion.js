@@ -35,7 +35,7 @@ function PreVisualizacion (record){
             margin-top:10px;
             margin-bottom:5px;">
                     <p><b>Descripción: </b><p>
-                    <textarea class= "w3-input w3-border w3-light grey"
+                    <textarea class= "w3-input w3-border w3-light grey textarea"
                         style = "height: 85px;
                         width: 95%;"
                         readonly> ${record.descripcion}
@@ -46,7 +46,7 @@ function PreVisualizacion (record){
                 
                 <footer class=" w3-red">
                     <button class="w3-button w3-hover-pink w3-block" 
-                    onclick="ConfiDeRegistro(${record.idreporte})">SABER MAS >></button>
+                    onclick="ContenidoDelReporte(${record.idreporte})">SABER MAS >></button>
                 </footer>
                         
     `;

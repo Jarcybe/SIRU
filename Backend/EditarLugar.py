@@ -12,39 +12,6 @@ def conectar_bd():
         database="siru"
     )
 
-
-@editar_lugar_bp.route('/editar_nombre_lugar', methods=['POST'])
-def editar_nombre_lugar():
-    data = request.get_json()
-    id_lugar = data['id_lugar']
-    nuevo_nombre = data['nuevo_nombre']
-
-    try:
-        conexion = conectar_bd()
-        cursor = conexion.cursor()
-
-        # Verificar si el nuevo nombre ya existe en la base de datos
-        cursor.execute("SELECT COUNT(*) FROM lugares WHERE nombrelugar = %s", 
-                       (nuevo_nombre,))
-        if cursor.fetchone()[0] > 0:
-            return jsonify({'success': False, 'message': 'El nombre ya existe, elige otro'}), 400
-
-        # Actualizar el nombre del lugar
-        cursor.execute("UPDATE lugares SET nombrelugar = %s WHERE idlugar = %s", 
-                       (nuevo_nombre, id_lugar))
-        conexion.commit()
-
-        return jsonify({'success': True, 'message': 'Nombre del lugar actualizado correctamente'}), 200
-
-    except Exception as e:
-        print("Error al actualizar el nombre del lugar:", e)
-        return jsonify({'success': False, 'message': "Error al actualizar el nombre en la base de datos"}), 500
-
-    finally:
-        cursor.close()
-        conexion.close()
-
-
 @editar_lugar_bp.route('/eliminar_item_lugar', methods=['POST'])
 def eliminar_item_lugar():
     data = request.get_json()

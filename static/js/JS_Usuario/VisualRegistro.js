@@ -1,37 +1,17 @@
-function VisualRegistro(index, Filtro= true) {
-    const LogUsuario = JSON.parse(localStorage.getItem('LogUsuario'));
-    
-    if (!LogUsuario) {
-        alert("Debe iniciar sesión para visualizar este registro.");
-        return;
-    }
+function VisualRegistro(id) {
+    fetch(`/obtener_registro/${id}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {    
+            const recuerdo = data.registro;
+            const historial = data.historial || [];
 
-    if (Filtro && resultadosFiltrados.length > index) {
-       const recuerdo = resultadosFiltrados[index];
-        mostrarDetallesRecuerdo(recuerdo);
-    } else {
-        // Si no estamos en modo filtrado, obtenemos los registros completos
-        fetch(`/obtener_registros/${LogUsuario.correo}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.length > index) {
-                    const recuerdo = data[index];
-                    mostrarDetallesRecuerdo(recuerdo);
-                }
-            })
-            .catch(error => console.error('Error al obtener registro desde el backend:', error));
-    }
-}
-
-function mostrarDetallesRecuerdo(recuerdo) {
-    
-    const modal = document.getElementById("Modal");
-    const contenido = modal.querySelector(".w3-modal-content");
+            const modal = document.getElementById("Modal");
+            const contenido = modal.querySelector(".w3-modal-content");
 
     let imagenHTML;
 
@@ -39,12 +19,23 @@ function mostrarDetallesRecuerdo(recuerdo) {
       imagenHTML = `<img src="${recuerdo.imagen}" class="w3-image">`;
     }else{
         const lugar = recuerdo.lugar.toLowerCase();
-        const ImagenPorDefecto = ImagenesDefecto[lugar];
+        const ImagenPorDefecto = obtenerImagenDefecto(lugar);
         
         imagenHTML = ImagenPorDefecto ? 
         `<img src="${ImagenPorDefecto}" class="w3-image">`
         : `<div class = "w3-border w3-light-grey" style="height: 150px;"></div>`;
     }
+
+    const encargadosUnicos = [
+        ...new Set(historial.map(h => h.nombreencargado))].join(" - ")||"Ningun encargado a respondido por ahora";
+
+    const comentariosHTML = historial.length > 0
+    ? historial.map(h => `
+${h.fecha}
+Encargado responsable: ${h.nombreencargado} 
+Comentario: ${h.comentario}
+_____________________`).join(""):
+"Aun no hay comentarios";
 
     let texto = "No visto";
     let Color  = "#ccc";
@@ -134,6 +125,7 @@ function mostrarDetallesRecuerdo(recuerdo) {
                     type="text" 
                     style="height: 100px;" 
                     placeholder="No hay comentarios aun" readonly>
+                    ${comentariosHTML}
                     </textarea>
                     
                     <h4>Encargado</h4>
@@ -141,7 +133,8 @@ function mostrarDetallesRecuerdo(recuerdo) {
                     type="text" 
                     title="Nombre del encargado" 
                     placeholder="No hay encargado por el momento" 
-                    value="" readonly/>
+                    value="${encargadosUnicos}" 
+                    readonly/>
 
                     <button class="w3-button w3-small w3-red w3-right w3-margin-top"
                             title="Eliminar-Registro"
@@ -150,11 +143,9 @@ function mostrarDetallesRecuerdo(recuerdo) {
          
         </div>
     `;
-
-  
-  //  textarea${recuerdo.comentario || ''}
-  // place holder ${recuerdo.encargado || ''}-->
-    modal.style.display = "block";
+  modal.style.display = "block";
+})
+.catch(error => console.error('Error al obtener registro desde el backend:', error));
 }
 
 function Cerrar() {

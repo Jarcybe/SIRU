@@ -38,10 +38,16 @@ color: white;
     overflow: hidden; 
     }
 
-textarea, select, input{
+ select, input{
         border-radius: 10px; 
     overflow: hidden;  
     }
+
+    .textarea{
+        border-radius: 10px; 
+        overflow: auto;  
+        resize: none;
+        }
 
 
 
@@ -83,6 +89,15 @@ textarea, select, input{
     background-color: #f9f9f9;
     cursor: move;
 }
+
+#notificacion{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+}
+
 
 body, h2, h4, h5 {font-family: "Karma", sans-serif}
         .estilos {

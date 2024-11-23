@@ -11,10 +11,11 @@ function GuardarFormulario(event) {
 
     const correoUsuario = logUsuario.correo;
     const fecha = obtenerFechaActual(); // Obtener la fecha actual formateada
-    const lugar = document.getElementById("Lugar").value.trim();
+    const lugar = document.getElementById("Lugar");
     const item = document.getElementById("Item").value.trim();
     const tipo = document.querySelector('input[name="Tipo"]:checked');
-    
+    const lugarSeleccionado = lugar.options[lugar.selectedIndex].text;
+
     const ClaseTipo = tipo.value;
     const titulo = document.getElementById("Titulo").value.trim();
     const descripcion = document.getElementById("Descripcion").value.trim();
@@ -61,7 +62,7 @@ function GuardarFormulario(event) {
               });
         });
     } else {
-        enviarFormulario(correoUsuario, fecha, lugar, item, ClaseTipo, titulo, descripcion, null);
+        enviarFormulario(correoUsuario, fecha, lugarSeleccionado, item, ClaseTipo, titulo, descripcion, null);
     }
 }
 

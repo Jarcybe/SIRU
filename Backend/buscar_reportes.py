@@ -27,7 +27,7 @@ def buscar_reportes():
         item = request.args.get('item', '').lower()
         tipo = request.args.get('tipo', '')
         estado = request.args.get('estado', '')
-       # retroalimentacion = request.args.get('retroalimentacion', '')
+        retroalimentacion = request.args.get('retroalimentacion', '')
         orden = request.args.get('orden', '')
 
         # Validar que el correo de usuario esté presente
@@ -60,15 +60,11 @@ def buscar_reportes():
         if estado:
            consulta += " AND LOWER(estado) = %s"
            parametros.append(estado.lower())
-       # if retroalimentacion:
-        #    if reciente == "Ninguna":
-         #       consulta += " AND (comentario IS NULL OR encargado IS NULL)"
-          #  elif reciente == "Comentario":
-           #     consulta += " AND comentario IS NOT NULL"
-            #elif reciente == "Encargado":
-             #   consulta += " AND encargado IS NOT NULL"
-           # elif reciente == "Ambas":
-            #    consulta += " AND comentario IS NOT NULL AND encargado IS NOT NULL"
+        if retroalimentacion:
+            if retroalimentacion == "Ninguna":
+               consulta += " AND fkdesarrollo IS NULL"
+            elif retroalimentacion == "Tener":
+               consulta += " AND fkdesarrollo IS NOT NULL"
 
         if orden == "Reciente":
             consulta += " ORDER BY fecha DESC"
@@ -89,7 +85,7 @@ def buscar_reportes():
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
 
-
+##Filtrar reprotes para admin
 @buscar_reportes_bp.route('/filtrar_registros', methods=['GET'])
 def filtrar_registros():
     try:
@@ -98,13 +94,9 @@ def filtrar_registros():
         lugar = request.args.get('lugar', '').lower()
         item = request.args.get('item', '').lower()
         tipo = request.args.get('tipo', '')
-        estado = request.args.get('estado', '').lower()
+        estado = request.args.get('estado', '')
         sin_imagen = request.args.get('sinImagen', 'false') == 'true'
         orden = request.args.get('orden', '')
-
-        # Validar que al menos un criterio de búsqueda esté presente
-        if not any([nombre, lugar, item, tipo, estado]):
-            return jsonify({'success': False, 'error': 'Debe especificar al menos un criterio de búsqueda'}), 400
 
         conexion = conectar_bd()
         if conexion is None:
@@ -113,7 +105,12 @@ def filtrar_registros():
         cursor = conexion.cursor(dictionary=True)
 
         # Construir la consulta SQL basada en los parámetros de búsqueda
-        consulta = "SELECT * FROM reportes WHERE 1=1"
+        consulta = """
+            SELECT r.*, u.nombre AS nombre_usuario
+            FROM reportes r
+            LEFT JOIN usuarios u ON r.fkcorreousuario = u.correo
+            WHERE 1=1
+        """
         parametros = []
 
         if nombre:
@@ -129,8 +126,8 @@ def filtrar_registros():
             consulta += " AND tipo = %s"
             parametros.append(tipo)
         if estado:
-            consulta += " AND LOWER(estado) = %s"
-            parametros.append(estado)
+           consulta += " AND LOWER(estado) = %s"
+           parametros.append(estado.lower())
         if sin_imagen:
             consulta += " AND (imagen IS NULL OR imagen = '')"
 

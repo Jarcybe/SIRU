@@ -27,6 +27,14 @@ h1 , h2 {
     gap: 10px;
 }
 
+#notificacion{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+}
+
 .w3-card{
     max-width: 450px;
     margin: 10px;
@@ -46,7 +54,8 @@ h1 , h2 {
 
 textarea{
     border-radius: 10px; 
-overflow: hidden;  
+overflow: auto;
+resize: none;  
 }
 
 .red-margin-left, .red-margin-right {
@@ -89,6 +98,12 @@ overflow: hidden;
     display:none;
     width:5px !important;
     height: 85.5%;
+}
+
+input{
+    border-radius: 10px; 
+overflow: auto;  
+background-color: rgba(255, 255, 255, 0)
 }
 
 

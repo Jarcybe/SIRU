@@ -79,11 +79,6 @@ def obtener_reportes_por_claseitem(tipo):
         cursor.execute(query, (clase_correspondiente,))
         reportes = cursor.fetchall()
 
-        
-        for registro in reportes:
-            if registro['imagen']:
-                  registro['imagen'] = f"/uploads/{registro['imagen']}"  
-
         return jsonify(reportes)
     except Exception as e:
         print("Error:", e)

@@ -32,6 +32,9 @@ from Backend.visulizar_luegareitem import visulizar_lugar_e_item_bp
 # Importar el nuevo blueprint para estadísticas
 from Backend.estadisticas import estadisticas_bp 
 
+# notificaciones
+from Backend.notificaciones import notificaciones_bp
+
 import os
 
 UPLOAD_FOLDER = 'Backend/uploads'
@@ -71,6 +74,7 @@ app.register_blueprint(visulizar_lugar_e_item_bp)
 app.register_blueprint(encriptar_bp)
 app.register_blueprint(Desarrollo_de_los_reportes_bp)
 app.register_blueprint(estadisticas_bp)  # Registrar el nuevo blueprint de estadísticas
+app.register_blueprint(notificaciones_bp)
 
 # Página de menú de registro (MenuRegistro.html)
 @app.route('/')
