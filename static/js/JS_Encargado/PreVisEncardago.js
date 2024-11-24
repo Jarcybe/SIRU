@@ -110,12 +110,12 @@ function PreVisualizacionEncargado (record){
                      <div class= "w3-col l4">
                     <button class="w3-button w3-border"
                     title = "Notificar alguna informacion" 
-                    onclick="">
+                    onclick="notifcarmensaje(${record.idreporte})">
                     Notificar>></button>
                     </div>
 
 
-                </footer>         
+                </footer>    
     `;
 
     return carta;

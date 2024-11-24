@@ -53,7 +53,8 @@ _____________________`).join(""):
 
             <div class="w3-row w3-container">
                 <div class="w3-col m6"
-                style = "padding-right: 15px;">
+                style = "text-align: left;">
+                
                     <p><b>Tipo de reporte:</b> ${recordar.tipo}</p>
 
                     <p style="display: flex; align-items: center;">
@@ -87,7 +88,6 @@ _____________________`).join(""):
                 </div>
 
                 <div id="detalles" 
-                class="" 
                 style="display: none;
                 margin-top: 20px;">
                 
@@ -150,7 +150,7 @@ _____________________`).join(""):
                             <button class="w3-button w3-block w3-border w3-section" 
                                 title="Añadir nuevo comentario"
                                 id="AñadirNuevoComentario"
-                                onclick=ActivarComentario(${recordar.idreporte})>Añadir nuevo comentario</button>
+                                onclick=ActivarComentario()>Añadir nuevo comentario</button>
 
                             <button class="w3-button w3-block w3-red w3-section" 
                                 title="Guardar datos" 

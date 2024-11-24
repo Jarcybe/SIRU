@@ -98,3 +98,63 @@ def enviar_notificacion():
     finally:
         cursor.close()
         conexion.close()
+
+
+@notificaciones_bp.route('/obtener_administradores', methods=['GET'])
+def obtener_administradores():
+    # No es necesario usar request.json, ya que el correo se pasa en la URL
+   
+    conexion = conectar_bd()
+    cursor = conexion.cursor(dictionary=True)
+
+    query = "SELECT correo FROM usuarios WHERE tipo = %s"
+    cursor.execute(query, ('Admin',))
+    administradores = cursor.fetchall()
+
+    cursor.close()
+    conexion.close()
+
+    return jsonify(administradores)
+
+@notificaciones_bp.route('/enviar_notificacion_administraciones', methods=['POST'])
+def enviar_notificacion_administraciones():
+    data = request.json
+    
+    correoautor = data.get('correoautor')
+    mensaje = data.get('mensaje')
+    destinocorreo = data.get('destino')
+    fecha = data.get('fecha')
+    nombreautor = data.get('nombreautor')
+    idreporte = data.get('idreporte')  # Asegúrate de enviar este dato desde el frontend
+
+    conexion = conectar_bd()
+    if conexion is None:
+        return jsonify({"error": "No se pudo conectar a la base de datos"}), 500
+    
+    cursor = conexion.cursor()
+
+    try:
+        # Insertar notificación
+        cursor.execute("""
+            INSERT INTO notificaciones (fkcorreousuario, nombreautor, fecha, enunciado, vistonovisto, remitente)
+            VALUES (%s, %s, %s, %s, 0, %s)
+        """, (correoautor, nombreautor, fecha, mensaje, destinocorreo))
+
+        mensajes = f"Se notificó lo siguiente al admin - {mensaje}"
+        
+        # Guardar mensaje en el desarrollo del reporte
+        cursor.execute("""
+            INSERT INTO desarrollo (fkreporte, fkcorreoencargado, nombreencargado, comentario, fecha)
+            VALUES (%s, %s, %s, %s, %s)
+        """, (idreporte, correoautor, nombreautor, mensajes, fecha))
+
+        conexion.commit()
+        return jsonify({"message": "Notificación enviada y desarrollo guardado con éxito"})
+
+    except Exception as e:
+        conexion.rollback()
+        print("Error:", e)
+        return jsonify({"error": "Ocurrió un error al procesar la solicitud"}), 500
+    finally:
+        cursor.close()
+        conexion.close()

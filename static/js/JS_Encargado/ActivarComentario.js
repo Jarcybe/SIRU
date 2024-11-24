@@ -1,4 +1,6 @@
-function ActivarComentario(id){
+let originalComentario = "";
+let originalEncargado = "";
+function ActivarComentario(){
 
     const boton = document.getElementById("AñadirNuevoComentario");
     const comentario = document.getElementById("ComentarioEncargado");
@@ -6,11 +8,10 @@ function ActivarComentario(id){
     const Logusuario = JSON.parse(localStorage.getItem("LogUsuario"));
     const botonguardar = document.getElementById("guardarDesarrollo");
 
-    const originalComentario = comentario.value;
-    const originalEncargado = encargadoInput.value;
 
     if(boton.textContent === "Añadir nuevo comentario"){
-
+        originalComentario = comentario.value;
+        originalEncargado = encargadoInput.value;
         boton.textContent="Cambiar comentario";
         encargadoInput.value = Logusuario.nombre;
         comentario.removeAttribute("readonly");
