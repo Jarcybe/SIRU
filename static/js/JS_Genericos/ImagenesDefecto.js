@@ -3,7 +3,9 @@ const ImagenesDefecto = {
     "biblioteca": "/static/images/Biblioteca.png",
     "informatica": "/static/images/Informatica.png",
     "salon": "/static/images/Salones.png",
-    "patio": "/static/images/Patio.png"
+    "patio": "/static/images/Patio.png",
+    "cafeteria": "/static/images/Cafeteria.jpg",
+    "oficina": "/static/images/Oficinas.jpg"
 };
 
 // Función para obtener la ruta de la imagen basada en una clave dinámica
