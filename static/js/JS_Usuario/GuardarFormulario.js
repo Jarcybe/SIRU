@@ -44,7 +44,7 @@ function GuardarFormulario(event) {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                enviarFormulario(correoUsuario, fecha, lugar, item, ClaseTipo, titulo, descripcion, data.filepath);
+                enviarFormulario(correoUsuario, fecha, lugarSeleccionado, item, ClaseTipo, titulo, descripcion, data.filepath);
             } else {
                 Swal.fire({
                     icon: 'warning',
