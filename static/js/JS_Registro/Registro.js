@@ -15,7 +15,7 @@ function Registro(event) {
           icon: "warning",
           title: "Las contraseñas no coinciden.",
         });
-        BotonRegistrar = false;
+        BotonRegistrar.disabled = false;
         return;
     }
 
@@ -23,10 +23,10 @@ function Registro(event) {
     if (!validarFormato(password)) {
         Swal.fire({
             icon: "warning",
-            title: "Avsio",
+            title: "Aviso",
             text: "El formato de la contraseña es invalido, debe llevar mayúsculas, números y mínimo 5 caracteres.",
         });
-        BotonRegistrar = false;
+        BotonRegistrar.disabled = false;
         return;
     }
 
