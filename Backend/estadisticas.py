@@ -194,46 +194,6 @@ def obtener_reportes_por_lugar_route():
     connection.close()
     return jsonify(resultados)
 
-@estadisticas_bp.route('/enviar_informe', methods=['POST'])
-def enviar_informe():
-    data = request.get_json()
-    email = data.get('email')
-    images = data.get('images', [])
-
-    # Crear el mensaje
-    msg = MIMEMultipart()
-    msg['From'] = 'sirunivalle@gmail.com'  # Cambia esto si es necesario
-    msg['To'] = email
-    msg['Subject'] = 'Informe de Gráficas'
-
-    # Adjuntar imágenes
-    for index, img_data in enumerate(images):
-        img_data = img_data.split(',')[1]  # Obtener solo la parte de la imagen
-        img_bytes = base64.b64decode(img_data)
-
-        # Guardar la imagen en un objeto BytesIO
-        img = Image.open(io.BytesIO(img_bytes))
-        img_path = f"temp_image_{index}.png"
-        img.save(img_path)
-
-        # Adjuntar la imagen al correo
-        with open(img_path, 'rb') as img_file:
-            part = MIMEBase('application', 'octet-stream')
-            part.set_payload(img_file.read())
-            encoders.encode_base64(part)
-            part.add_header('Content-Disposition', f'attachment; filename={img_path}')
-            msg.attach(part)
-
-        # Eliminar la imagen temporal
-        os.remove(img_path)
-
-    # Enviar el correo usando la función enviar_correo
-    try:
-        enviar_correo(email, msg['Subject'], msg.as_string())
-        return jsonify({'message': 'Informe enviado exitosamente.'}), 200
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
-
 @estadisticas_bp.route('/descargar_graficas_pdf', methods=['POST'])
 def descargar_graficas_pdf():
     data = request.get_json()
@@ -264,31 +224,77 @@ def descargar_graficas_pdf():
     # Devolver el archivo PDF
     return send_file(pdf_file_path, as_attachment=True)
 
-@estadisticas_bp.route('/enviar_correo', methods=['POST'])
-def enviar_correo():
-    data = request.get_json()
-    destinatario = data.get('email')
-    asunto = data.get('subject')
-    cuerpo = data.get('body')
+def enviar_correo_estadistico(destinatario, asunto, cuerpo, archivos_adjuntos):
+    #remitente = 'sirunivalle@gmail.com'  # Cambia esto si es necesario
+    #contra = 'hqru wcwf ssya ozam'        # Contraseña de la cuenta
+    remitente = 'aguilaryoseph@gmail.com' 
+    contra = 'ljyb iplw mnqp vqja'
 
     # Configuración del servidor SMTP
-    remitente = 'sirunivalle@gmail.com' 
-    contra = 'hqru wcwf ssya ozam'  # Cambia esto por tu contraseña real
     servidor = smtplib.SMTP('smtp.gmail.com', 587)
     servidor.starttls()
     servidor.login(remitente, contra)
 
     # Crear el mensaje
-    mensaje = MIMEText(cuerpo)
-    mensaje['From'] = remitente
-    mensaje['To'] = destinatario
-    mensaje['Subject'] = asunto
+    msg = MIMEMultipart()
+    msg['From'] = remitente
+    msg['To'] = destinatario
+    msg['Subject'] = asunto
+    msg.attach(MIMEText(cuerpo, 'plain'))
+
+    # Adjuntar archivos (imágenes)
+    for idx, archivo in enumerate(archivos_adjuntos):
+        part = MIMEBase('application', 'octet-stream')
+        part.set_payload(archivo)
+        encoders.encode_base64(part)
+        part.add_header('Content-Disposition', f'attachment; filename=grafica_{idx + 1}.png')
+        msg.attach(part)
+
+    # Enviar el correo
+    servidor.sendmail(remitente, destinatario, msg.as_string())
+    servidor.quit()
+
+@estadisticas_bp.route('/enviar_informe', methods=['POST'])
+def enviar_informe():
+    data = request.get_json()
+    email = data.get('email')
+    images = data.get('images', [])
+    
+    msg = MIMEMultipart()
+    msg['From'] = 'sirunivalle@gmail.com'
+    msg['To'] = email
+    msg['Subject'] = 'Informe de Gráficas'
+
+    # Adjuntar cada imagen
+    for index, img_data in enumerate(images):
+        img_data = img_data.split(',')[1]  # Eliminar la parte de tipo de dato (data:image/png;base64,)
+        img_bytes = base64.b64decode(img_data)
+        
+        # Crear la imagen desde los bytes
+        img = Image.open(io.BytesIO(img_bytes))
+        img_filename = f'grafico_{index + 1}.png'
+        
+        # Convertir la imagen a bytes y adjuntarla
+        img_bytes_io = io.BytesIO()
+        img.save(img_bytes_io, format='PNG')
+        img_bytes_io.seek(0)
+
+        part = MIMEBase('application', 'octet-stream')
+        part.set_payload(img_bytes_io.read())
+        encoders.encode_base64(part)
+        part.add_header('Content-Disposition', f'attachment; filename={img_filename}')
+        msg.attach(part)
+
+        archivos_adjuntos = []
+    for img_data in images:
+     img_data = img_data.split(',')[1]  # Eliminar el prefijo data:image/png;base64,
+     img_bytes = base64.b64decode(img_data)
+     archivos_adjuntos.append(img_bytes)
 
     # Enviar el correo
     try:
-        servidor.sendmail(remitente, destinatario, mensaje.as_string())
-        return jsonify({'message': 'Correo enviado exitosamente.'}), 200
+        enviar_correo_estadistico(email, msg['Subject'], 'Informe de Gráficas adjuntas.', archivos_adjuntos)
+        return jsonify({'message': 'Informe enviado exitosamente.'}), 200
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
-    finally:
-        servidor.quit()
+        print(f'Error en enviar_informe: {str(e)}')  # Agrega un print para el log
+        return jsonify({'error': f'Error en el servidor: {str(e)}'}), 500

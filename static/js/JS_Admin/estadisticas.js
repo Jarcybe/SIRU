@@ -5,7 +5,7 @@ function abrirVentanaEstadisticas() {
     modal.style.display = 'block';
 
     const modalContent = `
-        <div class="w3-modal-content w3-animate-zoom">
+        <div class="w3-modal-content w3-center w3-animate-zoom">
             <header class="w3-container w3-red">
                 <span onclick="document.body.removeChild(this.parentNode.parentNode.parentNode)" 
                       class="w3-button w3-xlarge w3-hover-grey w3-display-topright" title="Cerrar">&times;</span>
@@ -16,7 +16,11 @@ function abrirVentanaEstadisticas() {
                 <canvas id="graficoReportesPorEstado" width="400" height="200"></canvas>
                 <canvas id="graficoReportesPorTipo" width="400" height="200"></canvas>
                 <canvas id="graficoReportesPorLugar" width="400" height="200"></canvas>
-                <button class="w3-button w3-blue" onclick="mostrarFormularioCorreo()">Enviar Informe</button>
+<br>
+                <button class="w3-button w3-center w3-red" 
+                onclick="mostrarFormularioCorreo()">Enviar Informe</button>
+                <br>
+                <br>
             </div>
         </div>
     `;
@@ -38,50 +42,28 @@ function mostrarFormularioCorreo() {
 
     const modalContentCorreo = `
         <div class="w3-modal-content w3-animate-zoom">
-            <header class="w3-container w3-red">
+            <header class="w3-container w3-center w3-red">
                 <span onclick="document.body.removeChild(this.parentNode.parentNode.parentNode)" 
                       class="w3-button w3-xlarge w3-hover-grey w3-display-topright" title="Cerrar">&times;</span>
-                <h2>Enviar Informe por Correo</h2>
+                <p><h2>Enviar Informe por Correo</h2></p>
             </header>
             <div class="w3-container" style="text-align: center;">
-                <button class="w3-button w3-blue" onclick="enviarInforme()">Enviar Informe</button>
-                <br><br>
-                <label for="email">Correo Electrónico:</label>
-                <input type="email" id="email" placeholder="Ingrese su correo" required>
+                
+                <label for="email">Correo Electrónico a quien se lo vayas a mandar:</label>
+                <input class="w3-input w3-border"
+                type="email" 
+                id="email" 
+                placeholder="Ingrese su correo" required>
+                <br>
+                <button class="w3-button w3-red w3-border"
+                style="margin: 20px;"
+                onclick="enviarInforme()">Enviar Informe</button>
+<br>
             </div>
         </div>
     `;
     modalCorreo.innerHTML = modalContentCorreo;
     document.body.appendChild(modalCorreo);
-}
-
-function enviarCorreo(destinatario, asunto, cuerpo) {
-    // Crear el objeto de correo
-    const correo = {
-        email: destinatario,
-        subject: asunto,
-        body: cuerpo
-    };
-
-    // Enviar el correo al backend
-    fetch('/enviar_correo', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(correo)
-    })
-    .then(response => {
-        if (response.ok) {
-            alert('Correo enviado exitosamente.');
-        } else {
-            throw new Error('Error al enviar el correo');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Hubo un problema al enviar el correo. Inténtelo más tarde.');
-    });
 }
 
 function enviarInforme() {
@@ -103,14 +85,32 @@ function enviarInforme() {
 
     // Esperar a que todas las imágenes se hayan capturado
     Promise.all(promises).then(images => {
-        // Crear el cuerpo del correo
-        let cuerpo = "Aquí están las gráficas que solicitaste:\n\n";
-        images.forEach((img, index) => {
-            cuerpo += `Gráfica ${index + 1}: ${img}\n`;
+        fetch('/enviar_informe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, images })  // Enviar imágenes como un array
+        })
+        .then(response => {
+            if (response.ok) {
+                Swal.fire({
+                    title: "Exito",
+                    text: "Informe enviado exitosamente.",
+                    icon: 'success'
+                }).then(() => {
+                    location.reload(); 
+                });
+            } else {
+                throw new Error('Error al enviar el informe');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                title: "Error",
+                text: "Hubo un problema al enviar el informe. Inténtelo más tarde",
+                icon: 'error'
+            })
         });
-
-        // Enviar el correo
-        enviarCorreo(email, 'Informe de Gráficas', cuerpo);
     }).catch(error => {
         console.error('Error al capturar las gráficas:', error);
     });
