@@ -95,7 +95,7 @@ _____________________`).join(""):
                             <p> </p>
                         </div>
                         <div class="w3-col s6 w3-center w3-section">
-                            <h5> <b>Tipo </b></h5>
+                            <h5> <b>Estado del reporte </b></h5>
 
                             <p style="align-items: center;">
                             <input class="w3-radio" 
