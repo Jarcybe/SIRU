@@ -73,7 +73,8 @@ _____________________`).join(""):
                 </div>
 
                 <div class="w3-col m6">
-                <p><b> Fecha: </b> ${recordar.fecha}</p>
+                <p
+                style = "text-align: left;"><b> Fecha: </b> ${recordar.fecha}</p>
 
                 <div class="w3-center w3-section">
                     ${imagenHTML}
@@ -110,13 +111,12 @@ _____________________`).join(""):
                     type="text" 
                     style="height: 150px;" 
                     placeholder="No hay comentarios aun" 
-                    readonly>
-                    ${comentariosHTML}
-                    </textarea>
+                    readonly>${comentariosHTML}</textarea>
 
                     </div>
 
-                    <div class="w3-col l4">
+                    <div class="w3-col l4"
+                    style = "text-align: left;">
                     
                         <div class="w3-section">
                             
