@@ -39,7 +39,11 @@ function MandarmensajeaAdmin() {
 
     // Validar que los campos no estén vacíos
     if (!destinatario || !mensaje.trim()) {
-        alert('Por favor, selecciona un destinatario y escribe un mensaje.');
+        Swal.fire({
+            title: "Error",
+            text: 'Por favor, selecciona un destinatario y escribe un mensaje.',
+            icon: 'error'
+        });
         return;
     }
 
