@@ -28,10 +28,10 @@ def generar_token(correo):
 
 def enviar_correo(destinatario, asunto, cuerpo):
     
-    #remitente = 'aguilaryoseph@gmail.com' 
-    #contra = 'ljyb iplw mnqp vqja' 
-    remitente = 'sirunivalle@gmail.com' 
-    contra = 'hqru wcwf ssya ozam'    
+    remitente = 'aguilaryoseph@gmail.com' 
+    contra = 'ljyb iplw mnqp vqja' 
+    #remitente = 'sirunivalle@gmail.com' 
+    #contra = 'hqru wcwf ssya ozam'    
     servidor = smtplib.SMTP('smtp.gmail.com', 587)
     servidor.starttls()
     servidor.login(remitente, contra)
